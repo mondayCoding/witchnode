@@ -22,6 +22,10 @@ As testing prepository there is no npm method provided.
 ## Current Stack list  (Front-end)
 
 * React
+* React-Router
+* React-DOM
+* Typescript
+* TSLint
 * Webpack
 * Socket.IO
 * Axios
