@@ -11,7 +11,7 @@ This package is personal project and uses abstracted database entry files. Meani
 As testing prepository this project is unlikely to work without dev-dependancies.
 
 ```
-npm i witchnode
+-npm i witchnode
 ```
 
 
