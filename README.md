@@ -8,11 +8,7 @@ This package is personal project and uses abstracted database entry files. Meani
 
 ### Installing
 
-As testing prepository this project is unlikely to work without dev-dependancies.
-
-```
--npm i witchnode
-```
+As testing prepository there is no npm method provided.
 
 
 ## Current Stack list  (Backend)
