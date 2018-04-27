@@ -1,0 +1,1278 @@
+@charset "UTF-8";
+
+//fonts
+$bodyfont: 'fira-sans', sans-serif;
+$headingfont: 'fira-sans', sans-serif;
+
+//information colors
+$errorColor: #db6154;
+$infoColor: #accff0;
+$warnColor: #e7e972;
+
+//generic colors
+$white: #fff;
+$black: rgb(0,0,0);
+
+//accents
+$themeColor: rgb(64, 207, 78);
+$themeColorAlt: #c4f56b;
+$themeColorTertiary: rgb(215, 250, 210);
+
+//grays
+$grayBlack: #222 !default; 					//extreme dark gray
+$grayDark: rgba(50, 50, 50, 1); 				//body bg
+$grayDarkAlt: rgba(58, 58, 58, 1); 			//navi bg
+$grayMediumText:rgba(110, 110, 110, 1);	//disable color
+$grayLightText:rgba(220, 220, 220, 1);		//general text color
+
+//globals
+$globalRadius: .35rem;
+$globalShadow: 0 0 .4rem rgba(20, 20, 20, .55);
+$globalContentPadding: 1rem;
+
+@import "_keyframes";
+
+/*****************************MIXINS****************************************/
+
+@mixin clearfix {
+	clear: both;
+
+	&::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@mixin textEllipses {
+	display: block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+@mixin bgAndColorTransition {
+	transition: background-color .2s, color .2s, border .2s;
+}
+
+@mixin flex-cell($grow, $shrink, $basis)  {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: .34rem;
+	flex: $grow $shrink $basis;
+}
+
+@mixin flex-row {
+	display: flex;
+   flex-direction: row;
+}
+
+@mixin flex-column {
+	display: flex;
+   flex-direction: column;
+}
+
+@mixin disabled {
+	opacity: .75;
+	filter: grayscale(50%);
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+@mixin focusEffect {
+	box-shadow: 0 0 .35rem $black;
+	outline: .1rem solid $themeColor;
+
+	&:hover {
+		box-shadow: none;
+		outline: none;
+	}
+}
+
+@mixin radioCheckboxSharedProperties {
+	font-weight: 400;
+	font-size: 1rem;
+	position: relative;
+	cursor: pointer;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+          
+
+//********************UNIVERSAL SELECTORS************************************************
+ 
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+html {
+   box-sizing: border-box;
+   font-size: 1rem;
+   height: 100vh;
+}
+
+body {
+   box-sizing: border-box;
+   font: 1rem $bodyfont;
+   height: 100vh;
+   line-height: 1.6;
+   color: $grayLightText;
+}
+
+p, span {
+   font-size: 1rem;
+}
+
+li, ul, ol {
+	list-style: none; 
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: $headingfont;
+}
+
+h1 {
+   font-size: 2.5rem;
+}
+
+h2 {
+   font-size: 2.2rem;
+   color: $themeColorAlt;
+}
+
+h3 {
+   font-size: 1.7rem;
+}
+
+a,
+a:link {
+   font-size: 1rem;
+   color: $themeColor;
+   font-weight: 700;
+   transition: color .15s;
+   text-decoration: none;
+
+   &:hover,
+   &:active {
+      color: $themeColorAlt;
+      text-decoration: none;
+   }
+}
+
+label {
+  display: inline-block;
+  margin: 0;
+}
+
+mark {
+   padding: 0;
+   background-color: $themeColorAlt;
+}
+
+input[type="text"] {
+   background: none;
+   width: 100%;
+   outline: none;
+   border:none;
+}
+
+button.disabled,
+input.disabled,
+select.disabled {
+   @include disabled;
+}
+
+//***************************************UTILITY********************************************
+
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-page-center {
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.flex-row, .row-flex {
+   display: flex;
+	flex-direction: row;
+
+	&.center {
+		justify-content: center;
+	}
+	&.spaced {
+		justify-content: space-between;
+	}
+	&.center-all {
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.hidden {
+   display: none !important;
+}
+
+.row-spacing {
+   margin-bottom: .9rem;
+   @include clearfix;
+}
+
+.shift-background {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 1000%;
+	animation: Gradient 15s ease infinite; 
+}
+
+.gradient-background { 
+	background: linear-gradient(-45deg, $themeColor, #23d5ab, $themeColorAlt);
+	background-size: 100%;
+}
+
+.rainbow-border {
+  border: .2rem solid #E73C7E;
+  animation: rainbow 3s infinite alternate;
+}
+
+
+//****************************LAYOUT****************************************
+
+.flex-body {
+   min-height: 100vh;
+   display: flex;
+   flex-direction: row;
+}
+
+nav.flex-navigation {
+   height: auto;
+   min-height: 100vh;
+   flex: 0 0 15rem;
+   background-color: $grayDark;
+   border-right: .1rem solid rgb(0, 0, 0);
+}
+
+main.flex-main {
+   flex: 1 1 auto;
+   height: auto;
+   min-height: 100vh;
+   background-color: $grayDarkAlt;
+	padding: 1.6rem;
+
+}
+
+//*****************************NAVIGATION*********************************************
+
+nav.flex-navigation {
+
+   .fa {
+      font-size: 1rem;
+      margin: 0 .2rem;
+   }
+
+   ul {
+      width: 100%;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+
+      li.navi-item {
+         text-align: right;
+         display: block;
+
+         a {
+            padding: .7rem 1.75rem .7rem .7rem;
+            color: $grayLightText;
+            font-size: 1rem;
+            font-weight: 400;
+            text-align: right;
+            display: block;
+            border-top: .15rem solid transparent;
+            border-bottom: .15rem solid transparent;
+            white-space: nowrap;
+				@include bgAndColorTransition;
+
+				&:focus {
+					@include focusEffect;
+				}
+
+            &:hover {
+      			color: $themeColor;
+      			border-top-color: $themeColor;
+      			border-bottom-color: $themeColor;
+      		}
+
+            &.active {
+               background-color: $themeColor;
+               color: #fff;
+            }
+         }
+      }
+   }
+}
+
+//******************************** CONTENT *****************************************
+
+.wrapper {
+   
+}
+
+//******************************** ANNOUNCEMENT PANEL **************************************
+
+.top-panel {
+   display: flex;
+
+   .announcement {
+      flex: 1 1 auto;
+      min-height: 2rem;
+      height: auto;
+      background-color: rgba(0, 0, 0, .5);
+      padding: .75rem;
+      text-align: center;
+      border: .1rem solid rgb(0, 0, 0);
+      margin-right: .5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      max-height: 6rem;
+   }
+}
+
+//*********************************** TIMER ******************************************
+
+.time-wrap {
+   display: flex;
+   flex-direction: row;
+   margin-top: 1rem;
+
+   .time-block {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+
+      .time-content {
+         color: $themeColorAlt;
+
+         h3 {
+            font-size: 2rem;
+            text-align: center;
+         }
+      }
+   }
+}
+
+//*********************************** LIVE-CHAT ******************************************
+
+.chatwindow {
+   @include flex-column;
+   justify-content: space-between;
+   min-height: 40rem;
+   max-height: 50rem;
+   border: .1rem solid black;
+   padding: .5rem;
+
+   //message history
+   .chatlog {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      .line {
+         @include flex-row;
+         align-items: center;
+         padding: .5rem;
+         background-color: $grayBlack;
+         border-radius: $globalRadius;
+         margin-bottom: .4rem;
+
+         &:hover {
+            background-color: $grayDarkAlt;
+
+            .line-timestamp  {
+               color: $themeColorAlt;
+            }
+         }
+
+         .line-user {
+            flex: 0 0 5.2rem;
+            font-weight: 900;
+            color: $themeColor;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+
+            .fa {
+               padding-right: .25rem;
+            }
+         }
+
+         .line-message {
+            flex: 1 1 auto;
+            padding-left: .5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+         }
+
+         .line-timestamp {
+            flex: 0 0 3rem;
+            color: $grayDarkAlt;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+         }
+
+         &.user-system {
+            background-color: #44565a;
+
+            .line-user {
+               color: skyblue;
+            }
+         }
+         &.user-admin .line-user {color: gold;}
+      }
+   }
+
+   //user input
+   .chatbox {
+      flex: 0 0 auto;
+      @include flex-row;
+      align-items: center;
+      margin-top: 1rem;
+      padding: .5rem;
+      background-color: $grayDarkAlt;
+      border-radius: $globalRadius;
+      margin-bottom: .4rem;
+
+      .chatbox-message {
+         flex: 1 1 auto;
+      }
+   }
+
+}
+
+
+//*********************************** SCROLLSPY ******************************************
+
+.scrollspy {
+   margin-top: 1rem;
+   display: flex;
+
+   .is-inview {
+      background-color: $themeColorAlt;
+      color: #fff;
+   }
+
+   .scrollNav {
+      flex: 0 0 8rem;
+
+      ul {
+         position: sticky;
+         top: 1.2rem;
+      }
+
+      li {
+         list-style: none;
+         padding-left: 1.2rem;
+      }
+
+      a {
+         display: block;
+         width: 100%;
+         padding: .7rem;
+         text-align: right;
+       }
+   }
+
+   .scrollContent {
+      flex: 1 1 auto;
+
+   }
+}
+
+
+///COMPONENT SECTION
+
+
+//********************* TOASTR NOTIFICATIONS ************************
+
+#toast-container {
+
+	.toast {
+		max-width: 35rem;
+		min-width: 25rem;
+	}
+
+	.toast.succes {
+		background-color: $themeColor;
+	}
+
+	.toast-message {
+		line-height: 1.2;
+	}
+}
+
+//********************* MODAL ************************
+
+.modal-fade {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,.8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999;
+	transition: .5 background-color;
+
+	.modal-box {
+		background-color: #fff;
+		border-radius: $globalRadius;
+		width: 100%;
+		max-width: 30rem;
+		min-height: 15rem;
+		padding: 1rem;
+		margin: .3rem;
+
+			.modal-heading h3 {
+				text-align: center;
+				font-size: 1.5rem;
+				margin: .8rem;
+				color: $grayDarkAlt;
+			}
+
+			.modal-content {
+				max-width: 100%;
+				min-width: 10rem;
+			}
+	}
+}
+
+
+//******************* CLOSE BUTTON *********************
+
+.close-button {
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 1.6rem;
+	width: auto;
+	border: .1rem solid $grayBlack !important;
+	background-color: $grayBlack;
+	transition: background-color .6s;
+	border-radius: $globalRadius;
+
+	&:hover {
+		background-color: $themeColorAlt;
+	}
+
+	&::before,
+	&::after {
+		transform: rotate(-45deg);
+		content: '';
+		position: absolute;
+		display: block;
+		height: .3rem;
+		width: 1.2rem;
+		background-color: $grayDarkAlt;
+		transition: all .4s ease-out;
+	}
+
+	&::after {
+		transform: rotate(45deg);
+	}
+
+	&:hover::before,
+	&:hover::after {
+		background-color: #fff;
+		transform: rotate(0deg);
+	}
+}
+
+//************************ CONTENT WRAPPERS ********************************
+
+.content-centered-lg {
+	max-width: 50rem;
+	margin: 0 auto;
+}
+
+.content-centered-md {
+	max-width: 35rem;
+	margin: 0 auto;
+}
+
+.content-centered-sm {
+	max-width: 20rem;
+	margin: 0 auto;
+}
+
+
+//************************ WIZARD PATH *****************************
+
+
+$line-width:      .3rem;
+$bullet-size:      1.5rem;
+
+ol.wizard-path {
+	@include flex-row;
+	justify-content: space-between;
+	position: relative;
+	overflow: hidden; 
+	min-height: 1.8rem;
+	
+	li {
+		position: relative;
+		text-align: center;
+		flex: 1 1 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		
+		.bullet {
+			background-color: $themeColor;
+			border: $line-width/1.3 solid $themeColor;
+			text-align: center;
+			width: $bullet-size;
+			height: $bullet-size;
+			border-radius: $bullet-size;
+			position: relative;
+			z-index: 1;
+			transition: border-color .5s;
+		}
+		& + li:after {
+			content: "";
+			display: block;
+			width: 100%;
+			background-color: $themeColor;
+			height: $line-width;
+			position: absolute;
+			left: -50%;
+			top: $bullet-size / 2;
+			z-index: 0;
+			transition: background-color .5s;
+		}
+	 }
+
+	li.current ~ li:after {
+		background-color: $grayBlack;
+	}
+
+	li.current ~ li .bullet {
+		background-color: $grayDarkAlt;
+		border-color: $grayBlack;
+	}
+	li.current > .bullet {
+		box-shadow: $globalShadow;
+		background-color: $themeColorTertiary;		
+	}
+	 
+}
+
+
+
+
+//************************ SLIDER CHECKBOX CSS *****************************
+
+$sliderSize: 1.5rem;
+$sliderBoxSize: 1.8rem;
+
+.slider-cb {
+	input[type="checkbox"] {
+		position: absolute;
+		left: -999rem;
+
+		&:focus + label {
+			@include focusEffect;
+		}
+
+		&:disabled + label {
+			color: #999;
+			cursor: default;
+
+			&::before {
+				border-color: #bbb;
+				background-color: #ddd;
+				border: .15rem solid #ddd;
+			}
+
+			&::after {
+				color: #999;
+				background-color: gray;
+			}
+		}
+	}
+
+	[type="checkbox"] + label {
+		@include radioCheckboxSharedProperties;
+		padding: .5rem .5rem .5rem 4.7rem;
+		min-height: 1.8rem;
+
+		&:hover {
+			background-color: #323232;
+		}
+
+		//background
+		&::before {
+			content: '';
+			position: absolute;
+			left: .45rem;
+			width: $sliderBoxSize*2;
+			height: $sliderBoxSize;
+			border-radius: $sliderBoxSize;
+			border: .2rem solid gray;
+			background-color: $grayBlack;
+			transition: background-color .2s;
+			box-shadow: $globalShadow;
+		}
+
+		//slidebutton
+		&::after {
+			content: '';
+			position: absolute;		
+			font-size: 1.5rem; 
+			width: $sliderSize;
+			height: $sliderSize;
+			border-radius: $sliderSize;
+			background-color: $themeColorTertiary;
+			transition: left .2s, background-color .2s;
+		}
+	}
+
+	[type="checkbox"]:not(:checked) + label::after {
+		left: .65rem;
+	}
+
+	[type="checkbox"]:checked + label {
+
+		&::after {
+			left: $sliderBoxSize+.55rem;
+			background-color: $themeColorTertiary;
+	 	}
+
+		&::before {
+			background-color:$themeColor;
+			border-color:$themeColor;
+		}
+	}
+}
+
+
+//************************ CHECKBOX CSS *****************************
+
+$checkboxSize: 1.8rem;
+
+.cb {
+	& > input[type="checkbox"]  {
+		position: absolute;
+		left: -999rem;
+
+		&:focus + label {
+			@include focusEffect;
+		}
+
+		&:disabled + label {
+			color: #999;
+			cursor: default;
+
+			&::before {
+				border-color: #bbb;
+				background-color: #ddd;
+				border: .1rem solid #ddd;
+			}
+
+			&::after {
+				color: #999;
+			}
+		}
+	}
+
+	[type="checkbox"] + label {
+		@include radioCheckboxSharedProperties;
+		padding: .5rem .5rem .5rem 2.9rem;
+		min-height: 1.8rem;
+
+		&:hover {
+			background-color: #323232;
+		}
+
+		//bg
+		&::before {
+			content: '';
+			position: absolute;
+			left: .5rem;
+			width: $checkboxSize;
+			height: $checkboxSize;
+			border: .1rem solid #6eb068;
+			background: none;
+			transition: opacity .2s;
+			box-shadow: $globalShadow;
+		}
+
+		//checkmark
+		&::after {
+			content: '✔';
+			position: absolute;
+			left: .8rem;
+			font-size: 1.5rem;
+			line-height: 1.8;
+			color: $themeColorTertiary;
+			transition: opacity .2s;			
+		}
+	}
+
+	[type="checkbox"]:not(:checked) + label::after {
+		 opacity: 0;
+	}
+
+	[type="checkbox"]:checked + label {
+
+		&::after {
+		 	opacity: 1;
+	 	}
+
+		&::before {
+			background-color: #6eb068;
+		}
+	}
+}
+
+//************************ RADIOBUTTON CSS *****************************
+
+$radioSize: 1.5rem;
+
+.rb {
+	[type="radio"] {
+		position: absolute;
+		left: -999rem;
+
+		&:focus + label {
+			@include focusEffect;
+		}
+
+		&:disabled + label {
+			color: #999;
+			cursor: default;
+
+			&::before {
+				border-color: #bbb;
+				background-color: #ddd;
+				border: .1rem solid #ddd;
+			}
+
+			&::after {
+				color: #999;
+			}
+		}
+	}
+
+	//label
+	[type="radio"] + label {
+		@include radioCheckboxSharedProperties;
+		padding: .5rem .5rem .5rem 2.5rem;
+		min-height: $radioSize;
+
+		&:hover {
+			background-color: #323232;
+		}
+
+		//bg
+		&::before {
+			content: '';
+			position: absolute;
+			left: .5rem;
+			width: $radioSize;
+			height: $radioSize;
+			border-radius: $radioSize;
+			border: .15rem solid $themeColor;
+			background: none;
+			transition: background-color .2s;
+			box-shadow: $globalShadow;
+			
+		}
+	}
+
+	[type="radio"]:checked + label {
+
+		&::before {
+			background-color: $themeColorTertiary;
+		}
+	}
+}
+
+//******************TEXT-INPUT*************************
+
+$maxFieldWidth: 30rem;
+
+.input-text {
+   position: relative;
+	margin-top: 1rem;
+	max-width: $maxFieldWidth;
+
+   input[type="text"] {
+     font-size: 1rem;
+     padding: .35rem;
+     display: block;
+     width: 100%;
+     border: none;
+     border-bottom: .1rem solid #757575;
+	  background: none;
+	  color: $grayLightText;
+	  outline: none;
+   }
+
+   input:focus { outline: none; }
+
+   label {
+      color: #999;
+      font-size: 1rem;
+      font-weight: normal;
+      position: absolute;
+      pointer-events: none;
+      left: .35rem;
+      top: .7rem;
+      transition: .2s ease all;
+   }
+
+   input:focus + label,
+	&.hasContent input + label {
+      top: -.7rem;
+      font-size: .8rem;
+      color: $themeColor;
+   }
+
+	&.hascontent input:invalid + label,
+	input.invalid + label {
+		font-weight: 900;
+		color: $errorColor;
+		border: $errorColor;
+	}
+
+	&.hascontent input:invalid ,
+	input.invalid {
+		border-color: $errorColor;
+	}
+
+	&.hascontent input:invalid + label + .bar::before,
+	input.invalid + label + .bar::before {
+		background: $errorColor;
+	}
+
+	.bar {
+		position: relative;
+		display: block;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.bar::before {
+	  content: '';
+	  height: .15rem;
+	  width: 0;
+	  bottom: 0;
+	  left: 0;
+	  position: absolute;
+	  background: $themeColor;
+	  transition: .15s ease all;
+	}
+
+	/* active state */
+	input:focus ~ .bar::before {
+	  width: 100%;
+	}
+
+	input:required {
+		box-shadow: none;
+	}
+
+}
+
+.input-text[data-tooltip-error]::before {
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity .15s ease-in-out, visibility .15s ease-in-out;
+	pointer-events: none;
+	position: absolute;
+	padding: .5rem;
+	border-radius: 0 0 .5rem .5rem;
+	background-color: rgba(25, 25, 25, .85);
+	color: $errorColor;
+	width: 100%;
+	height: auto;
+	left: 0;
+	top: 100%;
+	z-index: 300;
+	content: attr(data-tooltip-error);
+}
+
+
+.input-text[data-tooltip-error]:hover::before {
+	opacity: 1;
+	visibility: visible;
+}
+
+.input-text > .tooltip-parent[data-tooltip-info] {
+
+	//content
+	&::before {
+		visibility: hidden;
+		opacity: 0;
+		transition: opacity .15s ease-in-out, visibility .15s ease-in-out;
+		pointer-events: none;
+		position: absolute;
+		padding: .5rem;
+		border-radius: .5rem;
+		background-color: rgba(25, 25, 25, .85);
+		color: $infoColor;
+		width: 100%;
+		height: auto;
+		left: 0;
+		top: -150%;
+		z-index: 300;
+		content: attr(data-tooltip-info);
+	}
+
+	//arrow
+	&::after {
+		visibility: hidden;
+		opacity: 0;
+		transition: opacity .15s ease-in-out, visibility .15s ease-in-out, transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);		
+		content: "";
+		position: absolute;
+		top: -38%;
+		left: 15%;
+		margin-left: -5px;
+		border-width: 7px;
+		border-style: solid;
+		border-color: rgba(25, 25, 25, .85) transparent transparent transparent;
+	}
+}
+
+.input-text:hover > .tooltip-parent[data-tooltip-info]::before, 
+.input-text:hover > .tooltip-parent[data-tooltip-info]::after, 
+.input-text > input:focus ~ .tooltip-parent[data-tooltip-info]::before, 
+.input-text > input:focus ~ .tooltip-parent[data-tooltip-info]::after {
+	opacity: 1;
+	visibility: visible;
+}
+
+
+//*********************PROGRESSBAR**********************************
+
+.progress-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: .2rem;
+	height: 100%;
+	background: rgba(0, 0, 0, .6);
+	border: none;
+}
+
+.progress-bar {
+	height: 0%;
+	background: #4caf50;
+	max-width: 100%;
+	width: .2rem;
+}
+
+//**********************BUTTON***************************************
+
+.btn-green {
+	background-color: $themeColor;
+	color: #fff;
+	font-size: 1rem;
+	border: .15rem solid transparent;
+	font-weight: 700;
+	min-height: 1.8rem;
+	width: auto;
+	min-width: 6rem;
+	padding: .35rem .5rem;
+	text-align: center;
+	line-height: 1.2;
+	text-transform: uppercase;
+	transition: background-color .2s;
+	box-shadow: $globalShadow;
+
+	&:hover {
+		background-color: black;
+		color: #fff;
+	}
+
+	&:focus {
+		@include focusEffect;
+	  	border: .15rem solid white;
+	}
+}
+
+//*****************FLEX-TABLE*******************************
+
+.flex-table {
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-row-table {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	.input-text {
+		width: 100%;
+		max-width: 100%;
+		margin-bottom: .7rem;
+	}
+}
+
+.table-row {
+	@include flex-row;
+	border-bottom: .1rem solid rgba(0, 0, 0, .2);
+
+	&:last-child {
+		border: none;
+	}
+
+	div {
+		border-right: .1rem solid rgba(0, 0, 0, .2);
+
+		&:last-child {
+			border: none;
+		}
+	}
+
+	&:hover {
+		background-color: #c5ff571a;
+	}
+}
+
+.th {
+	font-weight: 700;
+	color: $themeColor;
+	background-color: $grayBlack;
+	text-align: center;
+}
+
+.cell-15px {
+	@include flex-cell(0, 0, 1rem);
+}
+
+.cell-30px {
+	@include flex-cell(0, 0, 2rem);
+}
+
+.cell-60px {
+	@include flex-cell(0, 0, 4rem);
+}
+
+.cell-120px {
+	@include flex-cell(0, .5, 8rem);
+}
+
+.cell-200px {
+	@include flex-cell(0, .5, 14rem);
+}
+
+.cell-auto {
+	@include flex-cell(1, 1, 20rem);
+}
+
+.cell-status {
+	@include flex-cell(0, 0, 3rem);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+	.fa {
+		font-size: 1.5rem;
+	}
+}
+
+.cell-symbol {
+	@include flex-cell(0, 0, 2rem);
+}
+
+.cell-name {
+	@include flex-cell(0, .5, 12rem);
+}
+
+.cell-type {
+	@include flex-cell(0, .5, 8rem);
+}
+
+.cell-desc {
+	@include flex-cell(1, 1, 18rem);
+}
+
+.cell-tags {
+	@include flex-cell(1, 1, 300px);
+}
+
+.cell-id {
+	@include flex-cell(0, 0, 60px);
+}
+
+
+//complete special styles
+.table-row.complete {
+
+	.cell-status {
+		color: $themeColor;
+	}
+
+	.cell-auto {
+		color: $grayMediumText;
+	}
+}
+
+
+//********************** SPACER ELEMENTS **************************************
+
+.line-thin {
+	border-bottom: .1rem solid $themeColor;
+	height: .1rem;
+	margin: .7rem 0;
+	display: block;
+}
+
+.line-thick {
+	border-bottom: .3rem solid $themeColor;
+	height: .2rem;
+	margin: .7rem 0;
+	display: block;
+}
+
+// SPACINGS
+
+.spacing-sm {
+	height: .1rem;
+	margin-bottom: .5rem;
+	@include clearfix;
+}
+
+.spacing {
+   margin-bottom: .8rem;
+   @include clearfix;
+}
+
+.spacing-lg {
+   margin-bottom: .8rem;
+   @include clearfix;
+}
+
+//************************************************************

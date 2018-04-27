@@ -1,0 +1,46 @@
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ROADMAD: witchNode (Front-end):
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+   
+   ☐ todo (mission tab) routes / function => api redirection
+   ☐ env mail address, mail link in footer
+   ☐ modal stateable extendable
+   ☐ confirmation window simple implementation
+   ☐ multiple data message support
+   ☐ centralise validation class
+   ☐ global status (lang/theme) (context)
+   ☐ change viewengine to ejs
+   ☐ textarea elements
+   ☐ javascript diagrams
+   ✔ Components to separate files @done(2018-03-03 11:21)
+   ✔ Time component (ticking clock) @done(2018-03-03 11:21)
+   ✔ Create reusable Input (text) @done(18-04-23 02:29)
+   ✔ multiselect @done(18-04-23 02:29)
+   ✔ checkbox @done(18-04-23 02:29)
+   ✔ fix potionscript announcer (test class implementation)  @done(2018-03-20 02:09)
+   ✔ what to do with typescript? (seems nice actually, implement for pure js atleast?) @done(2018-03-12 17:33)
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ROADMAD: witchNode (Back-end):
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+   ☐ chatroom find way to tie in (websockets) finish this
+   ☐ chatroom limit users to 10, make premade user profiles, (selectable, ownable)
+   ☐ websockets cleaner server side
+   ☐ data permanence
+   ☐ Redux or Redux-like global-state solution?
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Art (Styling):
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+   
+   ☐ Generic art: 
+   ☐ Announcer (mascot) 
+   ☐ Favicon
+   ☐ Page art for 404 page
+   ☐ official logo
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
