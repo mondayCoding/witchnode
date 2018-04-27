@@ -26,7 +26,9 @@ ROADMAD: witchNode (Back-end):
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
    ☐ chatroom find way to tie in (websockets) finish this
-   ☐ chatroom limit users to 10, make premade user profiles, (selectable, ownable)
+   ☐ chatroom limit users to 10 
+   ☐ make 10 premade user profiles (selectable, ownable)
+   ☐ allow 1 owner per profile
    ☐ websockets cleaner server side
    ☐ data permanence
    ☐ Redux or Redux-like global-state solution?

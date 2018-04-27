@@ -17,7 +17,7 @@ export default class Main extends React.Component {
       <footer className="footer">
          <a href="">
             <span>heart</span>
-            <i class="fas fa-heart"></i>
+            <i className="fas fa-heart"></i>
          </a>
       </footer>
       );
