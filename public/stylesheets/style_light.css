@@ -45,7 +45,7 @@ body {
   font: 1rem "fira-sans", sans-serif;
   height: 100vh;
   line-height: 1.6;
-  color: gainsboro;
+  color: #222;
 }
 
 p, span {
@@ -66,7 +66,7 @@ h1 {
 
 h2 {
   font-size: 2.2rem;
-  color: #c4f56b;
+  color: #95bb4e;
 }
 
 h3 {
@@ -85,7 +85,7 @@ a:link {
 a:hover, a:active,
 a:link:hover,
 a:link:active {
-  color: #c4f56b;
+  color: #95bb4e;
   text-decoration: none;
 }
 
@@ -96,7 +96,7 @@ label {
 
 mark {
   padding: 0;
-  background-color: #c4f56b;
+  background-color: #95bb4e;
 }
 
 input[type="text"] {
@@ -171,7 +171,7 @@ select.disabled {
 }
 
 .gradient-background {
-  background: linear-gradient(-45deg, #40cf4e, #23d5ab, #c4f56b);
+  background: linear-gradient(-45deg, #2d9737, #23d5ab, #95bb4e);
   background-size: 100%;
 }
 
@@ -195,24 +195,24 @@ select.disabled {
 nav.navigation {
   height: auto;
   flex: 0 0 15rem;
-  background-color: #323232;
-  border-right: 0.05rem solid #222;
+  background-color: gainsboro;
+  border-right: 0.05rem solid gray;
   transition: color 0.8s, background-color 0.8s;
 }
 
 main.main {
   flex: 1 1 auto;
   height: auto;
-  background-color: #3a3a3a;
+  background-color: #fff;
   padding: 1.6rem;
   transition: color 0.8s, background-color 0.8s;
 }
 
 footer.footer {
   padding: .4rem;
-  background-color: #3a3a3a;
+  background-color: #fff;
   text-align: center;
-  border-top: 0.05rem solid #222;
+  border-top: 0.05rem solid gray;
   transition: color 0.8s, background-color 0.8s;
 }
 
@@ -235,7 +235,7 @@ nav.navigation ul .navi-item {
 
 nav.navigation ul .navi-item a {
   padding: .7rem 1.75rem .7rem .7rem;
-  color: gainsboro;
+  color: #222;
   font-size: 1rem;
   font-weight: 400;
   text-align: right;
@@ -248,7 +248,7 @@ nav.navigation ul .navi-item a {
 
 nav.navigation ul .navi-item a:focus {
   box-shadow: 0 0 0.35rem black;
-  outline: 0.1rem solid #40cf4e;
+  outline: 0.1rem solid #2d9737;
 }
 
 nav.navigation ul .navi-item a:focus:hover {
@@ -257,13 +257,13 @@ nav.navigation ul .navi-item a:focus:hover {
 }
 
 nav.navigation ul .navi-item a:hover {
-  color: #40cf4e;
-  border-top-color: #40cf4e;
-  border-bottom-color: #40cf4e;
+  color: #2d9737;
+  border-top-color: #2d9737;
+  border-bottom-color: #2d9737;
 }
 
 nav.navigation ul .navi-item a.active {
-  background-color: #40cf4e;
+  background-color: #2d9737;
   color: #fff;
 }
 
@@ -277,7 +277,7 @@ nav.navigation ul .navi-item a.active {
     border: .15rem solid transparent;
   }
   nav.navigation ul .navi-item a:hover {
-    border: 0.15rem solid #40cf4e;
+    border: 0.15rem solid #2d9737;
   }
   nav.navigation ul .navi-item a .fa {
     font-size: 1.5rem;
@@ -285,12 +285,6 @@ nav.navigation ul .navi-item a.active {
   }
   nav.navigation ul .navi-item a .pagename {
     display: none;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  nav.navigation {
-    flex: 0 0 2.5rem;
   }
 }
 
@@ -312,14 +306,13 @@ footer a, footer a:link {
   flex-direction: column;
   justify-content: center;
   margin: .5rem;
-  background-color: #323232;
-  border: 0.05rem solid #222;
-  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
+  background-color: gainsboro;
+  border: 0.05rem solid gray;
   transition: background-color .2s;
 }
 
 .dashboard a.dash-item:hover {
-  background-color: #40cf4e;
+  background-color: #2d9737;
   color: #fff;
 }
 
@@ -343,10 +336,10 @@ footer a, footer a:link {
   flex: 1 1 auto;
   min-height: 2rem;
   height: auto;
-  background-color: #323232;
+  background-color: gainsboro;
   padding: .5rem;
   text-align: center;
-  border: 0.1rem solid #222;
+  border: 0.1rem solid gray;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
@@ -369,7 +362,7 @@ footer a, footer a:link {
 }
 
 .time-wrap .time-block .time-content {
-  color: #c4f56b;
+  color: #95bb4e;
 }
 
 .time-wrap .time-block .time-content h3 {
@@ -383,7 +376,7 @@ footer a, footer a:link {
   justify-content: space-between;
   min-height: 40rem;
   max-height: 50rem;
-  border: 0.1rem solid #222;
+  border: 0.1rem solid gray;
   border-radius: 0.35rem;
   padding: .5rem;
 }
@@ -399,23 +392,23 @@ footer a, footer a:link {
   flex-direction: row;
   align-items: center;
   padding: .3rem;
-  background-color: #222;
+  background-color: gray;
   border-radius: 0.35rem;
   margin-bottom: .3rem;
 }
 
 .chatwindow .chatlog .line:hover {
-  background-color: #3a3a3a;
+  background-color: #fff;
 }
 
 .chatwindow .chatlog .line:hover .line-timestamp {
-  color: #c4f56b;
+  color: #95bb4e;
 }
 
 .chatwindow .chatlog .line .line-user {
   flex: 0 0 5.2rem;
   font-weight: 900;
-  color: #40cf4e;
+  color: #2d9737;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -437,7 +430,7 @@ footer a, footer a:link {
 
 .chatwindow .chatlog .line .line-timestamp {
   flex: 0 0 3rem;
-  color: #3a3a3a;
+  color: #fff;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
@@ -461,7 +454,7 @@ footer a, footer a:link {
 }
 
 .scrollspy .is-inview {
-  background-color: #c4f56b;
+  background-color: #95bb4e;
   color: #fff;
 }
 
@@ -496,7 +489,7 @@ footer a, footer a:link {
 }
 
 #toast-container .toast.succes {
-  background-color: #40cf4e;
+  background-color: #2d9737;
 }
 
 #toast-container .toast-message {
@@ -531,7 +524,7 @@ footer a, footer a:link {
   text-align: center;
   font-size: 1.5rem;
   margin: .8rem;
-  color: #3a3a3a;
+  color: #fff;
 }
 
 .modal-fade .modal-box .modal-content {
@@ -547,14 +540,14 @@ footer a, footer a:link {
   align-items: center;
   height: 1.6rem;
   width: auto;
-  border: 0.1rem solid #222 !important;
-  background-color: #222;
+  border: 0.1rem solid gray !important;
+  background-color: gray;
   transition: background-color .6s;
   border-radius: 0.35rem;
 }
 
 .close-button:hover {
-  background-color: #c4f56b;
+  background-color: #95bb4e;
 }
 
 .close-button::before, .close-button::after {
@@ -564,7 +557,7 @@ footer a, footer a:link {
   display: block;
   height: .3rem;
   width: 1.2rem;
-  background-color: #3a3a3a;
+  background-color: #fff;
   transition: all .4s ease-out;
 }
 
@@ -611,8 +604,8 @@ ol.wizard-path li {
 }
 
 ol.wizard-path li .bullet {
-  background-color: #40cf4e;
-  border: 0.23077rem solid #40cf4e;
+  background-color: #2d9737;
+  border: 0.23077rem solid #2d9737;
   text-align: center;
   width: 1.5rem;
   height: 1.5rem;
@@ -626,7 +619,7 @@ ol.wizard-path li + li:after {
   content: "";
   display: block;
   width: 100%;
-  background-color: #40cf4e;
+  background-color: #2d9737;
   height: 0.3rem;
   position: absolute;
   left: -50%;
@@ -636,17 +629,17 @@ ol.wizard-path li + li:after {
 }
 
 ol.wizard-path li.current ~ li:after {
-  background-color: #222;
+  background-color: gray;
 }
 
 ol.wizard-path li.current ~ li .bullet {
-  background-color: #3a3a3a;
-  border-color: #222;
+  background-color: #fff;
+  border-color: gray;
 }
 
 ol.wizard-path li.current > .bullet {
-  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
-  background-color: #d7fad2;
+  box-shadow: 0 0 0.4rem rgba(40, 40, 40, 0.25);
+  background-color: #8bd182;
 }
 
 .slider-cb input[type="checkbox"] {
@@ -656,7 +649,7 @@ ol.wizard-path li.current > .bullet {
 
 .slider-cb input[type="checkbox"]:focus + label {
   box-shadow: 0 0 0.35rem black;
-  outline: 0.1rem solid #40cf4e;
+  outline: 0.1rem solid #2d9737;
 }
 
 .slider-cb input[type="checkbox"]:focus + label:hover {
@@ -705,9 +698,9 @@ ol.wizard-path li.current > .bullet {
   height: 1.8rem;
   border-radius: 1.8rem;
   border: .2rem solid gray;
-  background-color: #222;
+  background-color: gray;
   transition: background-color .2s;
-  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
+  box-shadow: 0 0 0.4rem rgba(40, 40, 40, 0.25);
 }
 
 .slider-cb [type="checkbox"] + label::after {
@@ -717,7 +710,7 @@ ol.wizard-path li.current > .bullet {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 1.5rem;
-  background-color: #d7fad2;
+  background-color: #8bd182;
   transition: left .2s, background-color .2s;
 }
 
@@ -727,12 +720,12 @@ ol.wizard-path li.current > .bullet {
 
 .slider-cb [type="checkbox"]:checked + label::after {
   left: 2.35rem;
-  background-color: #d7fad2;
+  background-color: #8bd182;
 }
 
 .slider-cb [type="checkbox"]:checked + label::before {
-  background-color: #40cf4e;
-  border-color: #40cf4e;
+  background-color: #2d9737;
+  border-color: #2d9737;
 }
 
 .cb > input[type="checkbox"] {
@@ -742,7 +735,7 @@ ol.wizard-path li.current > .bullet {
 
 .cb > input[type="checkbox"]:focus + label {
   box-shadow: 0 0 0.35rem black;
-  outline: 0.1rem solid #40cf4e;
+  outline: 0.1rem solid #2d9737;
 }
 
 .cb > input[type="checkbox"]:focus + label:hover {
@@ -791,7 +784,7 @@ ol.wizard-path li.current > .bullet {
   border: .1rem solid #6eb068;
   background: none;
   transition: opacity .2s;
-  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
+  box-shadow: 0 0 0.4rem rgba(40, 40, 40, 0.25);
 }
 
 .cb [type="checkbox"] + label::after {
@@ -800,7 +793,7 @@ ol.wizard-path li.current > .bullet {
   left: .8rem;
   font-size: 1.5rem;
   line-height: 1.8;
-  color: #d7fad2;
+  color: #8bd182;
   transition: opacity .2s;
 }
 
@@ -823,7 +816,7 @@ ol.wizard-path li.current > .bullet {
 
 .rb [type="radio"]:focus + label {
   box-shadow: 0 0 0.35rem black;
-  outline: 0.1rem solid #40cf4e;
+  outline: 0.1rem solid #2d9737;
 }
 
 .rb [type="radio"]:focus + label:hover {
@@ -870,14 +863,14 @@ ol.wizard-path li.current > .bullet {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 1.5rem;
-  border: 0.15rem solid #40cf4e;
+  border: 0.15rem solid #2d9737;
   background: none;
   transition: background-color .2s;
-  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
+  box-shadow: 0 0 0.4rem rgba(40, 40, 40, 0.25);
 }
 
 .rb [type="radio"]:checked + label::before {
-  background-color: #d7fad2;
+  background-color: #8bd182;
 }
 
 .input-text {
@@ -895,7 +888,7 @@ ol.wizard-path li.current > .bullet {
   border: none;
   border-bottom: .1rem solid #757575;
   background: none;
-  color: gainsboro;
+  color: #222;
   outline: none;
 }
 
@@ -918,7 +911,7 @@ ol.wizard-path li.current > .bullet {
 .input-text.hasContent input + label {
   top: -.7rem;
   font-size: .8rem;
-  color: #40cf4e;
+  color: #2d9737;
 }
 
 .input-text.hascontent input:invalid + label,
@@ -952,7 +945,7 @@ ol.wizard-path li.current > .bullet {
   bottom: 0;
   left: 0;
   position: absolute;
-  background: #40cf4e;
+  background: #2d9737;
   transition: .15s ease all;
 }
 
@@ -1030,16 +1023,16 @@ ol.wizard-path li.current > .bullet {
 input[type="text"].input-plain {
   padding: .35rem;
   margin-bottom: .5rem;
-  border: 0.05rem solid #222;
-  background-color: #323232;
+  border: 0.05rem solid gray;
+  background-color: gainsboro;
   border-radius: 0.35rem;
-  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55) inset;
+  box-shadow: 0 0 0.4rem rgba(40, 40, 40, 0.25) inset;
 }
 
 .Select-control {
-  background-color: #323232;
+  background-color: gainsboro;
   border: 0.05rem solid #6e6e6e;
-  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
+  box-shadow: 0 0 0.4rem rgba(40, 40, 40, 0.25);
 }
 
 .progress-container {
@@ -1060,7 +1053,7 @@ input[type="text"].input-plain {
 }
 
 .btn-green {
-  background-color: #40cf4e;
+  background-color: #2d9737;
   color: #fff;
   font-size: 1rem;
   border: .15rem solid transparent;
@@ -1073,7 +1066,7 @@ input[type="text"].input-plain {
   line-height: 1.2;
   text-transform: uppercase;
   transition: background-color .2s;
-  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
+  box-shadow: 0 0 0.4rem rgba(40, 40, 40, 0.25);
 }
 
 .btn-green:hover {
@@ -1083,7 +1076,7 @@ input[type="text"].input-plain {
 
 .btn-green:focus {
   box-shadow: 0 0 0.35rem black;
-  outline: 0.1rem solid #40cf4e;
+  outline: 0.1rem solid #2d9737;
   border: .15rem solid white;
 }
 
@@ -1133,8 +1126,8 @@ input[type="text"].input-plain {
 
 .th {
   font-weight: 700;
-  color: #40cf4e;
-  background-color: #222;
+  color: #2d9737;
+  background-color: gray;
   text-align: center;
 }
 
@@ -1237,7 +1230,7 @@ input[type="text"].input-plain {
 }
 
 .table-row.complete .cell-status {
-  color: #40cf4e;
+  color: #2d9737;
 }
 
 .table-row.complete .cell-auto {
@@ -1245,14 +1238,14 @@ input[type="text"].input-plain {
 }
 
 .line-thin {
-  border-bottom: 0.1rem solid #40cf4e;
+  border-bottom: 0.1rem solid #2d9737;
   height: .1rem;
   margin: .7rem 0;
   display: block;
 }
 
 .line-thick {
-  border-bottom: 0.3rem solid #40cf4e;
+  border-bottom: 0.3rem solid #2d9737;
   height: .2rem;
   margin: .7rem 0;
   display: block;

@@ -76,38 +76,36 @@ io.on("connection", (socket) => {
 	//reject if no space	
 	if (io.engine.clientsCount > concurrentUsersLimit) 
 	{
-		socket.emit('err', { message: 'Limit of concurrent connections reached' })
-		console.log(chalk.red(`Disconnected... (${socket.id}, no space)`))
-		socket.disconnect()
+		socket.emit('err', { message: 'Limit of concurrent connections reached' });
+		console.log(chalk.red(`Disconnected... (${socket.id}, no space)`));
+		socket.disconnect();
 		return
 	} 
 	else //had space connect
 	{
-		socket.emit('success', { message: 'connected' })
+		socket.emit('success', { message: 'connected' });
 		console.log(chalk.green(`new socket connected: ${socket.id}`));
 	}
-
-	//logataan yhteyden id consoliin
 	
-
-	//uusi viesti vastaanotettu
-	socket.on("chat", (data) => {
-
+	//listen for new messages
+	socket.on("chat", (data) => 
+	{
 		console.log(chalk.green("Server Reveived new message:"));
 		console.log(chalk.yellow(`Message contents : ${data.message}`));
 		console.log(chalk.yellow(`From user : ${data.user}`));
 		let add = { user: data.user, content: data.message, timestamp: new Date(), userType: 2 };
 
-		//lähetetään uusi viesti kaikille
 		io.sockets.emit("newMessages", add);
 	});
 
-	//user requested disconnect
-	socket.on("end", () => {
+	//listen for termination request
+	socket.on("end", () => 
+	{
 		console.log(chalk.red(`connection id:${socket.id} asked to terminate connection`));
 		socket.disconnect(0);
 	});
 });
+
 
 //////////////////////////////////////////////////////////////////////////////////////TESTING
 

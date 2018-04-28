@@ -29,6 +29,7 @@ As testing prepository there is no npm method provided.
 * Webpack
 * Socket.IO
 * Axios
+* SaSS (theming)
 
 
 ## License

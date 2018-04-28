@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import witchPage from '../pages/witchpage';
-import homepage from '../pages/homepage';
+import dashboard from '../pages/dashboard';
 import soonpage from '../pages/soonpage';
 import missionpage from '../pages/missionpage';
 import docsPage from '../pages/docsPage';
@@ -16,17 +16,17 @@ export default class Main extends React.Component {
       return (
       <main className="main" id="wrapper">
          <Switch>
-            <Route exact path="/" component={homepage}/>
+            <Route exact path="/" component={dashboard}/>
             <Route exact path="/createchar" component={createCharPage}/>
             <Route exact path="/soon" component={soonpage}/>
-            <Route exact path="/witchchat" component={chatPage}/>
             <Route exact path="/missions" component={missionpage}/>
+            <Route exact path="/witchchat" component={chatPage}/>
             <Route exact path="/profile" component={witchPage}/>
             <Route exact path="/settings" component={settingsPage}/>
             <Route exact path="/docs" component={docsPage}/>
             <Redirect to="/"/>
          </Switch>
-      </main>
+      </main> 
       );
    }
 }

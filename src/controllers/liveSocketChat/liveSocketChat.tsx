@@ -25,7 +25,7 @@ interface IState {
 //class
 export default class ChatWindow extends React.Component {
 
-    public socket: any;
+    public socket: SocketIOClient.Socket;
     public state: IState = {
         messageHistory: [],
         message: "",

@@ -1,20 +1,25 @@
 
 //libs
 import * as React from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom';
 
-//components
-import witchPage from '../pages/witchpage';
-import homepage from '../pages/homepage';
-import soonpage from '../pages/soonpage';
-import missionpage from '../pages/missionpage';
-import docsPage from '../pages/docsPage';
-import settingsPage from '../pages/settingsPage';
-import chatPage from '../pages/chatPage';
-import createCharPage from '../pages/createCharPage';
+
 
 
 export default class Main extends React.Component {
+
+   public theme = true;
+
+   public setTheme() {
+      if (this.theme) {
+         document.getElementById("stylelink").href="/stylesheets/style_light.css";
+         this.theme = !this.theme;                  
+      } 
+      else {
+         document.getElementById("stylelink").href="/stylesheets/style.css"; 
+         this.theme = !this.theme;
+      }
+   }
+
    public render() {
       return (
       <footer className="footer">
@@ -24,6 +29,7 @@ export default class Main extends React.Component {
             <span> and breathes with </span>
             <i className="fas fa-coffee"></i>
          </a>
+            <button type="button" onClick={() => this.setTheme()}>style</button>
       </footer>
       );
    }

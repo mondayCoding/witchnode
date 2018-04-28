@@ -5,31 +5,32 @@ $bodyfont: 'fira-sans', sans-serif;
 $headingfont: 'fira-sans', sans-serif;
 
 //information colors
-$errorColor: #db6154;
-$infoColor: #accff0;
-$warnColor: #e7e972;
+$errorColor: #db6154 !default;
+$infoColor: #accff0 !default;
+$warnColor: #e7e972 !default;
 
 //generic colors
-$white: #fff;
-$black: rgb(0,0,0);
+$white: #fff !default;
+$black: rgb(0,0,0) !default;
 
 //accents
-$themeColor: rgb(64, 207, 78);
-$themeColorAlt: #c4f56b;
-$themeColorTertiary: rgb(215, 250, 210);
+$themeColor: rgb(64, 207, 78) !default;
+$themeColorAlt: #c4f56b !default;
+$themeColorTertiary: rgb(215, 250, 210) !default;
 
 //grays
-$grayBlack: #222 !default; 					//extreme dark gray
-$grayDark: rgba(50, 50, 50, 1); 				//body bg
-$grayDarkAlt: rgba(58, 58, 58, 1); 			//navi bg
-$grayMediumText:rgba(110, 110, 110, 1);	//disable color
-$grayLightText:rgba(220, 220, 220, 1);		//general text color
+$grayBlack: #222 !default; 								//extreme dark gray
+$grayDark: rgba(50, 50, 50, 1) !default; 				//body bg
+$grayDarkAlt: rgba(58, 58, 58, 1) !default; 			//navi bg
+$grayMediumText:rgba(110, 110, 110, 1) !default;	//disable color
+$grayLightText:rgba(220, 220, 220, 1) !default;		//general text color
 
 //globals
-$globalRadius: .35rem;
-$globalShadow: 0 0 .4rem rgba(20, 20, 20, .55);
-$globalShadowInset: 0 0 .4rem rgba(20, 20, 20, .55) inset;
-$globalContentPadding: 1rem;
+$globalRadius: .35rem !default;
+$globalShadow: 0 0 .4rem rgba(20, 20, 20, .55) !default;
+$globalShadowInset: 0 0 .4rem rgba(20, 20, 20, .55) inset !default;
+$globalContentPadding: 1rem !default;
+$globalTransitionColors: color .8s, background-color .8s;
 
 
 @import "_keyframes";
@@ -107,7 +108,7 @@ $globalContentPadding: 1rem;
 * {
    box-sizing: border-box;
    margin: 0;
-   padding: 0;
+	padding: 0;
 }
 
 html {
@@ -265,14 +266,17 @@ nav.navigation {
    height: auto;
    flex: 0 0 15rem;
    background-color: $grayDark;
-   border-right: .05rem solid $grayBlack;
+	border-right: .05rem solid $grayBlack;
+	transition: $globalTransitionColors;
 }
-
+ 
 main.main {
    flex: 1 1 auto;
    height: auto;
    background-color: $grayDarkAlt;
 	padding: 1.6rem;
+	transition: $globalTransitionColors;
+	
 }
 
 footer.footer {
@@ -280,6 +284,8 @@ footer.footer {
 	background-color: $grayDarkAlt;
 	text-align: center;
 	border-top: .05rem solid $grayBlack;
+	transition: $globalTransitionColors;
+	
 }
 
 //*****************************NAVIGATION*********************************************
@@ -297,7 +303,7 @@ nav.navigation {
       display: flex;
       flex-direction: column;
 
-      li.navi-item {
+      .navi-item {
          text-align: right;
          display: block;
 
@@ -332,6 +338,37 @@ nav.navigation {
    }
 }
 
+@media screen and (max-width:1040px) {
+
+	nav.navigation {
+		flex: 0 0 5rem;
+
+		ul .navi-item a {
+			padding: 1rem .7rem ;
+			text-align: center;
+			border: .15rem solid transparent;
+
+			&:hover {
+            border: .15rem solid $themeColor;
+			}
+
+			.fa {
+				font-size: 1.5rem;
+				margin: 0;
+			}
+	
+			.pagename {
+				display: none;
+			}
+		}
+	} 
+}
+@media screen and (max-width:600px) {
+	nav.navigation {
+		flex: 0 0 2.5rem;
+	} 
+}
+
 //******************************** CONTENT *****************************************
 
 footer {
@@ -339,6 +376,48 @@ footer {
 		color: $grayMediumText;
 	}
 }
+
+//******************************** DASHBOARD **************************************
+
+.dashboard {
+	width:100%;
+	min-height: 60vh;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+	a.dash-item {
+		flex: 1 0 10rem;
+		display: flex;
+		flex-direction: column;	
+		justify-content: center;
+		margin: .5rem;
+		background-color: $grayDark;
+		border: .05rem solid $grayBlack;
+		box-shadow: $globalShadow;
+		transition: background-color .2s;
+
+		&:hover {
+			background-color: $themeColor;
+			color: $white;
+		}
+
+		.pagesymbol {
+			padding: 1rem;
+			text-align: center;
+			font-size: 3.3rem;
+			
+		}
+		.pagetitle {
+			padding: 1rem;
+			text-align: center;
+			font-weight: 400;
+		
+		}
+	}
+}
+
+
 
 //******************************** ANNOUNCEMENT PANEL **************************************
 
@@ -1078,6 +1157,15 @@ input[type="text"].input-plain {
 	border: .05rem solid $grayBlack;
 	background-color: $grayDark;
 	border-radius: $globalRadius;
+	box-shadow: $globalShadowInset;
+}
+
+
+//***************************** SELECT (override React-Select) ******************************************
+
+.Select-control {
+	background-color: $grayDark;
+	border: .05rem solid $grayMediumText;
 	box-shadow: $globalShadow;
 }
 

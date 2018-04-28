@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+//fonts
+$bodyfont: 'fira-sans', sans-serif;
+$headingfont: 'fira-sans', sans-serif;
+
+//information colors
+$errorColor: #db6154;
+$infoColor: #accff0;
+$warnColor: #e7e972;
+
+//generic colors
+$white: #fff;
+$black: rgb(0,0,0);
+
+//accents
+$themeColor: rgb(45, 151, 55);
+$themeColorAlt: #95bb4e;
+$themeColorTertiary: rgb(139, 209, 130);
+
+//grays
+$grayBlack: gray !default; 					//extreme dark gray
+$grayDark: rgba(220, 220, 220, 1); 			//body bg
+$grayDarkAlt: #fff; 								//navi bg
+$grayMediumText:rgba(110, 110, 110, 1);	//disable color
+$grayLightText:#222;								//general text color
+
+//globals
+$globalRadius: .35rem;
+$globalShadow: 0 0 .4rem rgba(40, 40, 40, .25);
+$globalShadowInset: 0 0 .4rem rgba(40, 40, 40, .25) inset;
+$globalContentPadding: 1rem;
+ 
+
+@import "style"; 
+
