@@ -3,9 +3,9 @@
 
 //generic input field
 export interface IInputFieldProperties {
-   id:string;
+   id?:string;
    name?:string;
-   label:string;
+   label?:string;
    value?:string;
    placeholder?:string;
    readonly?:boolean;

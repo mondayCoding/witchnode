@@ -1,9 +1,9 @@
 
 export default class ClockModule {
 
-	public static Since(date:any):string {
+	public static Since(date:number):string {
 
-		let dateNow = new Date();
+		let dateNow = new Date().getTime();
 
 		let seconds = Math.floor(
 			(dateNow - date) / 1000

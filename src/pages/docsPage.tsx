@@ -193,8 +193,8 @@ export default class DocsPage extends React.Component {
 
    public timeStampSince():string {
       let aDay = 24*60*60*1000;
-      let toDay= new Date();
-      return CLOCK.Since(new Date()-aDay);
+      let toDay= new Date().getTime();
+      return CLOCK.Since((toDay-aDay));
    }
 
    public render() {

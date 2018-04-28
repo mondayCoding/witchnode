@@ -1,5 +1,9 @@
 
+//libs
 import * as React from 'react';
+import {Switch, Route, Redirect} from 'react-router-dom';
+
+//components
 import witchPage from '../pages/witchpage';
 import homepage from '../pages/homepage';
 import soonpage from '../pages/soonpage';
@@ -8,7 +12,6 @@ import docsPage from '../pages/docsPage';
 import settingsPage from '../pages/settingsPage';
 import chatPage from '../pages/chatPage';
 import createCharPage from '../pages/createCharPage';
-import {Switch, Route, Redirect} from 'react-router-dom';
 
 
 export default class Main extends React.Component {
@@ -16,8 +19,10 @@ export default class Main extends React.Component {
       return (
       <footer className="footer">
          <a href="https://github.com/mondayCoding/witchnode">
-            <span>It lives </span>
+            <span>code lives </span>
             <i className="fas fa-heart"></i>
+            <span> and breathes with </span>
+            <i className="fas fa-coffee"></i>
          </a>
       </footer>
       );

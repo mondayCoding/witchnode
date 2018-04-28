@@ -1,11 +1,19 @@
 
+//libs
 import * as React from 'react';
 import axios from 'axios';
 import * as io from 'socket.io-client';
 
-import anno from '../../utils/annoModule';
+//utils
+import ANNO from '../../utils/annoModule';
+import API from '../../api/SocketChat';
+
+//components
 import ChatLine from './line';
-import ChatInput from './input';
+import InputPlain from '../../components/input_plain';
+import Button from '../../components/button';
+
+//interfaces
 import { IMessageLine } from '../../interfaces';
 
 interface IState {
@@ -14,93 +22,74 @@ interface IState {
    user:string;
 }
 
+//class
 export default class ChatWindow extends React.Component {
 
-   public socket:any;
-   public state:IState = {
-      messageHistory:[],
-      message: "",
-      user: ""
-   };
+    public socket: any;
+    public state: IState = {
+        messageHistory: [],
+        message: "",
+        user: ""
+    };
 
-   public componentDidMount(){
-      axios.get('api/chathistory')
-      .then((response)=> {
-         this.setState({
-            messageHistory: response.data
-         });
-      })
-        .catch((error)=>{
-            console.log(error.response);
-            anno.announce(
-                `there was a slight issue with your request. Status: ${error.response.status}`, 
-                error.response.data,
-                "error"
-            );
-      });
+    public componentDidMount() {
 
-      //make socket connection and listen for messages
-      this.socket = io.connect("http://localhost:4000");
+        API.getChatHistory(
+            (data:IMessageLine[]) => this.setState({ messageHistory:data })
+        );      
+    }
 
-      //confirm connection
-      this.socket.on('connect', () => {
-         anno.announce(`IO Socket connection made succesfully`, "Websockets API");
-      });
+    public componentWillUnmount() {
+        if (this.socket) {
+            this.socket.emit("end");
+        }
+    }
 
-      //when recieving new message
-      this.socket.on("newMessages", (recivedMessage:any)=>{
-         let messages = this.state.messageHistory;
-         messages.push(recivedMessage);
-         console.log(messages);
-         this.setState({
-            messageHistory: messages
-         });
-      });
-   }
-   public componentWillUnmount(){
-      this.socket.emit("end");
-   }
+    public connectToChatAs(connectAsUser:string) {
 
-   public onKeyUphandler(event:any){
-      if (event.key === "Enter") {
-         // axios.put("/api/chathistory", {message:this.state.message})
-         // .then((response)=>{
-         //    this.setState({
-         //       messageHistory: response.data,
-         //       message: ""
-         //    });
-         //    document.getElementById("chat-input").focus();
-         // })
-         // .catch((error)=>{
-         //    console.log(error.response);
-         //    anno.announce(`
-         //there was a slight issue with your request. Status: ${error.response.status}`, 
-         //error.response.data,
-         //"error");
-         // })
-         let val:any = document.getElementById("chat-input");
-         val = val.value;
-         let user:any = document.getElementById("chat-user");
-         user = user.value || "broken";
-         //send socket message;
-         this.socket.emit("chat",{
-            message : val, user
-         });
-      }
-   }
+        //make socket connection and listen for messages
+        this.socket = io.connect("http://localhost:4000");
 
-   public onChangeHandler(event:any){
-      console.log(event.target);
+        //confirm connection
+        this.socket
+        .on("connect",      () => ANNO.announce(`IO Socket connecting to server`, null, "info"))
+        .on("success",      (response:any) => ANNO.announce(response.message))
+        .on("err",          (response:any) => ANNO.announce(response.message, null, "error"))
+        .on("disconnect",   ()=> ANNO.announce("disconnected", null, "error"));
 
-      this.setState({
-         [event.target.name]:event.target.value
-      });
-   }
+        //when recieving new message
+        this.socket.on("newMessages", (recivedMessage: IMessageLine) => {
+            let messages = this.state.messageHistory;
+            messages.push(recivedMessage);
+
+            this.setState({
+                messageHistory: messages
+            });
+        });
+
+        document.getElementById("connectBtnID").remove();
+    }
+
+    public onKeyUphandler(event: any) {
+        if (event.key === "Enter") {
+
+            //send socket message;
+            this.socket.emit("chat", {
+                message: this.state.message, 
+                user: this.state.user || "borken"
+            });
+        }
+    }
+
+    public onChangeHandler(event: any) {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
 
    public render(){
       let placeholder = "chat...";
-      let message = this.state.message;
-      let user = this.state.user;
+      const {message, user} = this.state;
       let onKeyUp = (event:any) => this.onKeyUphandler(event);
       let onChange = (event:any)=> this.onChangeHandler(event);
 
@@ -112,12 +101,19 @@ export default class ChatWindow extends React.Component {
                 <ChatLine key={index} message={item} />)}
             </div>
 
-            <ChatInput value={user} name="user" id="chat-user" placeholder="choose username" onChange={onChange} />
-            <ChatInput 
+            <InputPlain 
+                value={user} 
+                name="user" 
+                placeholder="choose username" 
+                onChange={onChange} 
+            />
+
+            <Button id="connectBtnID" onClick={() => this.connectToChatAs("")} />
+
+            <InputPlain 
                 value={message} 
                 name="message" 
                 onKeyUp={onKeyUp} 
-                id="chat-input" 
                 onChange={onChange} 
                 placeholder={placeholder} 
             />

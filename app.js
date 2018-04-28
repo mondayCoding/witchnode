@@ -48,36 +48,65 @@ app.use(function(err, req, res, next) {
 
 ///////////////////////////////////////////////////////////////////////////////////////TESTING
 
-var fakeserver = app.listen(4000, function(){
-   console.log("listening on port 4000 (fakeserver)");
+//socket USERLIST 
+
+let userList = [
+  { name: "Admin",    type: 1,   active: false},
+  { name: "Peasant",  type: 2,   active: false},
+  { name: "Mario",    type: 3,   active: false},
+  { name: "Monday",   type: 4,   active: false},
+]
+
+var fakeserver = app.listen(4000, function () {
+	console.log("listening on port 4000 (fakeserver)");
 });
 
 //setup websockets
 var io = socket(fakeserver);
 
-//uusi socket yhteys saapuu
-io.on("connection", function(socket){
+//options
+var concurrentUsersLimit = 3;
 
-   //logataan yhteyden id consoliin
-   console.log(chalk.green(`new socket connected: ${socket.id}`));
+//new socket connection
+io.on("connection", (socket) => {
 
-   //uusi viesti vastaanotettu
-   socket.on("chat", (data) => {
+	//log current session
+	console.log(`Users in session [${io.engine.clientsCount}]`);
 
-      console.log(chalk.green("Server Reveived new message:"));
-      console.log(chalk.yellow(`Message contents : ${data.message}`));
-      console.log(chalk.yellow(`From user : ${data.user}`));
-      let add = {user:data.user, content:data.message, timestamp:new Date(), userType: 2 };
+	//reject if no space	
+	if (io.engine.clientsCount > concurrentUsersLimit) 
+	{
+		socket.emit('err', { message: 'Limit of concurrent connections reached' })
+		console.log(chalk.red(`Disconnected... (${socket.id}, no space)`))
+		socket.disconnect()
+		return
+	} 
+	else //had space connect
+	{
+		socket.emit('success', { message: 'connected' })
+		console.log(chalk.green(`new socket connected: ${socket.id}`));
+	}
 
-      //lähetetään uusi viesti kaikille
-      io.sockets.emit("newMessages", add);
-   });
+	//logataan yhteyden id consoliin
+	
 
-   //yhteyden katkaisupyynto
-   socket.on("end", () => {
-      console.log(chalk.red(`connection id:${socket.id} asked to terminate connection`));
-      socket.disconnect(0);
-   });
+	//uusi viesti vastaanotettu
+	socket.on("chat", (data) => {
+
+		console.log(chalk.green("Server Reveived new message:"));
+		console.log(chalk.yellow(`Message contents : ${data.message}`));
+		console.log(chalk.yellow(`From user : ${data.user}`));
+		let add = { user: data.user, content: data.message, timestamp: new Date(), userType: 2 };
+
+		//lähetetään uusi viesti kaikille
+		io.sockets.emit("newMessages", add);
+	});
+
+	//user requested disconnect
+	socket.on("end", () => {
+		console.log(chalk.red(`connection id:${socket.id} asked to terminate connection`));
+		socket.disconnect(0);
+	});
 });
 
 //////////////////////////////////////////////////////////////////////////////////////TESTING

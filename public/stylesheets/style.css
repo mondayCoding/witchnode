@@ -276,15 +276,14 @@ footer a, footer a:link {
   flex: 1 1 auto;
   min-height: 2rem;
   height: auto;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: .75rem;
+  background-color: #323232;
+  padding: .5rem;
   text-align: center;
-  border: 0.1rem solid black;
-  margin-right: .5rem;
+  border: 0.1rem solid #222;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
-  max-height: 6rem;
+  max-height: 5rem;
 }
 
 .time-wrap {
@@ -317,7 +316,8 @@ footer a, footer a:link {
   justify-content: space-between;
   min-height: 40rem;
   max-height: 50rem;
-  border: .1rem solid black;
+  border: 0.1rem solid #222;
+  border-radius: 0.35rem;
   padding: .5rem;
 }
 
@@ -331,10 +331,10 @@ footer a, footer a:link {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: .5rem;
+  padding: .3rem;
   background-color: #222;
   border-radius: 0.35rem;
-  margin-bottom: .4rem;
+  margin-bottom: .3rem;
 }
 
 .chatwindow .chatlog .line:hover {
@@ -353,6 +353,7 @@ footer a, footer a:link {
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
+  margin-left: .45rem;
 }
 
 .chatwindow .chatlog .line .line-user .fa {
@@ -385,22 +386,6 @@ footer a, footer a:link {
 
 .chatwindow .chatlog .line.user-admin .line-user {
   color: gold;
-}
-
-.chatwindow .chatbox {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 1rem;
-  padding: .5rem;
-  background-color: #3a3a3a;
-  border-radius: 0.35rem;
-  margin-bottom: .4rem;
-}
-
-.chatwindow .chatbox .chatbox-message {
-  flex: 1 1 auto;
 }
 
 .scrollspy {
@@ -973,6 +958,15 @@ ol.wizard-path li.current > .bullet {
 .input-text > input:focus ~ .tooltip-parent[data-tooltip-info]::after {
   opacity: 1;
   visibility: visible;
+}
+
+input[type="text"].input-plain {
+  padding: .35rem;
+  margin-bottom: .5rem;
+  border: 0.05rem solid #222;
+  background-color: #323232;
+  border-radius: 0.35rem;
+  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
 }
 
 .progress-container {
