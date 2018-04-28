@@ -14,7 +14,7 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 export default class Main extends React.Component {
    public render() {
       return (
-      <main className="flex-main" id="wrapper">
+      <main className="main" id="wrapper">
          <Switch>
             <Route exact path="/" component={homepage}/>
             <Route exact path="/createchar" component={createCharPage}/>

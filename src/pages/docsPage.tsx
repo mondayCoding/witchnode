@@ -6,8 +6,8 @@ import Mark = require("mark.js");
 //import ScrollSpy from 'scrollspy-js';
 
 //components
-import Announcement from '../controllers/announcement/announcement';
 import Input from '../components/input_debug';
+import CLOCK from '../utils/clockModule';
 
 
 class ScrollNav extends React.Component {
@@ -191,17 +191,29 @@ export default class DocsPage extends React.Component {
       // });
    }
 
+   public timeStampSince():string {
+      let aDay = 24*60*60*1000;
+      let toDay= new Date();
+      return CLOCK.Since(new Date()-aDay);
+   }
+
    public render() {
       return (
          <div className="page">
-            <Announcement message="welcome to ScrollSpy"/>
-            <h1>samplecontent</h1>
+
+            <h2>samplecontent</h2>
+
             <p>template content for demonstrating scrollspy functionality</p>
+
+            <p className="timesince"><h3>{this.timeStampSince()}</h3></p>
+
             <SearchInput id="filterField" label="Seach for..."/>
+
             <div className="scrollspy">
                <ScrollContent />
                <ScrollNav />
             </div>
+            
          </div>
       );
    }

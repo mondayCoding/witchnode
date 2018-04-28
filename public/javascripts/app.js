@@ -9779,6 +9779,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var navigation_1 = __webpack_require__(151);
 var main_1 = __webpack_require__(174);
+var footer_1 = __webpack_require__(415);
 var React = __webpack_require__(1);
 var react_router_dom_1 = __webpack_require__(51);
 var Layout = (function (_super) {
@@ -9788,9 +9789,11 @@ var Layout = (function (_super) {
     }
     Layout.prototype.render = function () {
         return (React.createElement(react_router_dom_1.BrowserRouter, null,
-            React.createElement("div", { className: "flex-body" },
-                React.createElement(navigation_1.default, null),
-                React.createElement(main_1.default, null))));
+            React.createElement("div", { className: "body-layout" },
+                React.createElement("div", { className: "content-layout" },
+                    React.createElement(navigation_1.default, null),
+                    React.createElement(main_1.default, null)),
+                React.createElement(footer_1.default, null))));
     };
     return Layout;
 }(React.Component));
@@ -9822,7 +9825,7 @@ var Navigation = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Navigation.prototype.render = function () {
-        return (React.createElement("nav", { className: "flex-navigation" },
+        return (React.createElement("nav", { className: "navigation" },
             React.createElement("ul", { className: "navi-list" },
                 React.createElement("li", { className: "navi-item" },
                     React.createElement(react_router_dom_1.NavLink, { exact: true, to: "/", activeClassName: "active" },
@@ -10839,7 +10842,7 @@ var Main = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Main.prototype.render = function () {
-        return (React.createElement("main", { className: "flex-main", id: "wrapper" },
+        return (React.createElement("main", { className: "main", id: "wrapper" },
             React.createElement(react_router_dom_1.Switch, null,
                 React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: homepage_1.default }),
                 React.createElement(react_router_dom_1.Route, { exact: true, path: "/createchar", component: createCharPage_1.default }),
@@ -10874,7 +10877,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var announcement_1 = __webpack_require__(10);
 var userform_1 = __webpack_require__(176);
 var langSelect_1 = __webpack_require__(251);
 var timer_1 = __webpack_require__(254);
@@ -10902,8 +10904,8 @@ var WitchPage = (function (_super) {
     };
     WitchPage.prototype.render = function () {
         return (React.createElement("div", { className: "page" },
-            React.createElement(announcement_1.default, { message: res.welcome }),
             React.createElement("div", { className: "wrap-15 margin-1-0" },
+                React.createElement("h2", null, res.welcome),
                 React.createElement(langSelect_1.default, { onChange: this.onChangeHandler, lang: this.state.lang })),
             React.createElement("h1", null, res.header),
             React.createElement("p", null, res.thisPageIs),
@@ -15437,7 +15439,6 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
 var input_1 = __webpack_require__(11);
-var announcement_1 = __webpack_require__(10);
 var Homepage = (function (_super) {
     __extends(Homepage, _super);
     function Homepage() {
@@ -15445,8 +15446,7 @@ var Homepage = (function (_super) {
     }
     Homepage.prototype.render = function () {
         return (React.createElement("div", { className: "page" },
-            React.createElement(announcement_1.default, { message: "welcome to homepage" }),
-            React.createElement("h1", null, "this form testpage"),
+            React.createElement("h2", null, "this form testpage"),
             React.createElement("p", null, "it has very litle in terms of content"),
             React.createElement("form", { method: "post", action: "" },
                 React.createElement(input_1.default, { id: "task-name", label: "Add task", name: "task_name" }),
@@ -15479,7 +15479,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var announcement_1 = __webpack_require__(10);
 var todo_soon_1 = __webpack_require__(261);
 var SoonPage = (function (_super) {
     __extends(SoonPage, _super);
@@ -15488,7 +15487,6 @@ var SoonPage = (function (_super) {
     }
     SoonPage.prototype.render = function () {
         return (React.createElement("div", { className: "page" },
-            React.createElement(announcement_1.default, { message: "future implementation plans" }),
             React.createElement("h2", null, "Soon\u2122 // WiP"),
             React.createElement(todo_soon_1.default, null)));
     };
@@ -20335,7 +20333,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var announcement_1 = __webpack_require__(10);
 var todo_simple_1 = __webpack_require__(373);
 var MissionPage = (function (_super) {
     __extends(MissionPage, _super);
@@ -20344,7 +20341,6 @@ var MissionPage = (function (_super) {
     }
     MissionPage.prototype.render = function () {
         return (React.createElement("div", { className: "page" },
-            React.createElement(announcement_1.default, { message: "Quest log" }),
             React.createElement("h2", null, "Missionboard"),
             React.createElement(todo_simple_1.default, null)));
     };
@@ -20642,8 +20638,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
 var Mark = __webpack_require__(377);
-var announcement_1 = __webpack_require__(10);
 var input_debug_1 = __webpack_require__(378);
+var clockModule_1 = __webpack_require__(418);
 var ScrollNav = (function (_super) {
     __extends(ScrollNav, _super);
     function ScrollNav() {
@@ -20702,11 +20698,17 @@ var DocsPage = (function (_super) {
     }
     DocsPage.prototype.componentDidMount = function () {
     };
+    DocsPage.prototype.timeStampSince = function () {
+        var aDay = 24 * 60 * 60 * 1000;
+        var toDay = new Date();
+        return clockModule_1.default.Since(new Date() - aDay);
+    };
     DocsPage.prototype.render = function () {
         return (React.createElement("div", { className: "page" },
-            React.createElement(announcement_1.default, { message: "welcome to ScrollSpy" }),
-            React.createElement("h1", null, "samplecontent"),
+            React.createElement("h2", null, "samplecontent"),
             React.createElement("p", null, "template content for demonstrating scrollspy functionality"),
+            React.createElement("p", { className: "timesince" },
+                React.createElement("h3", null, this.timeStampSince())),
             React.createElement(SearchInput, { id: "filterField", label: "Seach for..." }),
             React.createElement("div", { className: "scrollspy" },
                 React.createElement(ScrollContent, null),
@@ -21884,7 +21886,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var announcement_1 = __webpack_require__(10);
 var input_1 = __webpack_require__(11);
 var checkbox_1 = __webpack_require__(125);
 var radiobutton_1 = __webpack_require__(126);
@@ -21910,8 +21911,7 @@ var WitchPage = (function (_super) {
     WitchPage.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { className: "page" },
-            React.createElement(announcement_1.default, { message: "welcome to Settings" }),
-            React.createElement("h1", null, "this is settings page"),
+            React.createElement("h2", null, "this is settings page"),
             React.createElement("p", null, "it has very litle in terms of content"),
             React.createElement("div", { className: "config-wrap" },
                 React.createElement("div", { className: "content-centered-md" },
@@ -25856,7 +25856,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var announcement_1 = __webpack_require__(10);
 var createCharForm_1 = __webpack_require__(409);
 var CreateCharPage = (function (_super) {
     __extends(CreateCharPage, _super);
@@ -25865,7 +25864,6 @@ var CreateCharPage = (function (_super) {
     }
     CreateCharPage.prototype.render = function () {
         return (React.createElement("div", { className: "page" },
-            React.createElement(announcement_1.default, { message: "character creation" }),
             React.createElement("h2", null, "Create Character"),
             React.createElement(createCharForm_1.default, null)));
     };
@@ -26213,6 +26211,177 @@ var FormValidation = (function () {
 exports.default = FormValidation;
 var TestValidation = { email: 'loony tunes', age: 19 };
 
+
+/***/ }),
+/* 415 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var Main = (function (_super) {
+    __extends(Main, _super);
+    function Main() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Main.prototype.render = function () {
+        return (React.createElement("footer", { className: "footer" },
+            React.createElement("a", { href: "https://github.com/mondayCoding/witchnode" },
+                React.createElement("span", null, "It lives "),
+                React.createElement("i", { className: "fas fa-heart" }))));
+    };
+    return Main;
+}(React.Component));
+exports.default = Main;
+
+
+/***/ }),
+/* 416 */,
+/* 417 */,
+/* 418 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var ClockModule = (function () {
+    function ClockModule() {
+        this.active = false;
+        this.goal = (7.5) * 60 * 60;
+        this.elapsed = 0;
+        this.total = 0;
+        this.timetable = "this.getJSONTimeTable()";
+        this.today = this.generateDayId();
+    }
+    ClockModule.Since = function (date) {
+        var dateNow = new Date();
+        var seconds = Math.floor((dateNow - date) / 1000);
+        var interval = Math.floor(seconds / 31536000);
+        if (interval > 1) {
+            return interval + " years";
+        }
+        interval = Math.floor(seconds / 2592000);
+        if (interval > 1) {
+            return interval + " months";
+        }
+        interval = Math.floor(seconds / 86400);
+        if (interval > 1) {
+            return interval + " days";
+        }
+        interval = Math.floor(seconds / 3600);
+        if (interval > 1) {
+            return interval + " hours";
+        }
+        interval = Math.floor(seconds / 60);
+        if (interval > 1) {
+            return interval + " minutes";
+        }
+        return Math.floor(seconds) + " seconds";
+    };
+    ClockModule.prototype.Timer = function () {
+        if (this.active) {
+            this.stopTimer();
+        }
+        else {
+            this.startTimer();
+        }
+    };
+    ClockModule.prototype.startTimer = function () {
+        var _this = this;
+        this.active = true;
+        var startTime = performance.now();
+        this.working(startTime);
+        this.workingInterval = setInterval(function () { return _this.working(startTime); }, 500);
+    };
+    ClockModule.prototype.stopTimer = function () {
+        this.active = false;
+        this.total += this.elapsed;
+        this.elapsed = 0;
+        clearInterval(this.workingInterval);
+    };
+    ClockModule.prototype.working = function (startTime) {
+        this.elapsed = Math.round((performance.now() - startTime) / 1000);
+        var progressPercentage = Math.round(((this.elapsed + this.total) / this.goal) * 100);
+        this.updatePage(progressPercentage);
+    };
+    ClockModule.prototype.updatePage = function (progressPercentage) {
+        $("#timePassed").html("this.getParsedTime( this.total + this.elapsed )");
+        $("#weekday").html(this.getWeekDay());
+        $("#ampm").html(this.getAAMPM());
+        $("#time").html(this.getCurrentTime());
+        $("#datecurrent").html("this.getCurrentDate()");
+        $("#timeLeft").html("this.getParsedTime( this.goal - ( this.elapsed + this.total ))");
+        $("#timePercents").html(progressPercentage + "%");
+        $("#timePassedBar").html(progressPercentage + "%");
+        $("#timePassedBar").width(progressPercentage + "%");
+        $("#bar2").html(progressPercentage + "%");
+        $("#bar2").width(progressPercentage + "%");
+        $("#bar3").html(progressPercentage + "%");
+        $("#bar3").width(progressPercentage + "%");
+    };
+    ClockModule.prototype.announceStatus = function () {
+        console.log(this.active ? "Clock is active" : "Clock is paused or disabled ");
+        console.log("days id for current date is " + this.today);
+        console.log((this.active) ? "time elapsed " + this.elapsed + " seconds" : "elapsed is currently inactive");
+    };
+    ClockModule.prototype.generateDayId = function () {
+        var currentdate = new Date();
+        var day = (currentdate.getDate() < 10) ? "0" + currentdate.getDate() : currentdate.getDate();
+        var month = ((currentdate.getMonth() + 1) < 10) ? "0" + (currentdate.getMonth() + 1) : (currentdate.getMonth() + 1);
+        var year = currentdate.getFullYear();
+        return "date-" + day + "-" + month + "-" + year;
+    };
+    ClockModule.prototype.getAAMPM = function () {
+        var currentdate = new Date();
+        var ampm = (currentdate.getHours() >= 12) ? "PM" : "AM";
+        return ampm;
+    };
+    ClockModule.prototype.getWeekDay = function () {
+        var currentdate = new Date();
+        var day = currentdate.getDay();
+        switch (day) {
+            case 0:
+                return "Sunday";
+            case 1:
+                return "Monday";
+            case 2:
+                return "Tuesday";
+            case 3:
+                return "Wednesday";
+            case 4:
+                return "Thursday";
+            case 5:
+                return "Friday";
+            default:
+                return "Saturday";
+        }
+    };
+    ClockModule.prototype.getCurrentTime = function () {
+        var currentdate = new Date();
+        var hours = (currentdate.getHours() < 10) ? "0" + currentdate.getHours() : currentdate.getHours();
+        var minutes = (currentdate.getMinutes() < 10) ? "0" + currentdate.getMinutes() : currentdate.getMinutes();
+        var seconds = (currentdate.getSeconds() < 10) ? "0" + currentdate.getSeconds() : currentdate.getSeconds();
+        return hours + ":" + minutes + ":" + seconds;
+    };
+    ClockModule.prototype.getCurrentDate = function () {
+        return new Date();
+    };
+    return ClockModule;
+}());
+exports.default = ClockModule;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)))
 
 /***/ })
 ],[139]);

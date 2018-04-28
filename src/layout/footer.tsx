@@ -15,8 +15,8 @@ export default class Main extends React.Component {
    public render() {
       return (
       <footer className="footer">
-         <a href="">
-            <span>heart</span>
+         <a href="https://github.com/mondayCoding/witchnode">
+            <span>It lives </span>
             <i className="fas fa-heart"></i>
          </a>
       </footer>

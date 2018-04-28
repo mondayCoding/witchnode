@@ -1,6 +1,7 @@
 
 import Navigation from './navigation';
 import Main from './main';
+import Footer from './footer';
 import * as React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 
@@ -9,9 +10,12 @@ class Layout extends React.Component {
    public render() {
       return (
          <BrowserRouter>
-            <div className="flex-body">
-               <Navigation/>
-               <Main/>
+            <div className="body-layout">
+               <div className="content-layout">
+                  <Navigation/>
+                  <Main/>
+               </div>               
+            <Footer />
             </div>
          </BrowserRouter>
       );

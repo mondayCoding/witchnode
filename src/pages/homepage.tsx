@@ -4,15 +4,15 @@ import * as React from 'react';
 
 //components
 import Input from '../components/input';
-import Announcement from '../controllers/announcement/announcement';
 
 export default class Homepage extends React.Component {
    public render() {
       return (
         <div className="page">
-            <Announcement message="welcome to homepage"/>
-            <h1>this form testpage</h1>
+
+            <h2>this form testpage</h2>
             <p>it has very litle in terms of content</p>
+
             <form method="post" action="">
 
                 <Input id="task-name" label="Add task" name="task_name"/>
@@ -25,6 +25,7 @@ export default class Homepage extends React.Component {
                 <input type="submit"/>
 
             </form>
+
         </div>);
    }
 }

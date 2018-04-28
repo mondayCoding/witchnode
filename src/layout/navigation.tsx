@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom';
 export default class Navigation extends React.Component {
    public render() {
       return (
-        <nav className="flex-navigation">
+        <nav className="navigation">
             <ul className="navi-list">
                 <li className="navi-item">
                     <NavLink exact to="/" activeClassName="active">

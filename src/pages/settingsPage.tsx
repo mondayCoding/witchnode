@@ -37,10 +37,12 @@ export default class WitchPage extends React.Component<any,Istates> {
    public render() {
       return (
       <div className="page">
-         <Announcement message="welcome to Settings"/>
-         <h1>this is settings page</h1>
+
+         <h2>this is settings page</h2>
          <p>it has very litle in terms of content</p>
+
          <div className="config-wrap">
+
             <div className="content-centered-md">
                 <Input id="value1" label="font-size" />
                 <Input id="value2" label="color-theme" />

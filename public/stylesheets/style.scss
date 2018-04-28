@@ -150,9 +150,9 @@ h3 {
 a,
 a:link {
    font-size: 1rem;
-   color: $themeColor;
+   color: #23d5ab;
    font-weight: 700;
-   transition: color .15s;
+   transition: color .2s;
    text-decoration: none;
 
    &:hover,
@@ -247,35 +247,42 @@ select.disabled {
 
 //****************************LAYOUT****************************************
 
-.flex-body {
+.body-layout {
    min-height: 100vh;
    display: flex;
-   flex-direction: row;
+   flex-direction: column;
 }
 
-nav.flex-navigation {
+.content-layout {
+	display: flex;
+	flex-direction: row;
+	flex: 1 1 auto;
+}
+
+nav.navigation {
    height: auto;
-   min-height: 100vh;
    flex: 0 0 15rem;
    background-color: $grayDark;
-   border-right: .1rem solid rgb(0, 0, 0);
+   border-right: .05rem solid $grayBlack;
 }
 
-main.flex-main {
+main.main {
    flex: 1 1 auto;
    height: auto;
-   min-height: 100vh;
    background-color: $grayDarkAlt;
 	padding: 1.6rem;
 }
 
 footer.footer {
-	padding: 1rem
+	padding: .4rem;
+	background-color: $grayDarkAlt;
+	text-align: center;
+	border-top: .05rem solid $grayBlack;
 }
 
 //*****************************NAVIGATION*********************************************
 
-nav.flex-navigation {
+nav.navigation {
 
    .fa {
       font-size: 1rem;
@@ -325,8 +332,10 @@ nav.flex-navigation {
 
 //******************************** CONTENT *****************************************
 
-.wrapper {
-   
+footer {
+	a, a:link {
+		color: $grayMediumText;
+	}
 }
 
 //******************************** ANNOUNCEMENT PANEL **************************************

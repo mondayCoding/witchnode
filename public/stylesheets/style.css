@@ -76,9 +76,9 @@ h3 {
 a,
 a:link {
   font-size: 1rem;
-  color: #40cf4e;
+  color: #23d5ab;
   font-weight: 700;
-  transition: color .15s;
+  transition: color .2s;
   text-decoration: none;
 }
 
@@ -180,50 +180,57 @@ select.disabled {
   animation: rainbow 3s infinite alternate;
 }
 
-.flex-body {
+.body-layout {
   min-height: 100vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-nav.flex-navigation {
+.content-layout {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+}
+
+nav.navigation {
   height: auto;
-  min-height: 100vh;
   flex: 0 0 15rem;
   background-color: #323232;
-  border-right: 0.1rem solid black;
+  border-right: 0.05rem solid #222;
 }
 
-main.flex-main {
+main.main {
   flex: 1 1 auto;
   height: auto;
-  min-height: 100vh;
   background-color: #3a3a3a;
   padding: 1.6rem;
 }
 
 footer.footer {
-  padding: 1rem;
+  padding: .4rem;
+  background-color: #3a3a3a;
+  text-align: center;
+  border-top: 0.05rem solid #222;
 }
 
-nav.flex-navigation .fa {
+nav.navigation .fa {
   font-size: 1rem;
   margin: 0 .2rem;
 }
 
-nav.flex-navigation ul {
+nav.navigation ul {
   width: 100%;
   list-style: none;
   display: flex;
   flex-direction: column;
 }
 
-nav.flex-navigation ul li.navi-item {
+nav.navigation ul li.navi-item {
   text-align: right;
   display: block;
 }
 
-nav.flex-navigation ul li.navi-item a {
+nav.navigation ul li.navi-item a {
   padding: .7rem 1.75rem .7rem .7rem;
   color: gainsboro;
   font-size: 1rem;
@@ -236,25 +243,29 @@ nav.flex-navigation ul li.navi-item a {
   transition: background-color .2s, color .2s, border .2s;
 }
 
-nav.flex-navigation ul li.navi-item a:focus {
+nav.navigation ul li.navi-item a:focus {
   box-shadow: 0 0 0.35rem black;
   outline: 0.1rem solid #40cf4e;
 }
 
-nav.flex-navigation ul li.navi-item a:focus:hover {
+nav.navigation ul li.navi-item a:focus:hover {
   box-shadow: none;
   outline: none;
 }
 
-nav.flex-navigation ul li.navi-item a:hover {
+nav.navigation ul li.navi-item a:hover {
   color: #40cf4e;
   border-top-color: #40cf4e;
   border-bottom-color: #40cf4e;
 }
 
-nav.flex-navigation ul li.navi-item a.active {
+nav.navigation ul li.navi-item a.active {
   background-color: #40cf4e;
   color: #fff;
+}
+
+footer a, footer a:link {
+  color: #6e6e6e;
 }
 
 .top-panel {
