@@ -48,7 +48,7 @@ export default class ChatWindow extends React.Component {
     public connectToChatAs(connectAsUser:string) {
 
         //make socket connection and listen for messages
-        this.socket = io.connect("http://localhost:4000");
+        this.socket = io.connect("http://localhost:4000", {query:{requestName:connectAsUser}});
 
         //confirm connection
         this.socket
@@ -107,9 +107,6 @@ export default class ChatWindow extends React.Component {
                 placeholder="choose username" 
                 onChange={onChange} 
             />
-
-            <Button id="connectBtnID" onClick={() => this.connectToChatAs("")} />
-
             <InputPlain 
                 value={message} 
                 name="message" 
@@ -117,6 +114,12 @@ export default class ChatWindow extends React.Component {
                 onChange={onChange} 
                 placeholder={placeholder} 
             />
+            <section className="choose-username">
+                <Button id="connectBtnID" buttonText="Mario" onClick={() => this.connectToChatAs("Mario")} />
+                <Button id="connectBtnID" buttonText="Peasant" onClick={() => this.connectToChatAs("Peasant")} />
+                <Button id="connectBtnID" buttonText="Peach" onClick={() => this.connectToChatAs("Peach")} />
+                <Button id="connectBtnID" buttonText="Admin" onClick={() => this.connectToChatAs("Admin")} />
+            </section>
 
          </section>
       );

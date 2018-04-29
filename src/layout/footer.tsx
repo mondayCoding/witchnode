@@ -26,10 +26,9 @@ export default class Main extends React.Component {
          <a href="https://github.com/mondayCoding/witchnode">
             <span>code lives </span>
             <i className="fas fa-heart"></i>
-            <span> and breathes with </span>
-            <i className="fas fa-coffee"></i>
+            <span> and dies with </span>            
          </a>
-            <button type="button" onClick={() => this.setTheme()}>style</button>
+         <i onClick={() => this.setTheme()} className="fas fa-coffee"></i>
       </footer>
       );
    }

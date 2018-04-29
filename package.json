@@ -11,9 +11,9 @@
     "watch": "webpack --progress --watch",
     "server": "webpack-dev-server --open"
   },
-  "repository" : { 
-    "type" : "git", 
-    "url" : "https://github.com/mondayCoding/witchnode"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mondayCoding/witchnode"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -29,6 +29,7 @@
     "morgan": "~1.9.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-localization": "^1.0.8",
     "react-router-dom": "^4.2.2",
     "react-select": "^1.2.1",
     "react-sortable-hoc": "^0.6.8",

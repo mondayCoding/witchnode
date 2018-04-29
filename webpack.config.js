@@ -3,19 +3,27 @@ const path = require("path");
 const webpack = require('webpack');
 
 module.exports = {
+
    entry: {
       app: "./src/index.tsx",
-      vendor: ["jquery", "react", "react-dom", "react-router", "toastr"]
+      vendor: ["react", "react-dom", "react-router", "react-select", "react-localization", "axios", "react-sortable-hoc", "mark.js", "toastr"]
    },
+
    output: {
       path: path.resolve(__dirname, "public/javascripts/"),
       filename: "[name].js"
    },
+
+   //heavy, good debugg
    devtool: "source-map",
+   //light basic debug
+   // devtool: "cheap-moduleT-source-map",
+
    resolve: {
       // Add '.ts' and '.tsx' as resolvable extensions.
       extensions: [".ts", ".tsx", ".js", ".json"]
    },
+
    module: {
       rules: [
          {
@@ -30,13 +38,11 @@ module.exports = {
          }
       ]
    },
+
    plugins: [
       new webpack.optimize.CommonsChunkPlugin({
          name: "vendor",
          minChunks: Infinity,
-      }),
-      new webpack.ProvidePlugin({
-         $: "jquery"
       })
    ]
 };
@@ -72,5 +78,8 @@ module.exports = {
 //       "react": "React",
 //       "react-dom": "ReactDOM",
 //       "jquery": 'jQuery'
-//    }
+//    },
+      // new webpack.ProvidePlugin({
+      //    $: "jquery"
+      // })
 // };

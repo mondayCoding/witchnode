@@ -7,7 +7,7 @@ import Userform from '../controllers/UserForm_validation/userform';
 import LangSelect from '../controllers/UserForm_validation/langSelect';
 import Timer from '../controllers/UserForm_validation/timer';
 import anno from '../utils/annoModule';
-const {res} = require('../localization/resourcess');
+import res from '../localization/resourcess';
 
 
 interface Istates {

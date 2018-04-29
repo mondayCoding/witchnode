@@ -74,6 +74,13 @@ $globalTransitionColors: color .8s, background-color .8s;
    flex-direction: column;
 }
 
+@mixin flex-center {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
 @mixin disabled {
 	opacity: .75;
 	filter: grayscale(50%);
@@ -173,6 +180,17 @@ label {
 mark {
    padding: 0;
    background-color: $themeColorAlt;
+}
+
+kbd {
+	margin: 0 0 0 .5rem;
+	padding: 2px 4px;
+	font-size: 90%;
+	color: #fff;
+	background-color: #333;
+	border-radius: 3px;
+	-webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
+	box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
 }
 
 input[type="text"] {
@@ -292,11 +310,6 @@ footer.footer {
 
 nav.navigation {
 
-   .fa {
-      font-size: 1rem;
-      margin: 0 .2rem;
-   }
-
    ul {
       width: 100%;
       list-style: none;
@@ -308,15 +321,17 @@ nav.navigation {
          display: block;
 
          a {
-            padding: .7rem 1.75rem .7rem .7rem;
+            padding: .6rem;
             color: $grayLightText;
             font-size: 1rem;
             font-weight: 400;
-            text-align: right;
-            display: block;
+            text-align: left;
             border-top: .15rem solid transparent;
             border-bottom: .15rem solid transparent;
             white-space: nowrap;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
 				@include bgAndColorTransition;
 
 				&:focus {
@@ -332,13 +347,23 @@ nav.navigation {
             &.active {
                background-color: $themeColor;
                color: #fff;
-            }
+				}
+
+				.fa, .fas, .far {
+					flex: 0 0 4rem;
+					font-size: 1.2rem;
+					text-align: center
+				}
+
+				.pagename {
+					flex: 1 1 auto;
+				}				
          }
       }
    }
 }
 
-@media screen and (max-width:1040px) {
+@media screen and (max-width:1140px) {
 
 	nav.navigation {
 		flex: 0 0 5rem;
@@ -352,9 +377,8 @@ nav.navigation {
             border: .15rem solid $themeColor;
 			}
 
-			.fa {
+			.fa, .fas {
 				font-size: 1.5rem;
-				margin: 0;
 			}
 	
 			.pagename {
@@ -363,7 +387,7 @@ nav.navigation {
 		}
 	} 
 }
-@media screen and (max-width:600px) {
+@media screen and (max-width:700px) {
 	nav.navigation {
 		flex: 0 0 2.5rem;
 	} 
@@ -538,7 +562,12 @@ footer {
          }
          &.user-admin .line-user {color: gold;}
       }
-   }
+	}
+	.choose-username {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
 }
 
 
@@ -1080,6 +1109,8 @@ $maxFieldWidth: 30rem;
 
 }
 
+//**** ERROR TOOLTIP (TIP) *******************
+
 .input-text[data-tooltip-error]::before {
 	visibility: hidden;
 	opacity: 0;
@@ -1104,50 +1135,91 @@ $maxFieldWidth: 30rem;
 	visibility: visible;
 }
 
-.input-text > .tooltip-parent[data-tooltip-info] {
+//****************** INFO TOOLTIP (TIP COMPONENT) *************************
 
-	//content
-	&::before {
-		visibility: hidden;
-		opacity: 0;
-		transition: opacity .15s ease-in-out, visibility .15s ease-in-out;
-		pointer-events: none;
-		position: absolute;
-		padding: .5rem;
-		border-radius: .5rem;
-		background-color: rgba(25, 25, 25, .85);
-		color: $infoColor;
-		width: 100%;
-		height: auto;
-		left: 0;
-		top: -150%;
-		z-index: 300;
-		content: attr(data-tooltip-info);
+$tipWidth: 2rem;
+$tipMessageWidth: 14rem;
+
+.tip {
+	width: $tipWidth;
+	padding: .5rem 1rem;
+	opacity: .2;
+	transition: color .2s, opacity .2s;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	font-size: 1rem;
+
+	&:hover {
+		color: $themeColor;
+		opacity: 1;
+
+		//show tip message on hover
+		.tip-message::before, 
+		.tip-message::after {
+			opacity: 1;
+			visibility: visible;
+		}
 	}
 
-	//arrow
-	&::after {
-		visibility: hidden;
-		opacity: 0;
-		transition: opacity .15s ease-in-out, visibility .15s ease-in-out, transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);		
-		content: "";
-		position: absolute;
-		top: -38%;
-		left: 15%;
-		margin-left: -5px;
-		border-width: 7px;
-		border-style: solid;
-		border-color: rgba(25, 25, 25, .85) transparent transparent transparent;
+	.tip-message {
+
+		//content
+		&::before {
+			visibility: hidden;
+			opacity: 0;
+			transition: opacity .15s ease-in-out, visibility .15s ease-in-out;
+			pointer-events: none;
+			position: absolute;
+			padding: .5rem;
+			border-radius: .5rem;
+			background-color: rgba(25, 25, 25, .85);
+			color: $infoColor;
+			width: $tipMessageWidth;
+			height: auto;
+			bottom: 120%;
+			left: -($tipMessageWidth/2 - $tipWidth/2);
+			z-index: 300;
+			content: attr(data-tooltip-info);
+		}
+	
+		//arrow
+		&::after {
+			visibility: hidden;
+			opacity: 0;
+			transition: opacity .15s ease-in-out, visibility .15s ease-in-out, transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);		
+			content: "";
+			position: absolute;
+			top: -20%;
+			right: .55rem;
+			margin-left: -5px;
+			border-width: 7px;
+			border-style: solid;
+			border-color: rgba(25, 25, 25, .85) transparent transparent transparent;
+		}
 	}
 }
 
-.input-text:hover > .tooltip-parent[data-tooltip-info]::before, 
-.input-text:hover > .tooltip-parent[data-tooltip-info]::after, 
-.input-text > input:focus ~ .tooltip-parent[data-tooltip-info]::before, 
-.input-text > input:focus ~ .tooltip-parent[data-tooltip-info]::after {
+//text inside input field special case
+.input-text .tip {
+	position: absolute;
+	right: .0;
+	bottom: .0;
+}
+
+.input-text > input:focus ~ .tip  {
+	color: $themeColor;
 	opacity: 1;
-	visibility: visible;
+
+	.tip-message::before, 
+	.tip-message::after {
+		opacity: 1;
+		visibility: visible;
+	}
+
 }
+
 
 //******************************** INPUT (PLAIN DESIGN) ******************************************
 

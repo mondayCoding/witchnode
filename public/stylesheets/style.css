@@ -99,6 +99,17 @@ mark {
   background-color: #c4f56b;
 }
 
+kbd {
+  margin: 0 0 0 .5rem;
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #fff;
+  background-color: #333;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
 input[type="text"] {
   background: none;
   width: 100%;
@@ -216,11 +227,6 @@ footer.footer {
   transition: color 0.8s, background-color 0.8s;
 }
 
-nav.navigation .fa {
-  font-size: 1rem;
-  margin: 0 .2rem;
-}
-
 nav.navigation ul {
   width: 100%;
   list-style: none;
@@ -234,15 +240,17 @@ nav.navigation ul .navi-item {
 }
 
 nav.navigation ul .navi-item a {
-  padding: .7rem 1.75rem .7rem .7rem;
+  padding: .6rem;
   color: gainsboro;
   font-size: 1rem;
   font-weight: 400;
-  text-align: right;
-  display: block;
+  text-align: left;
   border-top: .15rem solid transparent;
   border-bottom: .15rem solid transparent;
   white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   transition: background-color .2s, color .2s, border .2s;
 }
 
@@ -267,7 +275,17 @@ nav.navigation ul .navi-item a.active {
   color: #fff;
 }
 
-@media screen and (max-width: 1040px) {
+nav.navigation ul .navi-item a .fa, nav.navigation ul .navi-item a .fas, nav.navigation ul .navi-item a .far {
+  flex: 0 0 4rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+nav.navigation ul .navi-item a .pagename {
+  flex: 1 1 auto;
+}
+
+@media screen and (max-width: 1140px) {
   nav.navigation {
     flex: 0 0 5rem;
   }
@@ -279,16 +297,15 @@ nav.navigation ul .navi-item a.active {
   nav.navigation ul .navi-item a:hover {
     border: 0.15rem solid #40cf4e;
   }
-  nav.navigation ul .navi-item a .fa {
+  nav.navigation ul .navi-item a .fa, nav.navigation ul .navi-item a .fas {
     font-size: 1.5rem;
-    margin: 0;
   }
   nav.navigation ul .navi-item a .pagename {
     display: none;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   nav.navigation {
     flex: 0 0 2.5rem;
   }
@@ -453,6 +470,12 @@ footer a, footer a:link {
 
 .chatwindow .chatlog .line.user-admin .line-user {
   color: gold;
+}
+
+.chatwindow .choose-username {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .scrollspy {
@@ -987,7 +1010,30 @@ ol.wizard-path li.current > .bullet {
   visibility: visible;
 }
 
-.input-text > .tooltip-parent[data-tooltip-info]::before {
+.tip {
+  width: 2rem;
+  padding: .5rem 1rem;
+  opacity: .2;
+  transition: color .2s, opacity .2s;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 1rem;
+}
+
+.tip:hover {
+  color: #40cf4e;
+  opacity: 1;
+}
+
+.tip:hover .tip-message::before,
+.tip:hover .tip-message::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tip .tip-message::before {
   visibility: hidden;
   opacity: 0;
   transition: opacity .15s ease-in-out, visibility .15s ease-in-out;
@@ -997,32 +1043,41 @@ ol.wizard-path li.current > .bullet {
   border-radius: .5rem;
   background-color: rgba(25, 25, 25, 0.85);
   color: #accff0;
-  width: 100%;
+  width: 14rem;
   height: auto;
-  left: 0;
-  top: -150%;
+  bottom: 120%;
+  left: -6rem;
   z-index: 300;
   content: attr(data-tooltip-info);
 }
 
-.input-text > .tooltip-parent[data-tooltip-info]::after {
+.tip .tip-message::after {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out, transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
   content: "";
   position: absolute;
-  top: -38%;
-  left: 15%;
+  top: -20%;
+  right: .55rem;
   margin-left: -5px;
   border-width: 7px;
   border-style: solid;
   border-color: rgba(25, 25, 25, 0.85) transparent transparent transparent;
 }
 
-.input-text:hover > .tooltip-parent[data-tooltip-info]::before,
-.input-text:hover > .tooltip-parent[data-tooltip-info]::after,
-.input-text > input:focus ~ .tooltip-parent[data-tooltip-info]::before,
-.input-text > input:focus ~ .tooltip-parent[data-tooltip-info]::after {
+.input-text .tip {
+  position: absolute;
+  right: .0;
+  bottom: .0;
+}
+
+.input-text > input:focus ~ .tip {
+  color: #40cf4e;
+  opacity: 1;
+}
+
+.input-text > input:focus ~ .tip .tip-message::before,
+.input-text > input:focus ~ .tip .tip-message::after {
   opacity: 1;
   visibility: visible;
 }

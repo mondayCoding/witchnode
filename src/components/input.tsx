@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import {IInputFieldProperties} from '../interfaces';
+import Tip from '../components/infotip';
 
 
 export default class Input extends React.Component<IInputFieldProperties> {
@@ -13,8 +14,8 @@ export default class Input extends React.Component<IInputFieldProperties> {
             <div className={inputClass} data-tooltip-error={tooltipError}>
                 <input type="text" id={id} {...rest} value={value} />
                 <label htmlFor={id}> {label} </label>
-                <span className="bar"></span>
-                <div className="tooltip-parent" data-tooltip-info={tooltipInfo}></div>
+                <span className="bar"></span>   
+                {(tooltipInfo) && <Tip message={tooltipInfo} />}             
             </div>
         );
     }

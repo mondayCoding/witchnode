@@ -54,7 +54,7 @@ let userList = [
   { name: "Admin",    type: 1,   active: false},
   { name: "Peasant",  type: 2,   active: false},
   { name: "Mario",    type: 3,   active: false},
-  { name: "Monday",   type: 4,   active: false},
+  { name: "Peach",   type: 4,   active: false}
 ]
 
 var fakeserver = app.listen(4000, function () {
@@ -70,21 +70,38 @@ var concurrentUsersLimit = 3;
 //new socket connection
 io.on("connection", (socket) => {
 
-	//log current session
-	console.log(`Users in session [${io.engine.clientsCount}]`);
+	const requestName = socket.handshake.query.requestName
 
-	//reject if no space	
-	if (io.engine.clientsCount > concurrentUsersLimit) 
+	//log current session and requested username from connection
+	console.log(chalk.green(requestName + " is connectiong"));
+	console.log(chalk.green(`Users in session [${io.engine.clientsCount}]`));
+
+	//get index and availability for username
+	const index = userList.findIndex( (x) => x.name === requestName );
+	const user  = userList[index];
+	const userIsAvailable = (user.active) ? false : true;
+	const chatroomHasSpace = io.engine.clientsCount <= concurrentUsersLimit;
+
+
+	//reject connection if ursername is not free or there is no space in chatroom	
+	if (!userIsAvailable || !chatroomHasSpace) 
 	{
-		socket.emit('err', { message: 'Limit of concurrent connections reached' });
-		console.log(chalk.red(`Disconnected... (${socket.id}, no space)`));
+		socket.emit('err', { message: 'That user is already connected or room limit has been met' });
 		socket.disconnect();
 		return
 	} 
 	else //had space connect
 	{
-		socket.emit('success', { message: 'connected' });
-		console.log(chalk.green(`new socket connected: ${socket.id}`));
+		//emit success message
+		socket.emit('success', { message: `Connected as ${requestName}` });
+
+		//mark username as taken
+		const userIndex = userList.findIndex( (x) => x.name === requestName );
+		user.active = true;
+		
+		//associate username with socket
+		socket.takenUserName = requestName;
+		console.log(chalk.green(`new socket connected: ${socket.takenUserName}`));
 	}
 	
 	//listen for new messages
@@ -104,6 +121,15 @@ io.on("connection", (socket) => {
 		console.log(chalk.red(`connection id:${socket.id} asked to terminate connection`));
 		socket.disconnect(0);
 	});
+
+	socket.on('disconnect', () => {
+		socket.emit('disconnected');
+		user.active = false;
+		user.active = false;
+		console.log(userList);
+		
+  });
+
 });
 
 

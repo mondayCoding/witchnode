@@ -3,6 +3,7 @@
 ROADMAD: witchNode (Front-end):
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
    
+   ☐ Dashboard (log git commits and morgan logging)
    ☐ todo (mission tab) routes / function => api redirection
    ☐ env mail address, mail link in footer
    ☐ modal stateable extendable

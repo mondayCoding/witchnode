@@ -1,7 +1,7 @@
 
 import LocalizedStrings from 'react-localization';
 
-let res = new LocalizedStrings({
+const resoursefile = new LocalizedStrings({
    en:{
       //page general
       lang:"english",
@@ -48,16 +48,4 @@ let res = new LocalizedStrings({
    }
 });
 
-export {res};
-
-let errors = new LocalizedStrings({
-    en:{
-       //error
-       errorWithRequest:"there was a slight issue with your request. Status: ${0}",
-    },
- 
-    fi: {
-       //error
-       errorWithRequest:"there was a slight issue with your request. Status: {0}",
-    }
- });
+export default resoursefile;

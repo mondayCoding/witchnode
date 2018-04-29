@@ -114,6 +114,7 @@ export default class UserForm extends React.Component<any,any> {
             />
             <Input 
                name="email"
+               tooltipInfo="You wont actually recieve any emails form us... :)"               
                label={res.email} 
                value={email} 
                onChange={onChange} 
