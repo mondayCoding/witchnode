@@ -10,16 +10,23 @@ import API from '../../api/SocketChat';
 
 //components
 import ChatLine from './line';
+import SelectUserMenu from './selectUserMenu';
 import InputPlain from '../../components/input_plain';
 import Button from '../../components/button';
 
 //interfaces
 import { IMessageLine } from '../../interfaces';
 
+interface IStatusList {
+    active: boolean;
+    username: string;
+ }
+
 interface IState {
    messageHistory:IMessageLine[];
    message:string;
    user:string;
+   statusList: IStatusList[];
 }
 
 //class
@@ -29,14 +36,23 @@ export default class ChatWindow extends React.Component {
     public state: IState = {
         messageHistory: [],
         message: "",
-        user: ""
+        user: "",
+        statusList: [
+            {username:"Mario", active:false},
+            {username:"Peach", active:false},
+            {username:"Peasant", active:false},
+            {username:"Admin", active:false}
+        ]
     };
 
     public componentDidMount() {
 
         API.getChatHistory(
             (data:IMessageLine[]) => this.setState({ messageHistory:data })
-        );      
+        );
+        // API.getAvaibleUsers(
+        //     (data:IMessageLine[]) => this.setState({ statusList:data })
+        // );       
     }
 
     public componentWillUnmount() {
@@ -55,7 +71,10 @@ export default class ChatWindow extends React.Component {
         .on("connect",      () => ANNO.announce(`IO Socket connecting to server`, null, "info"))
         .on("success",      (response:any) => ANNO.announce(response.message))
         .on("err",          (response:any) => ANNO.announce(response.message, null, "error"))
-        .on("disconnect",   ()=> ANNO.announce("disconnected", null, "error"));
+        .on("disconnect",   ()=> ANNO.announce("disconnected", null, "error"))
+        .on("refresh",      (response:string) =>  {
+            ANNO.announce(`username ${response} was taken`);
+        });
 
         //when recieving new message
         this.socket.on("newMessages", (recivedMessage: IMessageLine) => {
@@ -89,39 +108,45 @@ export default class ChatWindow extends React.Component {
 
    public render(){
       let placeholder = "chat...";
-      const {message, user} = this.state;
+      const {message, user, statusList} = this.state;
       let onKeyUp = (event:any) => this.onKeyUphandler(event);
       let onChange = (event:any)=> this.onChangeHandler(event);
 
       return (
-         <section className="chatwindow" id="chatwindow">
+         <article className="chat">
 
-            <div className="chatlog" id="chatlog">
-                {this.state.messageHistory.map((item:IMessageLine, index) => 
-                <ChatLine key={index} message={item} />)}
-            </div>
+             <section className="chatwindow" id="chatwindow">
+    
+                <div className="chatlog" id="chatlog">
+                    {this.state.messageHistory.map((item:IMessageLine, index) => 
+                    <ChatLine key={index} message={item} />)}
+                </div>
+    
+                <InputPlain 
+                    value={user} 
+                    name="user" 
+                    placeholder="choose username" 
+                    onChange={onChange} 
+                />
+                <InputPlain 
+                    value={message} 
+                    name="message" 
+                    onKeyUp={onKeyUp} 
+                    onChange={onChange} 
+                    placeholder={placeholder} 
+                />
+            </section>
 
-            <InputPlain 
-                value={user} 
-                name="user" 
-                placeholder="choose username" 
-                onChange={onChange} 
-            />
-            <InputPlain 
-                value={message} 
-                name="message" 
-                onKeyUp={onKeyUp} 
-                onChange={onChange} 
-                placeholder={placeholder} 
-            />
-            <section className="choose-username">
+            {/* <section className="choose-username">
                 <Button id="connectBtnID" buttonText="Mario" onClick={() => this.connectToChatAs("Mario")} />
                 <Button id="connectBtnID" buttonText="Peasant" onClick={() => this.connectToChatAs("Peasant")} />
                 <Button id="connectBtnID" buttonText="Peach" onClick={() => this.connectToChatAs("Peach")} />
                 <Button id="connectBtnID" buttonText="Admin" onClick={() => this.connectToChatAs("Admin")} />
-            </section>
+            </section>   */}
 
-         </section>
+            <SelectUserMenu onClick={(data:string) => this.connectToChatAs(data)} statusList={statusList} />
+
+         </article>
       );
    }
 

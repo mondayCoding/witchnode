@@ -102,7 +102,10 @@ io.on("connection", (socket) => {
 		//associate username with socket
 		socket.takenUserName = requestName;
 		console.log(chalk.green(`new socket connected: ${socket.takenUserName}`));
+
+		io.sockets.emit("refresh", requestName);
 	}
+	
 	
 	//listen for new messages
 	socket.on("chat", (data) => 
@@ -121,6 +124,8 @@ io.on("connection", (socket) => {
 		console.log(chalk.red(`connection id:${socket.id} asked to terminate connection`));
 		socket.disconnect(0);
 	});
+
+
 
 	socket.on('disconnect', () => {
 		socket.emit('disconnected');

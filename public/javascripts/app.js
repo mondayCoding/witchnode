@@ -10307,8 +10307,8 @@ var io = __webpack_require__(386);
 var annoModule_1 = __webpack_require__(12);
 var SocketChat_1 = __webpack_require__(409);
 var line_1 = __webpack_require__(410);
+var selectUserMenu_1 = __webpack_require__(422);
 var input_plain_1 = __webpack_require__(411);
-var button_1 = __webpack_require__(36);
 var ChatWindow = (function (_super) {
     __extends(ChatWindow, _super);
     function ChatWindow() {
@@ -10316,7 +10316,13 @@ var ChatWindow = (function (_super) {
         _this.state = {
             messageHistory: [],
             message: "",
-            user: ""
+            user: "",
+            statusList: [
+                { username: "Mario", active: false },
+                { username: "Peach", active: false },
+                { username: "Peasant", active: false },
+                { username: "Admin", active: false }
+            ]
         };
         return _this;
     }
@@ -10336,7 +10342,10 @@ var ChatWindow = (function (_super) {
             .on("connect", function () { return annoModule_1.default.announce("IO Socket connecting to server", null, "info"); })
             .on("success", function (response) { return annoModule_1.default.announce(response.message); })
             .on("err", function (response) { return annoModule_1.default.announce(response.message, null, "error"); })
-            .on("disconnect", function () { return annoModule_1.default.announce("disconnected", null, "error"); });
+            .on("disconnect", function () { return annoModule_1.default.announce("disconnected", null, "error"); })
+            .on("refresh", function (response) {
+            annoModule_1.default.announce("username " + response + " was taken");
+        });
         this.socket.on("newMessages", function (recivedMessage) {
             var messages = _this.state.messageHistory;
             messages.push(recivedMessage);
@@ -10363,20 +10372,17 @@ var ChatWindow = (function (_super) {
     ChatWindow.prototype.render = function () {
         var _this = this;
         var placeholder = "chat...";
-        var _a = this.state, message = _a.message, user = _a.user;
+        var _a = this.state, message = _a.message, user = _a.user, statusList = _a.statusList;
         var onKeyUp = function (event) { return _this.onKeyUphandler(event); };
         var onChange = function (event) { return _this.onChangeHandler(event); };
-        return (React.createElement("section", { className: "chatwindow", id: "chatwindow" },
-            React.createElement("div", { className: "chatlog", id: "chatlog" }, this.state.messageHistory.map(function (item, index) {
-                return React.createElement(line_1.default, { key: index, message: item });
-            })),
-            React.createElement(input_plain_1.default, { value: user, name: "user", placeholder: "choose username", onChange: onChange }),
-            React.createElement(input_plain_1.default, { value: message, name: "message", onKeyUp: onKeyUp, onChange: onChange, placeholder: placeholder }),
-            React.createElement("section", { className: "choose-username" },
-                React.createElement(button_1.default, { id: "connectBtnID", buttonText: "Mario", onClick: function () { return _this.connectToChatAs("Mario"); } }),
-                React.createElement(button_1.default, { id: "connectBtnID", buttonText: "Peasant", onClick: function () { return _this.connectToChatAs("Peasant"); } }),
-                React.createElement(button_1.default, { id: "connectBtnID", buttonText: "Peach", onClick: function () { return _this.connectToChatAs("Peach"); } }),
-                React.createElement(button_1.default, { id: "connectBtnID", buttonText: "Admin", onClick: function () { return _this.connectToChatAs("Admin"); } }))));
+        return (React.createElement("article", { className: "chat" },
+            React.createElement("section", { className: "chatwindow", id: "chatwindow" },
+                React.createElement("div", { className: "chatlog", id: "chatlog" }, this.state.messageHistory.map(function (item, index) {
+                    return React.createElement(line_1.default, { key: index, message: item });
+                })),
+                React.createElement(input_plain_1.default, { value: user, name: "user", placeholder: "choose username", onChange: onChange }),
+                React.createElement(input_plain_1.default, { value: message, name: "message", onKeyUp: onKeyUp, onChange: onChange, placeholder: placeholder })),
+            React.createElement(selectUserMenu_1.default, { onClick: function (data) { return _this.connectToChatAs(data); }, statusList: statusList })));
     };
     return ChatWindow;
 }(React.Component));
@@ -14022,6 +14028,11 @@ var SocketChatApi = (function () {
             .then(function (response) { return callback(response.data); })
             .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
     };
+    SocketChatApi.getAvaibleUsers = function (callback) {
+        axios_1.default.get("api/chat/avaibility")
+            .then(function (response) { return callback(response.data); })
+            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
+    };
     return SocketChatApi;
 }());
 exports.default = SocketChatApi;
@@ -14553,6 +14564,48 @@ var Main = (function (_super) {
     return Main;
 }(React.Component));
 exports.default = Main;
+
+
+/***/ }),
+/* 420 */,
+/* 421 */,
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var User = function (props) {
+    var name = props.name, onClick = props.onClick;
+    return (React.createElement("div", { className: "selectable-user", onClick: function () { return onClick(name); } },
+        React.createElement("div", { className: "user-initial" }, name.charAt(0)),
+        React.createElement("div", { className: "user-name" }, name)));
+};
+var SelectUserMenu = (function (_super) {
+    __extends(SelectUserMenu, _super);
+    function SelectUserMenu() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SelectUserMenu.prototype.render = function () {
+        var _a = this.props, onClick = _a.onClick, statusList = _a.statusList;
+        return (React.createElement("article", { className: "user-selection" }, statusList.map(function (user) {
+            return (!user.active) && React.createElement(User, { name: user.username, onClick: onClick });
+        })));
+    };
+    return SelectUserMenu;
+}(React.Component));
+exports.default = SelectUserMenu;
 
 
 /***/ })

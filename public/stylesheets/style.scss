@@ -379,6 +379,7 @@ nav.navigation {
 
 			.fa, .fas {
 				font-size: 1.5rem;
+				flex: 1 1 auto;
 			}
 	
 			.pagename {
@@ -393,7 +394,7 @@ nav.navigation {
 	} 
 }
 
-//******************************** CONTENT *****************************************
+//******************************** FOOTER *****************************************
 
 footer {
 	a, a:link {
@@ -563,10 +564,42 @@ footer {
          &.user-admin .line-user {color: gold;}
       }
 	}
-	.choose-username {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
+}
+
+.user-selection {
+	@include flex-row;
+
+	.selectable-user {
+		@include flex-column;
+		flex: 1 1 auto;
+		margin: 1rem;
+		border: .05rem solid $grayBlack;
+		background-color: $grayDark;
+		transition: background-color .2s;
+		box-shadow: $globalShadow;
+		border-radius: $globalRadius;
+
+		&:hover {
+			background-color: $themeColor;
+
+			.user-initial {
+				background-color: $grayBlack;
+			}
+		}
+
+		.user-initial {
+			@include flex-center;
+			font-size: 6rem;
+			font-weight: 700;
+			padding: 1rem;
+			transition: background-color .2s;
+			background-color: $grayMediumText;
+		}
+		.user-name {
+			@include flex-center;
+			padding: 1rem;
+		}
+
 	}
 }
 
@@ -790,8 +823,6 @@ ol.wizard-path {
 	}
 	 
 }
-
-
 
 
 //************************ SLIDER CHECKBOX CSS *****************************

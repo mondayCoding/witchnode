@@ -299,6 +299,7 @@ nav.navigation ul .navi-item a .pagename {
   }
   nav.navigation ul .navi-item a .fa, nav.navigation ul .navi-item a .fas {
     font-size: 1.5rem;
+    flex: 1 1 auto;
   }
   nav.navigation ul .navi-item a .pagename {
     display: none;
@@ -472,10 +473,49 @@ footer a, footer a:link {
   color: gold;
 }
 
-.chatwindow .choose-username {
+.user-selection {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+}
+
+.user-selection .selectable-user {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  margin: 1rem;
+  border: 0.05rem solid #222;
+  background-color: #323232;
+  transition: background-color .2s;
+  box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
+  border-radius: 0.35rem;
+}
+
+.user-selection .selectable-user:hover {
+  background-color: #40cf4e;
+}
+
+.user-selection .selectable-user:hover .user-initial {
+  background-color: #222;
+}
+
+.user-selection .selectable-user .user-initial {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 6rem;
+  font-weight: 700;
+  padding: 1rem;
+  transition: background-color .2s;
+  background-color: #6e6e6e;
+}
+
+.user-selection .selectable-user .user-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
 }
 
 .scrollspy {
