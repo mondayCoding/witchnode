@@ -14,140 +14,134 @@ import SelectUserMenu from './selectUserMenu';
 import InputPlain from '../../components/input_plain';
 import Button from '../../components/button';
 
-//interfaces
 import { IMessageLine } from '../../interfaces';
 
 interface IStatusList {
-    active: boolean;
-    username: string;
- }
+	active: boolean;
+	name: string;
+}
 
 interface IState {
-   messageHistory:IMessageLine[];
-   message:string;
-   user:string;
-   statusList: IStatusList[];
+	messageHistory: IMessageLine[];
+	message: string;
+	localUser: string;
+	statusList: IStatusList[];
 }
 
 //class
 export default class ChatWindow extends React.Component {
 
-    public socket: SocketIOClient.Socket;
-    public state: IState = {
-        messageHistory: [],
-        message: "",
-        user: "",
-        statusList: [
-            {username:"Mario", active:false},
-            {username:"Peach", active:false},
-            {username:"Peasant", active:false},
-            {username:"Admin", active:false}
-        ]
-    };
+	public socket: SocketIOClient.Socket;
+	public state: IState = {
+		messageHistory: [],
+		message: "",
+		localUser: "",
+		statusList: []
+	};
 
-    public componentDidMount() {
+	public componentDidMount() {
 
-        API.getChatHistory(
-            (data:IMessageLine[]) => this.setState({ messageHistory:data })
-        );
-        // API.getAvaibleUsers(
-        //     (data:IMessageLine[]) => this.setState({ statusList:data })
-        // );       
-    }
+		API.getChatHistory(
+			(data: IMessageLine[]) => this.setState({ messageHistory: data })
+		);
 
-    public componentWillUnmount() {
-        if (this.socket) {
-            this.socket.emit("end");
-        }
-    }
+		//make socket connection and listen for messages
+		this.socket = io.connect("http://localhost:4000");
 
-    public connectToChatAs(connectAsUser:string) {
+		this.socket.on("connect", (response: any) => {
+			ANNO.announce(`IO Socket connecting to server`, null, "info");
+		})
 
-        //make socket connection and listen for messages
-        this.socket = io.connect("http://localhost:4000", {query:{requestName:connectAsUser}});
+			.on("joinedRoom", (response: any) => {
+				ANNO.announce(`IO Socket connecting to server`, null, "info");
+				this.setState({ statusList: response.roomStatus });
+			})
 
-        //confirm connection
-        this.socket
-        .on("connect",      () => ANNO.announce(`IO Socket connecting to server`, null, "info"))
-        .on("success",      (response:any) => ANNO.announce(response.message))
-        .on("err",          (response:any) => ANNO.announce(response.message, null, "error"))
-        .on("disconnect",   ()=> ANNO.announce("disconnected", null, "error"))
-        .on("refresh",      (response:string) =>  {
-            ANNO.announce(`username ${response} was taken`);
-        });
+			.on("warning", (response: any) => {
+				ANNO.announce(response.message, null, "info");
+			})
 
-        //when recieving new message
-        this.socket.on("newMessages", (recivedMessage: IMessageLine) => {
-            let messages = this.state.messageHistory;
-            messages.push(recivedMessage);
+			.on("usernameGranted", (response: any) => {
+				this.setState({localUser:response.username});
+			})
 
-            this.setState({
-                messageHistory: messages
-            });
-        });
+			.on("roomRefresh", (response: any) => {
+				ANNO.announce(response.message, null, "info");
+				this.setState({ statusList: response.roomStatus });
+			})
 
-        document.getElementById("connectBtnID").remove();
-    }
+			.on("roomIsFull", (response: any) => {
+				ANNO.announce(response.message, null, "error");
+			})
 
-    public onKeyUphandler(event: any) {
-        if (event.key === "Enter") {
+			.on("newMessages", (recivedMessage: IMessageLine) => {
+				let messages = this.state.messageHistory;
+				messages.push(recivedMessage);
+				this.setState({ messageHistory: messages });
+			});
+	}
 
-            //send socket message;
-            this.socket.emit("chat", {
-                message: this.state.message, 
-                user: this.state.user || "borken"
-            });
-        }
-    }
+	public componentWillUnmount() {
+		if (this.socket) {
+			this.socket.emit("leaveRoom");
+		}
+	}
 
-    public onChangeHandler(event: any) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
+	public connectToChatAs(username: string) {
+		this.socket.emit(
+			"allowChatAccessAs", {requestToUseName: username}
+		);
+	}
 
-   public render(){
-      let placeholder = "chat...";
-      const {message, user, statusList} = this.state;
-      let onKeyUp = (event:any) => this.onKeyUphandler(event);
-      let onChange = (event:any)=> this.onChangeHandler(event);
+	public onKeyUphandler(event: any) {
+		if (event.key === "Enter") {
 
-      return (
-         <article className="chat">
+			//send socket message;
+			this.socket.emit("chat", {
+				message: this.state.message,
+			});
+		}
+	}
 
-             <section className="chatwindow" id="chatwindow">
-    
-                <div className="chatlog" id="chatlog">
-                    {this.state.messageHistory.map((item:IMessageLine, index) => 
-                    <ChatLine key={index} message={item} />)}
-                </div>
-    
-                <InputPlain 
-                    value={user} 
-                    name="user" 
-                    placeholder="choose username" 
-                    onChange={onChange} 
-                />
-                <InputPlain 
-                    value={message} 
-                    name="message" 
-                    onKeyUp={onKeyUp} 
-                    onChange={onChange} 
-                    placeholder={placeholder} 
-                />
-            </section>
+	public onChangeHandler(event: any) {
+		this.setState({
+			[event.target.name]: event.target.value
+		});
+	}
 
-            {/* <section className="choose-username">
-                <Button id="connectBtnID" buttonText="Mario" onClick={() => this.connectToChatAs("Mario")} />
-                <Button id="connectBtnID" buttonText="Peasant" onClick={() => this.connectToChatAs("Peasant")} />
-                <Button id="connectBtnID" buttonText="Peach" onClick={() => this.connectToChatAs("Peach")} />
-                <Button id="connectBtnID" buttonText="Admin" onClick={() => this.connectToChatAs("Admin")} />
-            </section>   */}
+	public render() {
+		let placeholder = "chat...";
+		const { message, statusList, localUser } = this.state;
+		let onKeyUp = (event: any) => this.onKeyUphandler(event);
+		let onChange = (event: any) => this.onChangeHandler(event);
 
-            <SelectUserMenu onClick={(data:string) => this.connectToChatAs(data)} statusList={statusList} />
+		return (
+			<article className="chat">
 
-         </article>
-      );
-   }
+				<section className="chatwindow" id="chatwindow">
+
+					<div className="chatlog" id="chatlog">
+						{this.state.messageHistory.map((item: IMessageLine, index) =>
+							<ChatLine key={index} message={item} />)}
+					</div>
+
+					<InputPlain
+						value={message}
+						name="message"
+						onKeyUp={onKeyUp}
+						onChange={onChange}
+						placeholder={placeholder}
+					/>
+				</section>
+
+				<SelectUserMenu 
+					onClick={(data: string) => this.connectToChatAs(data)} 
+					statusList={statusList}
+					localUser={localUser} 
+				/>
+
+			</article>
+		);
+	}
 
 }

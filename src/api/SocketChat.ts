@@ -18,14 +18,6 @@ export default class SocketChatApi {
       );
   }
 
-  public static getAvaibleUsers = (callback:any) => {
-    axios.get("api/chat/avaibility")
-      .then(
-        (response) => callback(response.data) )
-      .catch(
-        (error:AxiosError) => LOGGING.LogErrorResponse(error) 
-      );
-  }
 }
   
 

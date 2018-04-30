@@ -10,12 +10,16 @@ export default class Main extends React.Component {
    public theme = true;
 
    public setTheme() {
+
+      let link = document.getElementById("stylelink") as HTMLLinkElement;
+
       if (this.theme) {
-         document.getElementById("stylelink").href="/stylesheets/style_light.css";
+         
+         link.href="/stylesheets/style_light.min.css";
          this.theme = !this.theme;                  
       } 
       else {
-         document.getElementById("stylelink").href="/stylesheets/style.css"; 
+         link.href="/stylesheets/style.min.css"; 
          this.theme = !this.theme;
       }
    }

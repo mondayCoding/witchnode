@@ -2,10 +2,21 @@
 import * as React from 'react';
 
 const User = (props:any) => {
-    const { name, onClick } = props;
+    const { name, active, onClick, localUser} = props;
+    let userClass = "selectable-user takeable";
+
+    if (active) 
+    {
+        userClass = "selectable-user taken";
+
+        if (name === localUser) {userClass = "selectable-user owned";}
+    }
+    else {
+        userClass = "selectable-user takeable";
+    }
     
     return (
-        <div className="selectable-user" onClick={() => onClick(name)} >
+        <div className={userClass} onClick={() => onClick(name)} >
             <div className="user-initial">{name.charAt(0)}</div>
             <div className="user-name">{name}</div>
         </div>
@@ -14,31 +25,36 @@ const User = (props:any) => {
 
 interface IStatusList {
     active: boolean;
-    username: string;
+    name: string;
 }
 
 interface IProps {
     statusList: IStatusList[];
+    localUser:string;
     onClick(params:string):void;
  }
 
 export default class SelectUserMenu extends React.Component<IProps> {
 
     public render(){
-        const {onClick, statusList} = this.props;
+        const {onClick, statusList, localUser} = this.props;
 
         return (
             <article className="user-selection">
-            { 
-                statusList.map((user) =>
-                {
-                    return (!user.active) && <User name={user.username} onClick={onClick} />;
-                })
-            }
-                {/* <User name="Mario" initial="M" onClick={onClick} />
-                <User name="Peasant" initial="P" onClick={onClick} />
-                <User name="Peach" initial="P" onClick={onClick} />
-                <User name="Admin" initial="A" onClick={onClick} /> */}
+                { 
+                    statusList.map((user, index:number) =>
+                    {
+                        return (
+                            <User 
+                                name={user.name} 
+                                key={index} 
+                                active={user.active} 
+                                localUser={localUser} 
+                                onClick={onClick} 
+                            />
+                        );
+                    })
+                }
             </article>
         );
     }

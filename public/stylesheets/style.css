@@ -488,14 +488,7 @@ footer a, footer a:link {
   transition: background-color .2s;
   box-shadow: 0 0 0.4rem rgba(20, 20, 20, 0.55);
   border-radius: 0.35rem;
-}
-
-.user-selection .selectable-user:hover {
-  background-color: #40cf4e;
-}
-
-.user-selection .selectable-user:hover .user-initial {
-  background-color: #222;
+  cursor: pointer;
 }
 
 .user-selection .selectable-user .user-initial {
@@ -516,6 +509,35 @@ footer a, footer a:link {
   justify-content: center;
   align-items: center;
   padding: 1rem;
+}
+
+.user-selection .selectable-user.takeable:hover {
+  background-color: #40cf4e;
+}
+
+.user-selection .selectable-user.takeable:hover .user-initial {
+  background-color: #222;
+}
+
+.user-selection .selectable-user.takeable .user-initial {
+  border-bottom: 0.2rem solid #40cf4e;
+}
+
+.user-selection .selectable-user.taken {
+  opacity: .25;
+  cursor: default;
+}
+
+.user-selection .selectable-user.taken .user-initial {
+  border-bottom: 0.2rem solid #db6154;
+}
+
+.user-selection .selectable-user.owned {
+  border: 0.15rem solid #40cf4e;
+}
+
+.user-selection .selectable-user.owned .user-initial {
+  background-color: #323232;
 }
 
 .scrollspy {

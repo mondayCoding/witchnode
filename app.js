@@ -55,85 +55,89 @@ let userList = [
   { name: "Peasant",  type: 2,   active: false},
   { name: "Mario",    type: 3,   active: false},
   { name: "Peach",   type: 4,   active: false}
-]
+];
+
+function logMessage(name, message) {
+	console.log(chalk.green("Server Reveived new message:"));
+	console.log(chalk.yellow(`Message contents : ${message}`));
+	console.log(chalk.yellow(`From user : ${name}`));
+}
 
 var fakeserver = app.listen(4000, function () {
 	console.log("listening on port 4000 (fakeserver)");
 });
 
-//setup websockets
+//setup server
 var io = socket(fakeserver);
-
-//options
 var concurrentUsersLimit = 3;
+
 
 //new socket connection
 io.on("connection", (socket) => {
 
-	const requestName = socket.handshake.query.requestName
-
-	//log current session and requested username from connection
-	console.log(chalk.green(requestName + " is connectiong"));
-	console.log(chalk.green(`Users in session [${io.engine.clientsCount}]`));
-
-	//get index and availability for username
-	const index = userList.findIndex( (x) => x.name === requestName );
-	const user  = userList[index];
-	const userIsAvailable = (user.active) ? false : true;
+	// allow connection if room has space
 	const chatroomHasSpace = io.engine.clientsCount <= concurrentUsersLimit;
 
-
-	//reject connection if ursername is not free or there is no space in chatroom	
-	if (!userIsAvailable || !chatroomHasSpace) 
+	if (!chatroomHasSpace) 
 	{
-		socket.emit('err', { message: 'That user is already connected or room limit has been met' });
+		socket.emit('roomIsFull', { message: 'We are very sorry, but room limit has been met' });
 		socket.disconnect();
 		return
 	} 
-	else //had space connect
+	else 
 	{
-		//emit success message
-		socket.emit('success', { message: `Connected as ${requestName}` });
-
-		//mark username as taken
-		const userIndex = userList.findIndex( (x) => x.name === requestName );
-		user.active = true;
-		
-		//associate username with socket
-		socket.takenUserName = requestName;
-		console.log(chalk.green(`new socket connected: ${socket.takenUserName}`));
-
-		io.sockets.emit("refresh", requestName);
+		socket.emit('joinedRoom', { message: 'Welcome to coven iniate,', roomStatus:userList });
 	}
-	
-	
-	//listen for new messages
-	socket.on("chat", (data) => 
+
+	//user requesting to join chat
+	socket.on("allowChatAccessAs", (data) => 
 	{
-		console.log(chalk.green("Server Reveived new message:"));
-		console.log(chalk.yellow(`Message contents : ${data.message}`));
-		console.log(chalk.yellow(`From user : ${data.user}`));
-		let add = { user: data.user, content: data.message, timestamp: new Date(), userType: 2 };
-
-		io.sockets.emit("newMessages", add);
-	});
-
-	//listen for termination request
-	socket.on("end", () => 
-	{
-		console.log(chalk.red(`connection id:${socket.id} asked to terminate connection`));
-		socket.disconnect(0);
-	});
-
-
-
-	socket.on('disconnect', () => {
-		socket.emit('disconnected');
-		user.active = false;
-		user.active = false;
-		console.log(userList);
+		const requestName = data.requestToUseName
+		const index = userList.findIndex( (x) => x.name === requestName );
+		const user  = userList[index];
+		const userIsAvailable = (user.active) ? false : true;
+		const previousTakenUsername = (socket.takenUserName) ? true : false;
 		
-  });
+		//allow access if socket doesn't already have username and username is available
+		if (!previousTakenUsername && userIsAvailable)
+		{			
+			user.active = true;	//username is now active	
+			socket.takenUserName = requestName; //associate username with socket
+			
+			//update room status
+			socket.emit("usernameGranted", {username: requestName});
+			io.sockets.emit("roomRefresh", { message: `${requestName} connected`, roomStatus:userList });
+
+			//allow chatting 
+			socket.on("chat", (data) => {
+				logMessage(user.name, user.message);
+				const newchatMessage = { 
+					user: user.name, 
+					content: data.message, 
+					timestamp: new Date(), 
+					userType: user.type 
+				};
+				io.sockets.emit("newMessages", newchatMessage);
+			});
+
+			socket.on("leaveRoom", () => {				
+				socket.disconnect(0);
+			});
+
+			socket.on('disconnect', () => {	
+				user.active = false;													
+				io.sockets.emit('roomRefresh', {
+					message:`${socket.takenUserName} left room`,
+					roomStatus:userList
+				});
+			});
+		}
+		//username was taken, reject request
+		else 
+		{
+			socket.emit('warning', { message: 'You already have a username or that username is taken' });
+		}
+	});
 
 });
 

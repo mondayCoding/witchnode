@@ -578,14 +578,7 @@ footer {
 		transition: background-color .2s;
 		box-shadow: $globalShadow;
 		border-radius: $globalRadius;
-
-		&:hover {
-			background-color: $themeColor;
-
-			.user-initial {
-				background-color: $grayBlack;
-			}
-		}
+		cursor: pointer;
 
 		.user-initial {
 			@include flex-center;
@@ -600,6 +593,37 @@ footer {
 			padding: 1rem;
 		}
 
+		&.takeable {
+
+			&:hover {
+				background-color: $themeColor;
+
+				.user-initial {
+					background-color: $grayBlack;				
+				}
+			}
+
+			.user-initial {
+				border-bottom: .2rem solid $themeColor;
+			}
+		}
+
+		&.taken {
+			opacity: .25;
+			cursor: default;
+
+			.user-initial {
+				border-bottom: .2rem solid $errorColor;
+			}
+		}
+
+		&.owned {
+			border: .15rem solid $themeColor;
+
+			.user-initial {
+				background-color: $grayDark;
+			}			
+		}
 	}
 }
 
