@@ -269,7 +269,8 @@ select.disabled {
 //****************************LAYOUT****************************************
 
 .body-layout {
-   min-height: 100vh;
+	min-height: 100vh;
+	height: auto;
    display: flex;
    flex-direction: column;
 }
@@ -310,11 +311,13 @@ footer.footer {
 
 nav.navigation {
 
-   ul {
+   .navi-list {
       width: 100%;
       list-style: none;
       display: flex;
-      flex-direction: column;
+		flex-direction: column;
+		position: sticky;
+		top:0;
 
       .navi-item {
          text-align: right;
@@ -368,7 +371,7 @@ nav.navigation {
 	nav.navigation {
 		flex: 0 0 5rem;
 
-		ul .navi-item a {
+		.navi-list .navi-item a {
 			padding: 1rem .7rem ;
 			text-align: center;
 			border: .15rem solid transparent;
@@ -403,6 +406,29 @@ footer {
 }
 
 //******************************** DASHBOARD **************************************
+
+.server-statistics {
+	@include flex-row;
+
+	.statistic {
+		@include flex-center;
+		flex: 1 1 auto;
+		padding: 1rem;
+		margin: .5rem;
+		min-height: 10rem;
+		border: .1rem solid $grayBlack;
+		background-color: $grayDark;
+		text-align: center;
+
+		.phrase {
+			font-size: 1.2rem;
+		}
+		.counter {
+			font-weight: 900;
+			color: $themeColorAlt;
+		}
+	}
+}
 
 .dashboard {
 	width:100%;
@@ -661,7 +687,7 @@ footer {
    }
 
    .scrollContent {
-      flex: 1 1 auto;
+      flex: 1 1 200px;
 
    }
 }

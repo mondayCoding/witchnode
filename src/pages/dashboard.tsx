@@ -2,15 +2,39 @@
 //libs
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 //components
 import Input from '../components/input';
 
 
 export default class Dashboard extends React.Component {
+
+    public state = {
+        startCount: ""
+    };
+
+    public componentDidMount(){
+        axios.get("/api/serverstatistics")
+        .then((response:any) => {
+            const logs = response.data.serverStartLogs;
+            const count = response.data.serverStartCount;            
+            console.log(logs);
+            this.setState({startCount:count});
+        });
+    }
+
     public render() {
         return (
             <div className="page">
+
+                {/* <section className="server-statistics">
+                    <div className="statistic">
+                        <span className="phrase">
+                            Server has been started <span className="counter">{this.state.startCount}</span> times
+                        </span>
+                    </div>
+                </section> */}
 
                 <section className="dashboard">
 

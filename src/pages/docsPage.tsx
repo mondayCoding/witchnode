@@ -205,7 +205,7 @@ export default class DocsPage extends React.Component {
 
             <p>template content for demonstrating scrollspy functionality</p>
 
-            <p className="timesince"><h3>{this.timeStampSince()}</h3></p>
+            <h3 className="timesince">{this.timeStampSince()}</h3>
 
             <SearchInput id="filterField" label="Seach for..."/>
 

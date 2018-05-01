@@ -14,6 +14,7 @@ interface Istates {
    lang: "fi" | "en";
 }
 
+
 export default class WitchPage extends React.Component<any, Istates> {
     constructor(props:any){
         super(props);

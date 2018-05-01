@@ -1,3 +1,5 @@
+
+//modules
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,6 +9,7 @@ var bodyParser = require('body-parser');
 var socket = require('socket.io');
 var chalk = require('chalk');
 
+//routes
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -46,7 +49,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-///////////////////////////////////////////////////////////////////////////////////////TESTING
+
+/////////////////////////////////////////////// SECKET.IO ////////////////////////////////////////TESTING
 
 //socket USERLIST 
 
