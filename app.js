@@ -73,7 +73,7 @@ var fakeserver = app.listen(4000, function () {
 
 //setup server
 var io = socket(fakeserver);
-var concurrentUsersLimit = 3;
+var concurrentUsersLimit = 5;
 
 
 //new socket connection

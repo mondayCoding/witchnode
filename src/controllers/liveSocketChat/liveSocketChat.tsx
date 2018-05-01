@@ -48,37 +48,37 @@ export default class ChatWindow extends React.Component {
 		//make socket connection and listen for messages
 		this.socket = io.connect("http://localhost:4000");
 
-		this.socket.on("connect", (response: any) => {
-			ANNO.announce(`IO Socket connecting to server`, null, "info");
+		this.socket.on("connect", () => {
+			console.log("socket reached server");
 		})
 
-			.on("joinedRoom", (response: any) => {
-				ANNO.announce(`IO Socket connecting to server`, null, "info");
-				this.setState({ statusList: response.roomStatus });
-			})
+		.on("joinedRoom", (response: any) => {
+			ANNO.announce(response.message, null, "info");
+			this.setState({ statusList: response.roomStatus });
+		})
 
-			.on("warning", (response: any) => {
-				ANNO.announce(response.message, null, "info");
-			})
+		.on("warning", (response: any) => {
+			ANNO.announce(response.message, null, "info");
+		})
 
-			.on("usernameGranted", (response: any) => {
-				this.setState({localUser:response.username});
-			})
+		.on("usernameGranted", (response: any) => {
+			this.setState({localUser:response.username});
+		})
 
-			.on("roomRefresh", (response: any) => {
-				ANNO.announce(response.message, null, "info");
-				this.setState({ statusList: response.roomStatus });
-			})
+		.on("roomRefresh", (response: any) => {
+			ANNO.announce(response.message, null, "info");
+			this.setState({ statusList: response.roomStatus });
+		})
 
-			.on("roomIsFull", (response: any) => {
-				ANNO.announce(response.message, null, "error");
-			})
+		.on("roomIsFull", (response: any) => {
+			ANNO.announce(response.message, null, "error");
+		})
 
-			.on("newMessages", (recivedMessage: IMessageLine) => {
-				let messages = this.state.messageHistory;
-				messages.push(recivedMessage);
-				this.setState({ messageHistory: messages });
-			});
+		.on("newMessages", (recivedMessage: IMessageLine) => {
+			let messages = this.state.messageHistory;
+			messages.push(recivedMessage);
+			this.setState({ messageHistory: messages });
+		});
 	}
 
 	public componentWillUnmount() {

@@ -11533,11 +11533,11 @@ var ChatWindow = (function (_super) {
         var _this = this;
         SocketChat_1.default.getChatHistory(function (data) { return _this.setState({ messageHistory: data }); });
         this.socket = io.connect("http://localhost:4000");
-        this.socket.on("connect", function (response) {
-            annoModule_1.default.announce("IO Socket connecting to server", null, "info");
+        this.socket.on("connect", function () {
+            console.log("socket reached server");
         })
             .on("joinedRoom", function (response) {
-            annoModule_1.default.announce("IO Socket connecting to server", null, "info");
+            annoModule_1.default.announce(response.message, null, "info");
             _this.setState({ statusList: response.roomStatus });
         })
             .on("warning", function (response) {
