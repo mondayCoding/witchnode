@@ -13,3 +13,11 @@
 	50% 	{ background-position: 100% 50%; }
 	100% 	{ background-position: 0% 50%; }
 }
+
+@keyframes flash {
+	0%    {  border-color: none;       }
+	49%   {  border-color: #EE7752;  }
+	50%   {  border-color: #E73C7E;  }
+}
+
+

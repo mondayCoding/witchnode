@@ -1,23 +1,13 @@
 @charset "UTF-8";
 
-//fonts
-$bodyfont: 'fira-sans', sans-serif;
-$headingfont: 'fira-sans', sans-serif;
 
-//information colors
-$errorColor:#db6154 !default;
-$infoColor: #accff0 !default;
-$warnColor: #e7e972 !default;
+//************************* Default colortheme *******************************************
 
 //accents
 $main: 	 rgb(64, 207, 78) !default;
 $alt: 	 #c4f56b !default;
 $tertiary:rgb(215, 250, 210) !default;
 $link:	 #23d5ab;
-
-//basic
-$white: 	#fff !default;
-$black: 	rgb(0,0,0) !default;
 
 //basics grays
 $grayBlack: 	#222 !default; 						//extreme dark gray
@@ -26,6 +16,17 @@ $grayDarkAlt: 	rgba(58, 58, 58, 1) !default; 	//navi bg
 $grayMedium:	rgba(110, 110, 110, 1) !default;	//disable color
 $grayLight:		rgba(220, 220, 220, 1) !default;	//general text color
 
+//basic
+$white: 	#fff !default;
+$black: 	rgb(0,0,0) !default;
+
+
+//************************* Variables *******************************************
+
+//fonts
+$bodyfont: 'fira-sans', sans-serif;
+$headingfont: 'fira-sans', sans-serif;
+
 //globals
 $globalRadius: 				.35rem !default;
 $globalShadow: 				0 0 .4rem transparentize($black, .5) !default;
@@ -33,46 +34,53 @@ $globalShadowInset: 			0 0 .4rem transparentize($black, .5) inset !default;
 $globalContentPadding: 		1rem !default;
 $globalTransitionColors: 	color .8s, background-color .8s;
 
-//theming
+//information colors
+$errorColor:#db6154 !default;
+$infoColor: #accff0 !default;
+$warnColor: #e7e972 !default;
+
+
+//************************* theme mapping (alternatives) *************************************
+
 $themes: (
-   dark: (
-      main: 			rgb(64, 207, 78),
-      alt: 				#c4f56b,
-		tertiary:		rgb(215, 250, 210),
-		link:				#23d5ab,
+   red: (
+      main: 			rgb(228, 105, 100),
+      alt: 				#e0863b,
+		tertiary:		rgb(236, 235, 154),
+		link:				#f35f4b,
 		grayBlack:		#222,
-		grayDark	:		rgba(50, 50, 50, 1),
-		grayDarkAlt:	rgba(58, 58, 58, 1),
+		grayDark	:		rgb(50, 50, 50),
+		grayDarkAlt:	rgb(58, 58, 58),
 		grayMedium:		rgba(110, 110, 110, 1),
 		grayLight:		rgba(220, 220, 220, 1),
 		white:			#fff,
-		black:			#000		
+		black:			rgb(0,0,0)		
    ),
    light: (
-      main: 			rgb(70, 132, 226),
-      alt: 				#7b6ec5,
-		tertiary:		rgb(206, 211, 236),
-		link:				#23d5ab,		
+      main: 			rgb(56, 216, 96),
+      alt: 				#19b4a0,
+		tertiary:		rgb(206, 234, 236),
+		link:				#23d5a0,		
 		grayBlack:		#222,
 		grayDark	:		rgb(224, 224, 224),
 		grayDarkAlt:	rgb(255, 255, 255),
 		grayMedium:		rgba(110, 110, 110, 1),
 		grayLight:		rgb(39, 39, 39),
 		white:			#fff,
-		black:			#000,		
+		black:			rgb(0,0,0),		
 	),
 	violet: (
       main: 			rgb(221, 36, 206),
       alt: 				#f06bf5,
-		tertiary:		rgb(202, 184, 250),
+		tertiary:		rgb(235, 231, 247),
 		link:				#a76ff0,
 		grayBlack:		#222,
-		grayDark	:		rgba(50, 50, 50, 1),
-		grayDarkAlt:	rgba(58, 58, 58, 1),
+		grayDark	:		rgb(50, 50, 50),
+		grayDarkAlt:	rgb(58, 58, 58),
 		grayMedium:		rgba(110, 110, 110, 1),
 		grayLight:		rgba(220, 220, 220, 1),
 		white:			#fff,
-		black:			#000	
+		black:			rgb(0,0,0)		
 	)
 )!default;
  
@@ -421,6 +429,9 @@ select.disabled {
   animation: rainbow 3s infinite alternate;
 }
 
+.flash-once {
+	animation: flash 3s once;
+}
 
 //****************************LAYOUT****************************************
 
@@ -1034,7 +1045,6 @@ ol.wizard-path {
 		align-items: center;
 		
 		.bullet {
-			border: $line-width/1.3 solid $main;
 			text-align: center;
 			width: $bullet-size;
 			height: $bullet-size;
@@ -1043,7 +1053,9 @@ ol.wizard-path {
 			z-index: 1;
 			transition: border-color .5s;
 			background-color: $main;
-			@include themebackground(main);			
+			border: $line-width/1.3 solid $main;
+			@include themebackground(main);	
+			@include themeborder(main);					
 		}
 		& + li:after {
 			content: "";

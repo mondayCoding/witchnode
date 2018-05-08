@@ -4991,6 +4991,13 @@ var Layout = (function (_super) {
     function Layout() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Layout.prototype.componentDidMount = function () {
+        document.addEventListener("keyup", function (event) {
+            if (event.altKey && event.keyCode === 75) {
+                console.log("alt + k pressed");
+            }
+        });
+    };
     Layout.prototype.render = function () {
         return (React.createElement(react_router_dom_1.BrowserRouter, null,
             React.createElement("div", { className: "body-layout" },
@@ -11356,19 +11363,33 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var input_1 = __webpack_require__(11);
 var checkbox_1 = __webpack_require__(127);
 var radiobutton_1 = __webpack_require__(128);
 var checkbox_slider_1 = __webpack_require__(383);
+var themes = [
+    { value: "default", label: "Default UI theme (dark)" },
+    { value: "violet", label: "Violet variant" },
+    { value: "red", label: "Red variant" },
+    { value: "light", label: "Light theme" },
+];
 var WitchPage = (function (_super) {
     __extends(WitchPage, _super);
     function WitchPage(props) {
         var _this = _super.call(this, props) || this;
+        _this.handleThemeChange = function (event) {
+            var selectTheme = event.target.value;
+            console.log(selectTheme);
+            document.getElementById("body").className = selectTheme;
+            _this.setState({
+                selectedTheme: selectTheme
+            });
+        };
         _this.state = {
             checkboxTwo: false,
             checkboxOne: true,
             checkboxThree: true,
-            optionFour: true
+            optionFour: true,
+            selectedTheme: "default"
         };
         return _this;
     }
@@ -11385,11 +11406,12 @@ var WitchPage = (function (_super) {
             React.createElement("p", null, "it has very litle in terms of content"),
             React.createElement("div", { className: "config-wrap" },
                 React.createElement("div", { className: "content-centered-md" },
-                    React.createElement(input_1.default, { id: "value1", label: "font-size" }),
-                    React.createElement(input_1.default, { id: "value2", label: "color-theme" }),
-                    React.createElement(input_1.default, { id: "value3", label: "use annotation" }),
-                    React.createElement(input_1.default, { id: "value4", label: "font-size" }),
-                    React.createElement(input_1.default, { id: "value5", label: "font-size" }),
+                    React.createElement("h3", null, "select interface theme"),
+                    React.createElement("div", { className: "spacing" }),
+                    themes.map(function (theme, index) {
+                        return React.createElement(radiobutton_1.default, { key: index, id: "themeselect" + index, label: theme.label, value: theme.value, name: "selectedTheme", onChange: _this.handleThemeChange });
+                    }),
+                    React.createElement("div", { className: "spacing" }),
                     React.createElement("div", { className: "line-thin" }),
                     React.createElement("kbd", { className: "shortcut" }, "Ctrl + D"),
                     React.createElement("kbd", { className: "shortcut" }, "Ctrl + S"),
