@@ -40,7 +40,7 @@ export default class Line extends React.Component<IProps> {
                 </div>
 
                 <div className="line-message">
-                    <span>{message.content}</span>
+                    {message.content}
                 </div>
 
                 <div className="line-timestamp">{stamp}</div>

@@ -41,10 +41,6 @@ export default class ChatWindow extends React.Component {
 
 	public componentDidMount() {
 
-		API.getChatHistory(
-			(data: IMessageLine[]) => this.setState({ messageHistory: data })
-		);
-
 		//make socket connection and listen for messages
 		this.socket = io.connect("http://localhost:4000");
 
@@ -53,8 +49,8 @@ export default class ChatWindow extends React.Component {
 		})
 
 		.on("joinedRoom", (response: any) => {
-			ANNO.announce(response.message, null, "info");
-			this.setState({ statusList: response.roomStatus });
+			ANNO.announce(response.message, null, "info");			
+			this.setState({ statusList: response.roomStatus, messageHistory: response.messageHistory });
 		})
 
 		.on("warning", (response: any) => {

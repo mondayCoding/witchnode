@@ -1,17 +1,21 @@
 
 //modules
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var socket = require('socket.io');
-var chalk = require('chalk');
+var express 		= require('express');
+var path 			= require('path');
+var favicon 		= require('serve-favicon');
+var logger 			= require('morgan');
+var cookieParser 	= require('cookie-parser');
+var bodyParser 	= require('body-parser');
+var socket 			= require('socket.io');
+var chalk 			= require('chalk');
 
 //routes
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index 			= require('./routes/index');
+var statistics 	= require('./routes/statistics-API');
+var todosimple 	= require('./routes/todo-simple-API');
+var todosoon 		= require('./routes/todo-soon-API');
+var userform 		= require('./routes/userform-API');
+var users 			= require('./routes/users');
 
 var app = express();
 
@@ -28,8 +32,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routing
+app.use('/', statistics);
+app.use('/', userform);
+app.use('/', todosimple);
+app.use('/', todosoon);
 app.use('/', index);
-app.use('/users', users);
+//app.use('/', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -61,6 +69,16 @@ let userList = [
   { name: "Peach",   type: 4,   active: false}
 ];
 
+var messageHistory = [
+   {user:"Admin", content:"Adding new features: xbox integration inc", timestamp:new Date(), userType: 1 },
+   {user:"user", content:"timestamps are broken.....", timestamp:new Date(), userType: 2 },
+   {user:"Admin", content:"hmn.... it's a feature", timestamp:new Date(), userType: 1 },
+   {user:"user", content:"really... just like content leaking outside page?", timestamp:new Date(), userType: 2 },
+   {user:"Admin", content:"yes", timestamp:new Date(), userType: 1 },
+   {user:"user", content:"and master passwords being leaked via script?", timestamp:new Date(), userType: 2 },
+   {user:"system", content:"user has been banned", timestamp:new Date(), userType: 0 }
+];
+
 function logMessage(name, message) {
 	console.log(chalk.green("Server Reveived new message:"));
 	console.log(chalk.yellow(`Message contents : ${message}`));
@@ -90,7 +108,8 @@ io.on("connection", (socket) => {
 	} 
 	else 
 	{
-		socket.emit('joinedRoom', { message: 'Welcome to coven iniate,', roomStatus:userList });
+
+		socket.emit('joinedRoom', { message: 'Welcome to coven iniate,', roomStatus:userList, messageHistory });
 	}
 
 	//user requesting to join chat

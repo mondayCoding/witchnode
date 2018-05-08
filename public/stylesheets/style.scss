@@ -5,61 +5,185 @@ $bodyfont: 'fira-sans', sans-serif;
 $headingfont: 'fira-sans', sans-serif;
 
 //information colors
-$errorColor: #db6154 !default;
+$errorColor:#db6154 !default;
 $infoColor: #accff0 !default;
 $warnColor: #e7e972 !default;
 
-//generic colors
-$white: #fff !default;
-$black: rgb(0,0,0) !default;
-
 //accents
-$themeColor: rgb(64, 207, 78) !default;
-$themeColorAlt: #c4f56b !default;
-$themeColorTertiary: rgb(215, 250, 210) !default;
+$main: 	 rgb(64, 207, 78) !default;
+$alt: 	 #c4f56b !default;
+$tertiary:rgb(215, 250, 210) !default;
+$link:	 #23d5ab;
 
-//grays
-$grayBlack: #222 !default; 								//extreme dark gray
-$grayDark: rgba(50, 50, 50, 1) !default; 				//body bg
-$grayDarkAlt: rgba(58, 58, 58, 1) !default; 			//navi bg
-$grayMediumText:rgba(110, 110, 110, 1) !default;	//disable color
-$grayLightText:rgba(220, 220, 220, 1) !default;		//general text color
+//basic
+$white: 	#fff !default;
+$black: 	rgb(0,0,0) !default;
+
+//basics grays
+$grayBlack: 	#222 !default; 						//extreme dark gray
+$grayDark: 		rgba(50, 50, 50, 1) !default; 	//body bg
+$grayDarkAlt: 	rgba(58, 58, 58, 1) !default; 	//navi bg
+$grayMedium:	rgba(110, 110, 110, 1) !default;	//disable color
+$grayLight:		rgba(220, 220, 220, 1) !default;	//general text color
 
 //globals
-$globalRadius: .35rem !default;
-$globalShadow: 0 0 .4rem rgba(20, 20, 20, .55) !default;
-$globalShadowInset: 0 0 .4rem rgba(20, 20, 20, .55) inset !default;
-$globalContentPadding: 1rem !default;
-$globalTransitionColors: color .8s, background-color .8s;
+$globalRadius: 				.35rem !default;
+$globalShadow: 				0 0 .4rem transparentize($black, .5) !default;
+$globalShadowInset: 			0 0 .4rem transparentize($black, .5) inset !default;
+$globalContentPadding: 		1rem !default;
+$globalTransitionColors: 	color .8s, background-color .8s;
 
+//theming
+$themes: (
+   dark: (
+      main: 			rgb(64, 207, 78),
+      alt: 				#c4f56b,
+		tertiary:		rgb(215, 250, 210),
+		link:				#23d5ab,
+		grayBlack:		#222,
+		grayDark	:		rgba(50, 50, 50, 1),
+		grayDarkAlt:	rgba(58, 58, 58, 1),
+		grayMedium:		rgba(110, 110, 110, 1),
+		grayLight:		rgba(220, 220, 220, 1),
+		white:			#fff,
+		black:			#000		
+   ),
+   light: (
+      main: 			rgb(70, 132, 226),
+      alt: 				#7b6ec5,
+		tertiary:		rgb(206, 211, 236),
+		link:				#23d5ab,		
+		grayBlack:		#222,
+		grayDark	:		rgb(224, 224, 224),
+		grayDarkAlt:	rgb(255, 255, 255),
+		grayMedium:		rgba(110, 110, 110, 1),
+		grayLight:		rgb(39, 39, 39),
+		white:			#fff,
+		black:			#000,		
+	),
+	violet: (
+      main: 			rgb(221, 36, 206),
+      alt: 				#f06bf5,
+		tertiary:		rgb(202, 184, 250),
+		link:				#a76ff0,
+		grayBlack:		#222,
+		grayDark	:		rgba(50, 50, 50, 1),
+		grayDarkAlt:	rgba(58, 58, 58, 1),
+		grayMedium:		rgba(110, 110, 110, 1),
+		grayLight:		rgba(220, 220, 220, 1),
+		white:			#fff,
+		black:			#000	
+	)
+)!default;
+ 
+ 
+//Query breakpoints
+$breakpoints: (
+  xs: 576px,
+  sm: 768px,
+  md: 994px,
+  lg: 1140px,
+  xl: 1600px,
+  xxl: 1900px,
+);
 
 @import "_keyframes";
 
-/*****************************MIXINS****************************************/
 
-@mixin clearfix {
-	clear: both;
+/***************************** MIXINS ****************************************/
 
-	&::after {
-		content: "";
-		display: table;
-		clear: both;
+//Respond above breakpoint
+@mixin respond-above($breakpoint) {
+
+	@if map-has-key($breakpoints, $breakpoint) {
+
+		$breakpoint-value: map-get($breakpoints, $breakpoint);
+
+		@media screen and (min-width: $breakpoint-value) {
+			@content;
+		}
+	} 
+	@else {
+		@warn 'Invalid breakpoint: #{$breakpoint}.';
 	}
 }
 
-@mixin textEllipses {
-	display: block;
-	text-overflow: ellipsis;
-	overflow: hidden;
+//Respond below breakpoint
+@mixin respond-below($breakpoint) {
+
+	@if map-has-key($breakpoints, $breakpoint) {
+
+		$breakpoint-value: map-get($breakpoints, $breakpoint);
+
+		@media screen and (max-width: ($breakpoint-value - 1)) {
+			@content;
+		}
+
+	} @else {
+		@warn 'Invalid breakpoint: #{$breakpoint}.';
+	}
 }
 
-@mixin bgAndColorTransition {
-	transition: background-color .2s, color .2s, border .2s;
+//Respond between breakpoints
+@mixin respond-between($lower, $upper) {
+
+	@if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
+
+		$lower-breakpoint: map-get($breakpoints, $lower);
+		$upper-breakpoint: map-get($breakpoints, $upper);
+
+		@media screen and (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+			@content;
+		}
+
+	} 
+	@else {
+		@if (map-has-key($breakpoints, $lower) == false) {
+			@warn 'Your lower breakpoint was invalid: #{$lower}.';
+		}
+
+		@if (map-has-key($breakpoints, $upper) == false) {
+			@warn 'Your upper breakpoint was invalid: #{$upper}.';
+		}
+	}
+}
+
+@mixin themeborder($input) {
+   @include theme(border-color, $input);
+}
+@mixin themecolor($input) {
+   @include theme(color, $input);
+}
+@mixin themebackground($input) {
+   @include theme(background-color, $input);
+}
+@mixin themeoutline($input) {
+   @include theme(outline-color, $input);
+}
+
+@mixin theme($prop, $color) {
+	@each $theme, $property in $themes {
+		@if map-has-key($property, $color) {
+			.#{$theme} & {
+				#{$prop}: map-get($property, $color);
+			}
+		}
+		@else {
+			@warn 'Invalid color mapping.';
+		}
+	}
+
+}
+
+@mixin input-placeholder {
+	&.placeholder { @content; }
+	&:-moz-placeholder { @content; }
+	&::-moz-placeholder { @content; }
+	&:-ms-input-placeholder { @content; }
+	&::-webkit-input-placeholder { @content; }
 }
 
 @mixin flex-cell($grow, $shrink, $basis)  {
-	overflow: hidden;
-	text-overflow: ellipsis;
 	padding: .34rem;
 	flex: $grow $shrink $basis;
 }
@@ -72,7 +196,7 @@ $globalTransitionColors: color .8s, background-color .8s;
 @mixin flex-column {
 	display: flex;
    flex-direction: column;
-}
+} 
 
 @mixin flex-center {
 	display: flex;
@@ -81,24 +205,48 @@ $globalTransitionColors: color .8s, background-color .8s;
 	align-items: center;
 }
 
-@mixin disabled {
-	opacity: .75;
-	filter: grayscale(50%);
-	pointer-events: none;
-	cursor: not-allowed;
-}
-
 @mixin focusEffect {
 	box-shadow: 0 0 .35rem $black;
-	outline: .1rem solid $themeColor;
-
+	outline: .1rem solid $main;
+	@include themeoutline(main);	
+	
 	&:hover {
 		box-shadow: none;
 		outline: none;
 	}
 }
 
-@mixin radioCheckboxSharedProperties {
+
+//***************************** Placeholders ****************************************
+
+%bgAndColorTransition {
+	transition: background-color .2s, color .2s, border .2s;
+}
+
+%clearfix {
+	clear: both;
+	
+	&::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+%disabled {
+	opacity: .75;
+	filter: grayscale(50%);
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+%textEllipses {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+%radioCheckboxSharedProperties {
 	font-weight: 400;
 	font-size: 1rem;
 	position: relative;
@@ -108,9 +256,8 @@ $globalTransitionColors: color .8s, background-color .8s;
 	flex-direction: column;
 	justify-content: center;
 }
-          
 
-//********************UNIVERSAL SELECTORS************************************************
+//*************************** UNIVERSAL SELECTORS **************************************
  
 * {
    box-sizing: border-box;
@@ -129,7 +276,6 @@ body {
    font: 1rem $bodyfont;
    height: 100vh;
    line-height: 1.6;
-   color: $grayLightText;
 }
 
 p, span {
@@ -149,48 +295,57 @@ h1 {
 }
 
 h2 {
-   font-size: 2.2rem;
-   color: $themeColorAlt;
+	font-size: 2.2rem;
+	color: $main;	
+	@include themecolor(main);
+	
 }
 
 h3 {
-   font-size: 1.7rem;
+	font-size: 1.7rem;
 }
 
 a,
 a:link {
-   font-size: 1rem;
-   color: #23d5ab;
+	font-size: 1rem;
    font-weight: 700;
    transition: color .2s;
-   text-decoration: none;
-
+	text-decoration: none;
+   color: $link;
+	@include themecolor(link);
+	
+	
    &:hover,
    &:active {
-      color: $themeColorAlt;
-      text-decoration: none;
+		text-decoration: none;
+		color: $alt;
+		@include themecolor(alt);
+		
    }
 }
 
 label {
-  display: inline-block;
-  margin: 0;
+	display: inline-block;
+	margin: 0;
 }
 
 mark {
-   padding: 0;
-   background-color: $themeColorAlt;
+	padding: 0;
+	background-color: $alt;
+	@include themebackground(alt);
+	
 }
 
 kbd {
 	margin: 0 0 0 .5rem;
 	padding: 2px 4px;
-	font-size: 90%;
-	color: #fff;
-	background-color: #333;
-	border-radius: 3px;
-	-webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
+	font-size: .9rem;
+	border-radius: $globalRadius;
 	box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
+	color: $white;
+	background-color: $grayDarkAlt;
+	@include themecolor(white);	
+	@include themebackground(grayDarkAlt);
 }
 
 input[type="text"] {
@@ -203,10 +358,11 @@ input[type="text"] {
 button.disabled,
 input.disabled,
 select.disabled {
-   @include disabled;
+   @extend %disabled;
 }
 
 //***************************************UTILITY********************************************
+
 
 .flex-center {
   display: flex;
@@ -246,7 +402,7 @@ select.disabled {
 
 .row-spacing {
    margin-bottom: .9rem;
-   @include clearfix;
+   @extend %clearfix;
 }
 
 .shift-background {
@@ -256,7 +412,7 @@ select.disabled {
 }
 
 .gradient-background { 
-	background: linear-gradient(-45deg, $themeColor, #23d5ab, $themeColorAlt);
+	background: linear-gradient(-45deg, $main, #23d5ab, $alt);
 	background-size: 100%;
 }
 
@@ -272,7 +428,9 @@ select.disabled {
 	min-height: 100vh;
 	height: auto;
    display: flex;
-   flex-direction: column;
+	flex-direction: column;
+	color: $grayLight;
+	@include themecolor(grayLight);
 }
 
 .content-layout {
@@ -282,35 +440,38 @@ select.disabled {
 }
 
 nav.navigation {
-   height: auto;
+	height: auto;
    flex: 0 0 15rem;
-   background-color: $grayDark;
 	border-right: .05rem solid $grayBlack;
+	background-color: $grayDark;
 	transition: $globalTransitionColors;
+	@include themeborder(grayBlack);	
+	@include themebackground(grayDark);
 }
  
 main.main {
    flex: 1 1 auto;
    height: auto;
-   background-color: $grayDarkAlt;
 	padding: 1.6rem;
 	transition: $globalTransitionColors;
-	
+	background-color: $grayDarkAlt;
+	@include themebackground(grayDarkAlt);
 }
 
 footer.footer {
 	padding: .4rem;
-	background-color: $grayDarkAlt;
 	text-align: center;
 	border-top: .05rem solid $grayBlack;
 	transition: $globalTransitionColors;
-	
+	@include themeborder(grayBlack);	
+	@include themebackground(grayDarkAlt);
 }
 
 //*****************************NAVIGATION*********************************************
 
 nav.navigation {
 
+	//navigation wrapper
    .navi-list {
       width: 100%;
       list-style: none;
@@ -318,66 +479,63 @@ nav.navigation {
 		flex-direction: column;
 		position: sticky;
 		top:0;
+	}
 
-      .navi-item {
-         text-align: right;
-         display: block;
+	//single nav item (li)
+	.navi-item > a {
+		padding: .6rem;
+		font-size: 1rem;
+		font-weight: 400;
+		text-align: left;
+		border-top: .15rem solid transparent;
+		border-bottom: .15rem solid transparent;
+		white-space: nowrap;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: $grayLight;
+		@extend %bgAndColorTransition;
+		@include themecolor(grayLight);		
 
-         a {
-            padding: .6rem;
-            color: $grayLightText;
-            font-size: 1rem;
-            font-weight: 400;
-            text-align: left;
-            border-top: .15rem solid transparent;
-            border-bottom: .15rem solid transparent;
-            white-space: nowrap;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				@include bgAndColorTransition;
+		&:focus {
+			@include focusEffect;
+		}
 
-				&:focus {
-					@include focusEffect;
-				}
+		&:hover {
+			color: $main;
+			border-top-color: $main;
+			border-bottom-color: $main;
+			@include themeborder(main);
+			@include themecolor(main);						
+		}
 
-            &:hover {
-      			color: $themeColor;
-      			border-top-color: $themeColor;
-      			border-bottom-color: $themeColor;
-      		}
+		&.active {
+			color: $white;
+			background-color: $main;
+			@include themebackground(main);
+			&:hover {
+				color: $white;
+			}						
+		}
+		
+		.fa, .fas, .far {
+			flex: 0 0 4rem;
+			font-size: 1.2rem;
+			text-align: center
+		}
 
-            &.active {
-               background-color: $themeColor;
-               color: #fff;
-				}
-
-				.fa, .fas, .far {
-					flex: 0 0 4rem;
-					font-size: 1.2rem;
-					text-align: center
-				}
-
-				.pagename {
-					flex: 1 1 auto;
-				}				
-         }
-      }
-   }
-}
-
-@media screen and (max-width:1140px) {
-
-	nav.navigation {
-		flex: 0 0 5rem;
-
-		.navi-list .navi-item a {
+		.pagename {
+			flex: 1 1 auto;
+		}
+		
+		@include respond-below(lg){
 			padding: 1rem .7rem ;
 			text-align: center;
 			border: .15rem solid transparent;
 
 			&:hover {
-            border: .15rem solid $themeColor;
+				border: .15rem solid $main;
+				@include themeborder(main);				
 			}
 
 			.fa, .fas {
@@ -388,20 +546,26 @@ nav.navigation {
 			.pagename {
 				display: none;
 			}
-		}
-	} 
-}
-@media screen and (max-width:700px) {
-	nav.navigation {
+		}				
+	}
+
+	@include respond-below(lg){
+		flex: 0 0 5rem;
+	}
+	
+	
+	@include respond-below(sm){
 		flex: 0 0 2.5rem;
-	} 
+	}
 }
 
 //******************************** FOOTER *****************************************
 
 footer {
 	a, a:link {
-		color: $grayMediumText;
+		color: $grayMedium;
+		@include themecolor(grayMedium);
+		
 	}
 }
 
@@ -416,16 +580,20 @@ footer {
 		padding: 1rem;
 		margin: .5rem;
 		min-height: 10rem;
-		border: .1rem solid $grayBlack;
+		border: .1rem solid $main;
 		background-color: $grayDark;
 		text-align: center;
-
+		@include themeborder(grayBlack);
+		@include themebackground(grayDark);
+			
 		.phrase {
 			font-size: 1.2rem;
 		}
 		.counter {
 			font-weight: 900;
-			color: $themeColorAlt;
+			color: $alt;
+			@include themecolor(alt);
+			
 		}
 	}
 }
@@ -443,14 +611,19 @@ footer {
 		flex-direction: column;	
 		justify-content: center;
 		margin: .5rem;
-		background-color: $grayDark;
-		border: .05rem solid $grayBlack;
 		box-shadow: $globalShadow;
 		transition: background-color .2s;
+		border: .05rem solid $grayBlack;
+		background-color: $grayDark;
+		@include themeborder(grayBlack);
+		@include themebackground(grayDark);
+		
 
 		&:hover {
-			background-color: $themeColor;
+			background-color: $main;
 			color: $white;
+			@include themebackground(main);
+			@include themecolor(white);						
 		}
 
 		.pagesymbol {
@@ -462,8 +635,7 @@ footer {
 		.pagetitle {
 			padding: 1rem;
 			text-align: center;
-			font-weight: 400;
-		
+			font-weight: 400;		
 		}
 	}
 }
@@ -478,19 +650,22 @@ footer {
    .announcement {
       flex: 1 1 auto;
       min-height: 2rem;
-      height: auto;
-      background-color: $grayDark;
+		height: auto;
+		min-height: 6rem;
+		overflow: hidden;
       padding: .5rem;
       text-align: center;
-      border: .1rem solid $grayBlack;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: block;
-      max-height: 5rem;
+      background-color: $grayDark;
+		border: .1rem solid $grayBlack;
+		@include themebackground(graydark);
+		@include themeborder(grayBlack);
+		
+		
    }
 }
 
 //*********************************** TIMER ******************************************
+
 
 .time-wrap {
    display: flex;
@@ -506,7 +681,8 @@ footer {
       padding: 3rem;
 
       .time-content {
-         color: $themeColorAlt;
+			color: $alt;
+			@include themecolor(alt);			
 
          h3 {
             font-size: 2rem;
@@ -520,44 +696,50 @@ footer {
 
 .chatwindow {
    @include flex-column;
-   justify-content: space-between;
+	justify-content: space-between;
    min-height: 40rem;
    max-height: 50rem;
-	border: .1rem solid $grayBlack;
 	border-radius: $globalRadius;
-   padding: .5rem;
+	padding: .5rem;
+	border: .1rem solid $grayBlack;
+	@include themeborder(grayBlack);
+	
 
    //message history
    .chatlog {
       flex: 1 1 auto;
-      overflow-y: auto;
+      overflow-y: hidden;
       overflow-x: hidden;
 
       .line {
-         @include flex-row;
-         align-items: center;
+			@include flex-row;
+			align-items: center;
          padding: .3rem;
-         background-color: $grayBlack;
          border-radius: $globalRadius;
          margin-bottom: .3rem;
+         background-color: $grayBlack;
+			@include themebackground(grayBlack);
+			
 
          &:hover {
-            background-color: $grayDarkAlt;
+				background-color: $grayDarkAlt;
+				@include themebackground(grayDarkAlt);
+				
 
             .line-timestamp  {
-               color: $themeColorAlt;
+					color: $alt;
+					@include themecolor(alt);
+					
             }
          }
 
          .line-user {
             flex: 0 0 5.2rem;
             font-weight: 900;
-            color: $themeColor;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-				display: block;
+            // color: $main;
 				margin-left: .45rem;
+				@include themecolor(main);
+				
 
             .fa {
                padding-right: .25rem;
@@ -567,17 +749,13 @@ footer {
          .line-message {
             flex: 1 1 auto;
             padding-left: .5rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: block;
          }
 
          .line-timestamp {
             flex: 0 0 3rem;
-            color: $grayDarkAlt;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: block;
+				color: $grayDarkAlt;
+				@include themecolor(grayDarkAlt);
+				
          }
 
          &.user-system {
@@ -593,18 +771,21 @@ footer {
 }
 
 .user-selection {
+	flex-wrap: wrap;
 	@include flex-row;
 
 	.selectable-user {
 		@include flex-column;
 		flex: 1 1 auto;
 		margin: 1rem;
-		border: .05rem solid $grayBlack;
-		background-color: $grayDark;
 		transition: background-color .2s;
 		box-shadow: $globalShadow;
 		border-radius: $globalRadius;
 		cursor: pointer;
+		border: .05rem solid $grayBlack;
+		background-color: $grayDark;
+		@include themeborder(grayBlack);		
+		@include themebackground(grayDark);		
 
 		.user-initial {
 			@include flex-center;
@@ -612,25 +793,31 @@ footer {
 			font-weight: 700;
 			padding: 1rem;
 			transition: background-color .2s;
-			background-color: $grayMediumText;
+			background-color: $grayMedium;
+			@include themebackground(grayMedium);			
 		}
 		.user-name {
-			@include flex-center;
 			padding: 1rem;
+			@include flex-center;
 		}
 
 		&.takeable {
 
 			&:hover {
-				background-color: $themeColor;
+				background-color: $main;
+				@include themebackground(main);
+				
 
 				.user-initial {
-					background-color: $grayBlack;				
+					background-color: $grayBlack;		
+					@include themebackground(grayBlack);
+							
 				}
 			}
 
 			.user-initial {
-				border-bottom: .2rem solid $themeColor;
+				border-bottom: .2rem solid $main;
+				@include themeborder(main);				
 			}
 		}
 
@@ -644,7 +831,9 @@ footer {
 		}
 
 		&.owned {
-			border: .15rem solid $themeColor;
+			border: .15rem solid $main;
+			@include themeborder(main);
+			
 
 			.user-initial {
 				background-color: $grayDark;
@@ -661,8 +850,12 @@ footer {
    display: flex;
 
    .is-inview {
-      background-color: $themeColorAlt;
-      color: #fff;
+      background-color: $alt;
+		color: $white;
+		@include themebackground(alt);
+		@include themecolor(white);
+		;
+		
    }
 
    .scrollNav {
@@ -706,7 +899,8 @@ footer {
 	}
 
 	.toast.succes {
-		background-color: $themeColor;
+		background-color: $main;
+		@include themebackground(main);
 	}
 
 	.toast-message {
@@ -722,12 +916,12 @@ footer {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: rgba(0,0,0,.8);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	z-index: 999;
 	transition: .5 background-color;
+	background-color: rgba(0,0,0,.8);
 
 	.modal-box {
 		background-color: #fff;
@@ -743,6 +937,7 @@ footer {
 				font-size: 1.5rem;
 				margin: .8rem;
 				color: $grayDarkAlt;
+				@include themecolor(grayDarkAlt);				
 			}
 
 			.modal-content {
@@ -763,13 +958,16 @@ footer {
 	align-items: center;
 	height: 1.6rem;
 	width: auto;
-	border: .1rem solid $grayBlack !important;
-	background-color: $grayBlack;
 	transition: background-color .6s;
 	border-radius: $globalRadius;
+	border: .1rem solid $grayBlack;
+	background-color: $grayBlack;
+	@include themebackground(grayBlack);
+	@include themeborder(grayBlack);
 
 	&:hover {
-		background-color: $themeColorAlt;
+		background-color: $alt;
+		@include themebackground(alt);
 	}
 
 	&::before,
@@ -780,8 +978,9 @@ footer {
 		display: block;
 		height: .3rem;
 		width: 1.2rem;
-		background-color: $grayDarkAlt;
 		transition: all .4s ease-out;
+		background-color: $grayDarkAlt;
+		@include themebackground(grayDarkAlt);		
 	}
 
 	&::after {
@@ -790,7 +989,7 @@ footer {
 
 	&:hover::before,
 	&:hover::after {
-		background-color: #fff;
+		background-color: $white;
 		transform: rotate(0deg);
 	}
 }
@@ -835,8 +1034,7 @@ ol.wizard-path {
 		align-items: center;
 		
 		.bullet {
-			background-color: $themeColor;
-			border: $line-width/1.3 solid $themeColor;
+			border: $line-width/1.3 solid $main;
 			text-align: center;
 			width: $bullet-size;
 			height: $bullet-size;
@@ -844,34 +1042,40 @@ ol.wizard-path {
 			position: relative;
 			z-index: 1;
 			transition: border-color .5s;
+			background-color: $main;
+			@include themebackground(main);			
 		}
 		& + li:after {
 			content: "";
 			display: block;
 			width: 100%;
-			background-color: $themeColor;
 			height: $line-width;
 			position: absolute;
 			left: -50%;
 			top: $bullet-size / 2;
 			z-index: 0;
 			transition: background-color .5s;
+			background-color: $main;
+			@include themebackground(main);			
 		}
 	 }
 
 	li.current ~ li:after {
 		background-color: $grayBlack;
+		@include themebackground(grayBlack);
 	}
 
 	li.current ~ li .bullet {
 		background-color: $grayDarkAlt;
 		border-color: $grayBlack;
+		@include themebackground(grayDarkAlt);
+		@include themeborder(grayBlack);
 	}
 	li.current > .bullet {
 		box-shadow: $globalShadow;
-		background-color: $themeColorTertiary;		
+		background-color: $tertiary;
+		@include themebackground(tertiary);				
 	}
-	 
 }
 
 
@@ -890,29 +1094,30 @@ $sliderBoxSize: 1.8rem;
 		}
 
 		&:disabled + label {
-			color: #999;
+			color: desaturate($black, .4);
 			cursor: default;
 
 			&::before {
-				border-color: #bbb;
-				background-color: #ddd;
-				border: .15rem solid #ddd;
+				background-color: desaturate($black, .8);
+				border: .15rem solid desaturate($black, .8);
 			}
 
 			&::after {
-				color: #999;
-				background-color: gray;
+				color: desaturate($black, .8);
+				background-color: desaturate($black, .8);
 			}
 		}
 	}
 
 	[type="checkbox"] + label {
-		@include radioCheckboxSharedProperties;
+		@extend %radioCheckboxSharedProperties;
 		padding: .5rem .5rem .5rem 4.7rem;
 		min-height: 1.8rem;
 
 		&:hover {
-			background-color: #323232;
+			background-color: $grayBlack;
+			@include themebackground(grayBlack);
+			
 		}
 
 		//background
@@ -923,10 +1128,12 @@ $sliderBoxSize: 1.8rem;
 			width: $sliderBoxSize*2;
 			height: $sliderBoxSize;
 			border-radius: $sliderBoxSize;
-			border: .2rem solid gray;
-			background-color: $grayBlack;
 			transition: background-color .2s;
 			box-shadow: $globalShadow;
+			border: .2rem solid $grayMedium;
+			background-color: $grayBlack;
+			@include themeborder(grayMedium);
+			@include themebackground(grayBlack);			
 		}
 
 		//slidebutton
@@ -937,8 +1144,9 @@ $sliderBoxSize: 1.8rem;
 			width: $sliderSize;
 			height: $sliderSize;
 			border-radius: $sliderSize;
-			background-color: $themeColorTertiary;
 			transition: left .2s, background-color .2s;
+			background-color: $tertiary;
+			@include themebackground(tertiary);			
 		}
 	}
 
@@ -950,12 +1158,15 @@ $sliderBoxSize: 1.8rem;
 
 		&::after {
 			left: $sliderBoxSize+.55rem;
-			background-color: $themeColorTertiary;
+			background-color: $tertiary;
+			@include themebackground(tertiary);			
 	 	}
 
 		&::before {
-			background-color:$themeColor;
-			border-color:$themeColor;
+			background-color:$main;
+			border-color:$main;
+			@include themebackground(main);
+			@include themeborder(main);						
 		}
 	}
 }
@@ -975,28 +1186,29 @@ $checkboxSize: 1.8rem;
 		}
 
 		&:disabled + label {
-			color: #999;
+			color: desaturate($black, .4);
 			cursor: default;
 
 			&::before {
-				border-color: #bbb;
-				background-color: #ddd;
-				border: .1rem solid #ddd;
+				border-color: desaturate($black, .8);
+				background-color: desaturate($black, .8);
+				border: .1rem solid desaturate($black, .8);
 			}
 
 			&::after {
-				color: #999;
+				color: desaturate($black, .4);
 			}
 		}
 	}
 
 	[type="checkbox"] + label {
-		@include radioCheckboxSharedProperties;
+		@extend %radioCheckboxSharedProperties;
 		padding: .5rem .5rem .5rem 2.9rem;
 		min-height: 1.8rem;
 
 		&:hover {
-			background-color: #323232;
+			background-color: $grayBlack;
+			@include themebackground(grayBlack);			
 		}
 
 		//bg
@@ -1006,10 +1218,11 @@ $checkboxSize: 1.8rem;
 			left: .5rem;
 			width: $checkboxSize;
 			height: $checkboxSize;
-			border: .1rem solid #6eb068;
 			background: none;
 			transition: opacity .2s;
 			box-shadow: $globalShadow;
+			border: .1rem solid $main;
+			@include themeborder(main);			
 		}
 
 		//checkmark
@@ -1019,8 +1232,9 @@ $checkboxSize: 1.8rem;
 			left: .8rem;
 			font-size: 1.5rem;
 			line-height: 1.8;
-			color: $themeColorTertiary;
-			transition: opacity .2s;			
+			transition: opacity .2s;	
+			color: $tertiary;
+			@include themecolor(tertiary);					
 		}
 	}
 
@@ -1035,7 +1249,8 @@ $checkboxSize: 1.8rem;
 	 	}
 
 		&::before {
-			background-color: #6eb068;
+			background-color: $main;
+			@include themebackground(main);			
 		}
 	}
 }
@@ -1054,29 +1269,30 @@ $radioSize: 1.5rem;
 		}
 
 		&:disabled + label {
-			color: #999;
+			color: desaturate($black, .4);
 			cursor: default;
 
 			&::before {
-				border-color: #bbb;
-				background-color: #ddd;
-				border: .1rem solid #ddd;
+				border-color: desaturate($black, .8);
+				background-color: desaturate($black, .8);
+				border: .1rem solid desaturate($black, .8);
 			}
 
 			&::after {
-				color: #999;
+				color: desaturate($black, .4);
 			}
 		}
 	}
 
 	//label
 	[type="radio"] + label {
-		@include radioCheckboxSharedProperties;
+		@extend %radioCheckboxSharedProperties;
 		padding: .5rem .5rem .5rem 2.5rem;
 		min-height: $radioSize;
 
 		&:hover {
-			background-color: #323232;
+			background-color: $grayBlack;
+			@include themebackground(grayBlack);			
 		}
 
 		//bg
@@ -1087,18 +1303,19 @@ $radioSize: 1.5rem;
 			width: $radioSize;
 			height: $radioSize;
 			border-radius: $radioSize;
-			border: .15rem solid $themeColor;
 			background: none;
 			transition: background-color .2s;
 			box-shadow: $globalShadow;
-			
+			border: .15rem solid $main;
+			@include themeborder(main);						
 		}
 	}
 
 	[type="radio"]:checked + label {
 
 		&::before {
-			background-color: $themeColorTertiary;
+			background-color: $tertiary;
+			@include themebackground(tertiary);			
 		}
 	}
 }
@@ -1118,30 +1335,34 @@ $maxFieldWidth: 30rem;
      display: block;
      width: 100%;
      border: none;
-     border-bottom: .1rem solid #757575;
 	  background: none;
-	  color: $grayLightText;
 	  outline: none;
+	  color: $grayLight;
+     border-bottom: .1rem solid $grayMedium;
+	  @include themecolor(grayLight);	 
+	  @include themeborder(grayMedium);	   
    }
 
    input:focus { outline: none; }
 
    label {
-      color: #999;
-      font-size: 1rem;
+		font-size: 1rem;
       font-weight: normal;
       position: absolute;
       pointer-events: none;
       left: .35rem;
       top: .7rem;
       transition: .2s ease all;
+		color: $grayLight;
+		@include themecolor(grayLight);		
    }
 
    input:focus + label,
 	&.hasContent input + label {
       top: -.7rem;
       font-size: .8rem;
-      color: $themeColor;
+		color: $main;
+		@include themecolor(main);		
    }
 
 	&.hascontent input:invalid + label,
@@ -1175,8 +1396,9 @@ $maxFieldWidth: 30rem;
 	  bottom: 0;
 	  left: 0;
 	  position: absolute;
-	  background: $themeColor;
 	  transition: .15s ease all;
+	  background-color: $main;
+	  @include themebackground(main);	  
 	}
 
 	/* active state */
@@ -1200,7 +1422,6 @@ $maxFieldWidth: 30rem;
 	position: absolute;
 	padding: .5rem;
 	border-radius: 0 0 .5rem .5rem;
-	background-color: rgba(25, 25, 25, .85);
 	color: $errorColor;
 	width: 100%;
 	height: auto;
@@ -1208,8 +1429,10 @@ $maxFieldWidth: 30rem;
 	top: 100%;
 	z-index: 300;
 	content: attr(data-tooltip-error);
+	background-color: $grayBlack;
+	@include themebackground(grayBlack);
+	
 }
-
 
 .input-text[data-tooltip-error]:hover::before {
 	opacity: 1;
@@ -1233,8 +1456,9 @@ $tipMessageWidth: 14rem;
 	font-size: 1rem;
 
 	&:hover {
-		color: $themeColor;
 		opacity: 1;
+		color: $main;
+		@include themecolor(main);		
 
 		//show tip message on hover
 		.tip-message::before, 
@@ -1255,14 +1479,15 @@ $tipMessageWidth: 14rem;
 			position: absolute;
 			padding: .5rem;
 			border-radius: .5rem;
-			background-color: rgba(25, 25, 25, .85);
-			color: $infoColor;
 			width: $tipMessageWidth;
 			height: auto;
 			bottom: 120%;
 			left: -($tipMessageWidth/2 - $tipWidth/2);
 			z-index: 300;
 			content: attr(data-tooltip-info);
+			color: $infoColor;
+			background-color: $grayBlack;
+			@include themebackground(grayBlack);			
 		}
 	
 		//arrow
@@ -1277,7 +1502,7 @@ $tipMessageWidth: 14rem;
 			margin-left: -5px;
 			border-width: 7px;
 			border-style: solid;
-			border-color: rgba(25, 25, 25, .85) transparent transparent transparent;
+			border-color: $grayBlack transparent transparent transparent;
 		}
 	}
 }
@@ -1290,8 +1515,9 @@ $tipMessageWidth: 14rem;
 }
 
 .input-text > input:focus ~ .tip  {
-	color: $themeColor;
 	opacity: 1;
+	color: $main;
+	@include themecolor(main);	
 
 	.tip-message::before, 
 	.tip-message::after {
@@ -1307,23 +1533,27 @@ $tipMessageWidth: 14rem;
 input[type="text"].input-plain {
 	padding: .35rem;
 	margin-bottom: .5rem;
-	border: .05rem solid $grayBlack;
-	background-color: $grayDark;
 	border-radius: $globalRadius;
 	box-shadow: $globalShadowInset;
+	border: .05rem solid $grayBlack;
+	background-color: $grayDark;
+	@include themeborder(grayBlack);
+	@include themebackground(grayDark);		
 }
 
 
 //***************************** SELECT (override React-Select) ******************************************
 
 .Select-control {
-	background-color: $grayDark;
-	border: .05rem solid $grayMediumText;
 	box-shadow: $globalShadow;
+	background-color: $grayDark;
+	border: .05rem solid $grayMedium;
+	@include themebackground(grayDark);
+	@include themeborder(grayMedium);		
 }
 
 
-//*********************PROGRESSBAR**********************************
+//********************* PROGRESSBAR **********************************
 
 .progress-container {
 	position: absolute;
@@ -1337,15 +1567,15 @@ input[type="text"].input-plain {
 
 .progress-bar {
 	height: 0%;
-	background: #4caf50;
+	background: $main;
+	@include themebackground(main);	
 	max-width: 100%;
 	width: .2rem;
 }
 
-//**********************BUTTON***************************************
+//********************** BUTTON ***************************************
 
 .btn-green {
-	background-color: $themeColor;
 	color: #fff;
 	font-size: 1rem;
 	border: .15rem solid transparent;
@@ -1359,19 +1589,24 @@ input[type="text"].input-plain {
 	text-transform: uppercase;
 	transition: background-color .2s;
 	box-shadow: $globalShadow;
+	background-color: $main;
+	@include themebackground(main);	
 
 	&:hover {
-		background-color: black;
-		color: #fff;
+		background-color: $black;
+		color: $white;
+		@include themebackground(grayBlack);
+		@include themecolor(white);				
 	}
 
 	&:focus {
 		@include focusEffect;
-	  	border: .15rem solid white;
+		border: .15rem solid $white;
+		@include themeborder(white);		  
 	}
 }
 
-//*****************FLEX-TABLE*******************************
+//***************** FLEX-TABLE *******************************
 
 .flex-table {
 	display: flex;
@@ -1392,15 +1627,18 @@ input[type="text"].input-plain {
 
 .table-row {
 	@include flex-row;
-	border-bottom: .1rem solid rgba(0, 0, 0, .2);
+	border-bottom: .1rem solid $grayBlack;
+	@include themeborder(grayBlack);
+	
 
 	&:last-child {
 		border: none;
 	}
 
 	div {
-		border-right: .1rem solid rgba(0, 0, 0, .2);
-
+		border-right: .1rem solid $grayBlack;
+		@include themeborder(grayBlack);
+		
 		&:last-child {
 			border: none;
 		}
@@ -1409,13 +1647,6 @@ input[type="text"].input-plain {
 	&:hover {
 		background-color: #c5ff571a;
 	}
-}
-
-.th {
-	font-weight: 700;
-	color: $themeColor;
-	background-color: $grayBlack;
-	text-align: center;
 }
 
 .cell-15px {
@@ -1482,11 +1713,13 @@ input[type="text"].input-plain {
 .table-row.complete {
 
 	.cell-status {
-		color: $themeColor;
+		color: $main;
+		@include themecolor(main);		
 	}
 
 	.cell-auto {
-		color: $grayMediumText;
+		color: $grayMedium;
+		@include themecolor(grayMedium);		
 	}
 }
 
@@ -1494,17 +1727,19 @@ input[type="text"].input-plain {
 //********************** SPACER ELEMENTS **************************************
 
 .line-thin {
-	border-bottom: .1rem solid $themeColor;
 	height: .1rem;
 	margin: .7rem 0;
 	display: block;
+	border-bottom: .1rem solid $main;
+	@include themeborder(main);	
 }
 
 .line-thick {
-	border-bottom: .3rem solid $themeColor;
+	border-bottom: .3rem solid $main;
 	height: .2rem;
 	margin: .7rem 0;
 	display: block;
+	@include themeborder(main);		
 }
 
 // SPACINGS
@@ -1512,17 +1747,17 @@ input[type="text"].input-plain {
 .spacing-sm {
 	height: .1rem;
 	margin-bottom: .5rem;
-	@include clearfix;
+   @extend %clearfix;
 }
 
 .spacing {
    margin-bottom: .8rem;
-   @include clearfix;
+   @extend %clearfix;
 }
 
 .spacing-lg {
    margin-bottom: .8rem;
-   @include clearfix;
+   @extend %clearfix;
 }
 
 //************************************************************

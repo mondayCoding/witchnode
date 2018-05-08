@@ -29,11 +29,9 @@ export default class TodoSimple extends React.Component<any, IMissionArr> {
     this.getTodoCollection();
   }
 
-  public clickHandler() {
-    API.addNewItemToCollection(
-      {objective: this.state.newQuest},
-      (data:any) => this.setState({quests:data, newQuest:""})
-    );
+  public async clickHandler() {
+    const data:any = await API.addNewItemToCollection({objective: this.state.newQuest});
+    this.setState({quests:data, newQuest:""});
   }
 
   public onChangeHandler(event: any) {
@@ -43,18 +41,14 @@ export default class TodoSimple extends React.Component<any, IMissionArr> {
     });
   }
 
-  public toggleHandler(mission: IMission["mission"]) {
-    API.toggleHandler(
-      {objective:mission.objective, createDate: mission.completeDate},
-      (data:any) => this.setState({quests:data})
-    );
+  public async toggleHandler(mission: IMission["mission"]) {
+    const data:any = await API.toggleHandler({objective:mission.objective, createDate: mission.completeDate});
+    this.setState({quests:data});
   }
 
-  public removeOnClick(mission: IMission["mission"]) {
-    API.removeFromCollection(
-      { objective: mission.objective, createDate: mission.createDate },
-      (data:any) => this.setState({quests:data})
-    );
+  public async removeOnClick(mission: IMission["mission"]) {
+    const data:any = await API.removeFromCollection({ objective: mission.objective, createDate: mission.createDate });
+    this.setState({quests:data});
   } 
 
   public enterHandler(event: any) {
