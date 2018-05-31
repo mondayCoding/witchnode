@@ -55,16 +55,18 @@ export interface IMessageLine {
 
 //TODO LIST - Mission item
 export interface IMission {
-    mission : {
-       objective:string;
-       complete:boolean;
-       createDate:string;
-       completeDate:string;
-    };
+    mission : IMissionItem;
     toggle:any;
     onClick:any;
 }
 
+export interface IMissionItem {
+    objective:string;
+    longObjective?: string;
+    complete:boolean;
+    createDate:string;
+    completeDate:string;
+}
 
 
 

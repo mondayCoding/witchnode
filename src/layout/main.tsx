@@ -1,14 +1,18 @@
 
 import * as React from 'react';
-import witchPage from '../pages/witchpage';
-import dashboard from '../pages/dashboard';
-import soonpage from '../pages/soonpage';
-import missionpage from '../pages/missionpage';
-import docsPage from '../pages/docsPage';
-import settingsPage from '../pages/settingsPage';
+import { Redirect, Route, Switch } from 'react-router-dom';
+
 import chatPage from '../pages/chatPage';
 import createCharPage from '../pages/createCharPage';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import dashboard from '../pages/dashboard';
+import docsPage from '../pages/docsPage';
+import missionpage from '../pages/missionpage';
+import settingsPage from '../pages/settingsPage';
+import soonpage from '../pages/soonpage';
+import witchPage from '../pages/witchpage';
+import apiMockPage from '../pages/apiMockPage';
+
+
 
 
 export default class Main extends React.Component {
@@ -39,6 +43,7 @@ export default class Main extends React.Component {
                <Route exact path="/profile" component={witchPage}/>
                <Route exact path="/settings" component={settingsPage}/>
                <Route exact path="/docs" component={docsPage}/>
+               <Route exact path="/apimock" component={apiMockPage}/>
                <Redirect to="/"/>
             </Switch>
          }         

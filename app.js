@@ -14,7 +14,7 @@ var index 			= require('./routes/index');
 var statistics 	= require('./routes/statistics-API');
 var todosimple 	= require('./routes/todo-simple-API');
 var todosoon 		= require('./routes/todo-soon-API');
-var userform 		= require('./routes/userform-API');
+var forms 			= require('./routes/forms-API');
 var users 			= require('./routes/users');
 
 var app = express();
@@ -32,10 +32,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routing
-app.use('/', statistics);
-app.use('/', userform);
-app.use('/', todosimple);
-app.use('/', todosoon);
+app.use('/api/statistics', statistics);
+app.use('/api/forms', forms);
+app.use('/api/todo/simple', todosimple);
+app.use('/api/todo/soon', todosoon);
 app.use('/', index);
 //app.use('/', users);
 

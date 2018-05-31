@@ -8,6 +8,7 @@ import Input from '../components/input';
 import Checkbox from '../components/checkbox';
 import Radiobutton from '../components/radiobutton';
 import SliderCheckbox from '../components/checkbox-slider';
+import { OnInputChangeHandler } from 'react-select';
 
 //Interfaces
 

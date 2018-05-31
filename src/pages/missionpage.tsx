@@ -8,6 +8,7 @@ import ToDoSimple from '../controllers/todo-simple/todo-simple';
 
 
 export default class MissionPage extends React.Component {
+
    public render() {
       return (
          <div className="page">

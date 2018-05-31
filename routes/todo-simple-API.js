@@ -25,13 +25,13 @@ var list = [
 
 
 //get current list
-router.get('/api/todo', function (req, res, next) 
+router.get('/', function (req, res, next) 
 {
 	res.send(list);
 });
 
 //add new item
-router.put('/api/todo', function (req, res, next) 
+router.put('/', function (req, res, next) 
 {
 	const addition = (req.body.objective).trim();
 
@@ -51,14 +51,14 @@ router.put('/api/todo', function (req, res, next)
 });
 
 //remove item
-router.delete('/api/todo', function(req, res, next) {
+router.delete('/', function(req, res, next) {
    list = list.filter( item => item.objective !== req.body.objective );
    res.send(list);
    console.log(`removed item: ${req.body.objective}`);
 });
 
 //update toggle values
-router.put('/api/todo/toggle', function(req, res, next) {
+router.put('/toggle', function(req, res, next) {
    const toggleVal = (req.body.objective).trim();
 
    if (!validator.isEmpty(toggleVal)) {

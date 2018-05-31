@@ -8,7 +8,7 @@ import Row from './Row';
 import Button from '../../components/button';
 
 import {IMission} from '../../interfaces';
-import API from '../../api/Todo';
+import API from '../../api/Todo_simple';
 import anno from '../../utils/annoModule';
 
 interface IMissionArr {

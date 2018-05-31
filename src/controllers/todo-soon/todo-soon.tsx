@@ -1,196 +1,155 @@
 
-import * as $ from 'jquery';
+//libraries
 import axios from 'axios';
 import * as React from 'react';
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
-
+//custom components
 import Table from '../todo-soon/Table';
-import Row from '../todo-soon/rowHandle';
 import Modal from '../../components/modal';
 import anno from '../../utils/annoModule';
+import API from '../../api/ToDo_soon';
+import SortableList from './sortableList';
 
-interface IMissionArr {
-  quests: IMission[];
-  newQuest: string;
-  submitDisabled: boolean;
-  modalIsOpen:boolean;
-}
-interface IMission {
-  objective:string;
-  complete:boolean;
-  createDate:string;
-  completeDate:string;
-}
 
-interface IIndex {
-  indexOld: number;
-  indexNew: number;
+//interfaces
+import { IMissionItem } from '../../interfaces/index';
+
+interface IModalContent {
+	title: string;
+	content: string;
+	remove(): void;
 }
 
 interface IState {
-  quests: IMission[];
-  newQuest: string;
-  submitDisabled: boolean;
-  modalIsOpen: boolean;
+	quests: IMissionItem[];
+	newQuest: string;
+	submitDisabled: boolean;
+	modalIsOpen: boolean;
+	modalContent: IModalContent;
 }
 
-const SortItem = SortableElement(Row);
-
-const SortContainer = SortableContainer((props:any)=> {
-  return (
-    <div className="flex-table">
-      { props.items.map((mission:IMission, index:number) => (
-          <SortItem 
-            key={`item-${index}`} 
-            index={index} 
-            mission={mission} 
-            onClick={() => props.onClick(mission)} 
-            toggle={() => props.toggle(mission)} 
-            showDesc={()=>console.log("clicked")} 
-          />
-      ))}
-    </div>
-  );
-});
-  
 export default class ToDoSoon extends React.Component {
-    
-  public state:IState = {
-    quests: [],
-    newQuest: "",
-    submitDisabled: true,
-    modalIsOpen: true
-  };
 
-  public modal = <Modal heading="(WIP MODAL)" onFadeClick={()=>this.handleFadeClick()}/>;
+	public state: IState = {
+		quests: [],
+		newQuest: "",
+		submitDisabled: true,
+		modalIsOpen: false,
+		modalContent: {
+			title: "sdasdasd",
+			content: "sdasdas",
+			remove: null
+		}
+	};
 
-  public componentDidMount(){
-    axios.get('/api/soon')
-    .then((response) => {
-        this.setState({
-          quests:response.data
-        });
-    })
-    .catch((error) => {
-      console.log(error.response);
-      anno.announce(
-        `there was a slight issue with your request. Status: ${error.response.status}`, 
-        error.response.data,
-        "error"
-      );
-    });
-  }
+	public async componentDidMount() {
+		const data: any = await API.getTodoCollection();
+		this.setState({ quests: data });
+	}
 
-   public clickHandler(){
-      axios.put('/api/soon', {objective: this.state.newQuest})
-      .then((response) => {
-         this.setState({
-            quests:response.data,
-            newQuest:"",
-            submitDisabled:true
-         });
-      })
-      .catch((error) => {
-        console.log(error.response);
-        anno.announce(
-          `there was a slight issue with your request. Status: ${error.response.status}`, 
-          error.response.data,
-          "error"
-        );
-      });
-   }
+	public async clickHandler() {
+		const data: any = await API.addNewItemToCollection({ objective: this.state.newQuest });
+		this.setState({ quests: data, newQuest: "" });
+	}
 
-   public onChangeHandler(event:any){
-      this.setState({
-         newQuest: event.target.value,
-         submitDisabled: ((event.target.value).length > 2 ? false : true)
-      });
-   }
+	public onChangeHandler(event: any) {
+		this.setState({
+			newQuest: event.target.value,
+			submitDisabled: ((event.target.value).length > 2 ? false : true)
+		});
+	}
 
-   public removeOnClick(mission:IMission){
-      $.ajax({
-        type:"delete",
-        data: {objective:mission.objective, createDate:mission.createDate},
-        url:"/api/soon",
-        success:(result) => {
-          this.setState({
-            quests:result
-          });
-        },
-        error: (xhr, ajaxOptions, thrownError) => {
-          console.log("ajax error occurred | code: " +  xhr.status + " | message: " +  thrownError);
-        }
-      });
-   }
+	public async removeMission(mission: IMissionItem) {
+		if (window.confirm(`Really delete item: ${mission.objective}`)) {
+			const data: any = await API.removeFromCollection({ objective: mission.objective, createDate: mission.createDate });
+			this.setState({ quests: data, modalIsOpen: false });
+		}
+	}
 
-   public enterHandler(event:KeyboardEvent){
-      if (event.key === "Enter") {this.clickHandler();}
-   }
+	public enterHandler(event: KeyboardEvent) {
+		if (event.key === "Enter") { this.clickHandler(); }
+	}
 
-   public toggleHandler(mission:IMission){
-      console.log(mission.objective);
-      axios.put("/api/soon/toggle", {objective: mission.objective, createDate: mission.createDate})
-      .then((response)=>{
-        this.setState({
-          quests:response.data
-        });
-      })
-      .catch((error)=>{
-        anno.announce(
-          `there was a slight issue with your request. Status: ${error.response.status}`, 
-          error.response.data,
-          "error"
-        );
-      });
-  }
-   
-  public handleFadeClick(){
-    this.setState({
-      modalIsOpen:false
-    });
-  }
+	public async toggleHandler(mission: IMissionItem) {
+		const data: any = await API.toggleHandler({ objective: mission.objective, createDate: mission.completeDate });
+		this.setState({ quests: data });
+	}
 
-  public onSortEnd = ({oldIndex, newIndex}:{oldIndex:number, newIndex:number}) => {
-    this.setState({
-      quests: arrayMove(this.state.quests, oldIndex, newIndex),
-    });
-    console.log("sorted");
-  }
+	public handleClose = () => {
+		this.setState({ modalIsOpen: false });
+	}
 
+	public onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number, newIndex: number }) => {
+		this.setState({ quests: arrayMove(this.state.quests, oldIndex, newIndex) });
+		console.log("sorted");
+	}
 
-   public render(){
-      let modalIsOpen = this.state.modalIsOpen;
-      let newQuest = this.state.newQuest;
-      let submitDisabled = this.state.submitDisabled;
-      let quests = this.state.quests;
-      let onKeyUp = (event:any) => this.enterHandler(event);
-      let onChange = (event:any) => this.onChangeHandler(event);
-      let onBtnClick = () => this.clickHandler();
-      let onClick = (obj:IMission)=>this.removeOnClick(obj);
-      let toggle = (obj:IMission)=>this.toggleHandler(obj);
-      let onSortEnd = "";
-      let modal = (modalIsOpen) ? this.modal : null ;
+	public updateModal = (item: IMissionItem) => {
+		this.setState({
+			modalContent: {
+				content: item.objective,
+				title: item.objective,
+				remove: () => this.removeMission(item)
+			},
+			modalIsOpen: true
+		});
+	}
 
-      return(
-        <Table 
-          value={newQuest} 
-          disableState={submitDisabled} 
-          onKeyUp={onKeyUp} 
-          onChange={onChange} 
-          onBtnClick={onBtnClick} 
-        >
-          {modal}
-          <SortContainer 
-              lockAxis="y" 
-              lockToContainerEdges={true} 
-              items={quests} 
-              useDragHandle={true} 
-              onClick={onClick} 
-              toggle={toggle} 
-              onSortEnd={this.onSortEnd}  
-          />
-        </Table>
-      );
-   }
+	public render() {
+
+		//table
+		let newQuest = this.state.newQuest;
+		let submitDisabled = this.state.submitDisabled;
+		let quests = this.state.quests;
+		let onKeyUp = (event: any) => this.enterHandler(event);
+		let onChange = (event: any) => this.onChangeHandler(event);
+		let onBtnClick = () => this.clickHandler();
+		let removeItem = (obj: IMissionItem) => this.removeMission(obj);
+		let toggle = (obj: IMissionItem) => this.toggleHandler(obj);
+
+		//modal
+		const handleClose = this.handleClose;
+		const modalIsOpen = this.state.modalIsOpen;
+		const updateModal = this.updateModal;
+
+		const content = this.state.modalContent.content;
+		const title = this.state.modalContent.title;
+		const remove = this.state.modalContent.remove;
+
+		return (
+			<Table
+				value={newQuest}
+				disableState={submitDisabled}
+				onKeyUp={onKeyUp}
+				onChange={onChange}
+				onBtnClick={onBtnClick}
+			>
+				<Modal show={modalIsOpen} heading={title} onClose={handleClose} >
+					<div className="line-thin"></div>
+					<span>modal for testing modals</span><br />
+					<span>click button to dismiss</span><br />
+					<span>click fade (dark area) to dismiss</span><br />
+					<span>press esc (keyboard) to dismiss</span><br />
+					<span>{content}</span><br />
+					<div className="spacing"></div>
+					<button className="themebutton wide" onClick={remove}>Remove this item</button>
+				</Modal>
+
+				<SortableList
+					//component properties
+					lockAxis="y"
+					lockToContainerEdges={true}
+					useDragHandle={true}
+					onSortEnd={this.onSortEnd}
+
+					//passed data
+					items={quests}
+					updateModal={updateModal}
+					removeItem={removeItem}
+					toggle={toggle}
+				/>
+			</Table>
+		);
+	}
 }

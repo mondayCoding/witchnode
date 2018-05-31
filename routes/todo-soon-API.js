@@ -22,11 +22,11 @@ var soonlist = [
 
 //********************SOON**************************************
 
-router.get('/api/soon', function(req, res, next) {
+router.get('/', function(req, res, next) {
    res.send(soonlist);
 });
 
-router.put('/api/soon', function(req, res, next) {
+router.put('/', function(req, res, next) {
    const addition = (req.body.objective).trim();
    if (!validator.isEmpty(addition) && validator.isLength(addition, {min:3, max: 64})) {
       const newMission = {
@@ -44,7 +44,7 @@ router.put('/api/soon', function(req, res, next) {
 });
 
 //update missionlist toggle
-router.put('/api/soon/toggle', function(req, res, next) {
+router.put('/toggle', function(req, res, next) {
    console.log(req.body.objective);
 
    const toggleVal = (req.body.objective).trim();
@@ -69,7 +69,7 @@ router.put('/api/soon/toggle', function(req, res, next) {
    }
 });
 
-router.delete('/api/soon', function(req, res, next) {
+router.delete('/', function(req, res, next) {
    var filteredlist = soonlist.filter( item => item.objective !== req.body.objective );
    soonlist = filteredlist;
    res.send(soonlist);

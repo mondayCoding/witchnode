@@ -80,7 +80,7 @@ export default class UserForm extends React.Component<any,any> {
 
    public onsubmitHandler(event:any){
       event.preventDefault();
-      axios.post("/api/userform", {form:this.state.form})
+      axios.post("/api/forms/userform", {form:this.state.form})
       .then((response) => {
          anno.announce( response.data, "message from server");
       })

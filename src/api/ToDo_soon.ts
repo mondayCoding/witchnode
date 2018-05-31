@@ -3,12 +3,13 @@ import axios, { AxiosError } from 'axios';
 import anno from '../utils/annoModule';
 import LOGGING from '../utils/loggingModule';
 
+const api_url = '/api/todo/soon';
 
 export default class TodoApi {
 
 	//get all items (callback)  
 	public static getTodoCollectionCallback = (callback: any) => {
-		axios.get('/api/todo')
+		axios.get(api_url)
 			.then(
 				(response) => callback(response.data)
 			)
@@ -20,7 +21,7 @@ export default class TodoApi {
 	//get all items (promise)
 	public static async getTodoCollection() {
 		return new Promise((resolve) =>
-			axios.get('/api/todo')
+			axios.get(api_url)
 				.then(
 					(response) => resolve(response.data)
 				)
@@ -33,7 +34,7 @@ export default class TodoApi {
 	//update item
 	public static async toggleHandler(params: any) {
 		return new Promise((resolve) =>
-			axios.put('api/todo/toggle', params)
+			axios.put(`${api_url}/toggle`, params)
 				.then(
 					(response) => resolve(response.data)
 				)
@@ -46,7 +47,7 @@ export default class TodoApi {
 	//add item
 	public static async addNewItemToCollection(params: any) {
 		return new Promise((resolve) =>
-			axios.put('/api/todo', params)
+			axios.put(api_url, params)
 				.then(
 					(response) => resolve(response.data)
 				)
@@ -62,7 +63,7 @@ export default class TodoApi {
 		return new Promise((resolve) =>
 			axios({
 				method: "delete",
-				url: "/api/todo",
+				url: api_url,
 				data: params
 			})
 				.then(

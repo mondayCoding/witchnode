@@ -55,7 +55,7 @@ serverStartLog.query({limit:"infinite"}, function (err, result) {
 //*************************** STATISTICS API ******************************
 
 //api for requesting statistics
-router.get('/api/serverstatistics', function(req, res, next) 
+router.get('/', function(req, res, next) 
 {  
    res.send({serverStartCount, serverStartLogs});
 });

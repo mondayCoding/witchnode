@@ -5,6 +5,8 @@ import Footer from './footer';
 import * as React from 'react';
 import {BrowserRouter, withRouter} from 'react-router-dom';
 
+
+
 //main layout component, has navigation, main content and router components
 class Layout extends React.Component {
 

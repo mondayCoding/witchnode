@@ -36,7 +36,7 @@ export default class WitchPage extends React.Component<any, Istates> {
         res.setLanguage(e.value);
         
         anno.announce(
-            res.formatString(res.changedLang, res.lang), 
+            res.formatString(res.changedLang, res.lang) as any, 
             res.changedLangTitle, 
             "info"
         );

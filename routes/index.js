@@ -39,6 +39,7 @@ router.get('/', function(req, res, next)
    res.render('index', { title: 'WitchNode | Welcome to the coven' });
 });
 
+
 router.post('/', function(req, res, next) 
 {
    res.render('index', { title: 'Post: Success (' + req.body.task_name + ')' });
