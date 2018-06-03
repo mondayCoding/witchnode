@@ -11644,7 +11644,7 @@ var ToDoSoon = (function (_super) {
         _this.state = {
             quests: [],
             newQuest: "",
-            submitDisabled: true,
+            isSubmitDisabled: true,
             modalIsOpen: false,
             modalContent: {
                 title: "",
@@ -11691,7 +11691,7 @@ var ToDoSoon = (function (_super) {
             var data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4, confirmUtilModule_1.default("really?")];
+                    case 0: return [4, confirmUtilModule_1.default("Add task called: " + this.state.newQuest)];
                     case 1:
                         if (!_a.sent()) return [3, 3];
                         return [4, ToDo_soon_1.default.addNewItemToCollection({ objective: this.state.newQuest })];
@@ -11707,7 +11707,7 @@ var ToDoSoon = (function (_super) {
     ToDoSoon.prototype.onChangeHandler = function (event) {
         this.setState({
             newQuest: event.target.value,
-            submitDisabled: ((event.target.value).length > 2 ? false : true)
+            isSubmitDisabled: ((event.target.value).length > 2 ? false : true)
         });
     };
     ToDoSoon.prototype.removeMission = function (mission) {
@@ -11760,7 +11760,7 @@ var ToDoSoon = (function (_super) {
     ToDoSoon.prototype.render = function () {
         var _this = this;
         var newQuest = this.state.newQuest;
-        var submitDisabled = this.state.submitDisabled;
+        var isSubmitDisabled = this.state.isSubmitDisabled;
         var quests = this.state.quests;
         var enterHandler = function (event) { return _this.enterHandler(event); };
         var onChange = function (event) { return _this.onChangeHandler(event); };
@@ -11773,7 +11773,7 @@ var ToDoSoon = (function (_super) {
         var content = this.state.modalContent.content;
         var title = this.state.modalContent.title;
         var remove = this.state.modalContent.remove;
-        return (React.createElement(Table_1.default, { value: newQuest, disableState: submitDisabled, onKeyUp: enterHandler, onChange: onChange, onBtnClick: onBtnClick },
+        return (React.createElement(Table_1.default, { value: newQuest, disableState: isSubmitDisabled, onKeyUp: enterHandler, onChange: onChange, onBtnClick: onBtnClick },
             React.createElement(modal_1.default, { show: modalIsOpen, heading: title, onClose: handleClose },
                 React.createElement("div", { className: "line-thin" }),
                 React.createElement("span", null, "modal for testing modals"),
@@ -17651,7 +17651,7 @@ var ConfirmationDialog = (function (_super) {
                 React.createElement("div", { className: "modal-content-wrap" }, confirmation),
                 React.createElement("div", { className: "row-flex spaced" },
                     React.createElement("button", { className: "themebutton", onClick: function () { return cancel(); } }, "Cancel"),
-                    React.createElement("button", { className: "themebutton", onClick: function () { return proceed(); } }, "Ok")))));
+                    React.createElement("button", { className: "themebutton", autoFocus: true, onClick: function () { return proceed(); } }, "Ok")))));
     };
     return ConfirmationDialog;
 }(React.Component));

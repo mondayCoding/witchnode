@@ -53,7 +53,7 @@ export class ConfirmationDialog extends React.Component<ReactConfirmProps> {
 
 					<div className="row-flex spaced">
 						<button className="themebutton" onClick={() => cancel()}>Cancel</button>
-						<button className="themebutton" onClick={() => proceed()}>Ok</button>
+						<button className="themebutton" autoFocus={true} onClick={() => proceed()}>Ok</button>
 
 						{/* props debug */}
 						{/* <button className="themebutton" onClick={() => console.log(this.props)}>log</button> */}

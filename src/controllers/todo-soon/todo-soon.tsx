@@ -27,7 +27,7 @@ interface IModalContent {
 interface IState {
 	quests: IMissionItem[];
 	newQuest: string;
-	submitDisabled: boolean;
+	isSubmitDisabled: boolean;
 	modalIsOpen: boolean;
 	modalContent: IModalContent;
 }
@@ -37,7 +37,7 @@ export default class ToDoSoon extends React.Component {
 	public state: IState = {
 		quests: [],
 		newQuest: "",
-		submitDisabled: true,
+		isSubmitDisabled: true,
 		modalIsOpen: false,
 		modalContent: {
 			title: "",
@@ -52,7 +52,7 @@ export default class ToDoSoon extends React.Component {
 	}
 
 	public async clickHandler() {
-		if(await confirm("really?")){
+		if(await confirm(`Add task called: ${this.state.newQuest}`)){
 			const data: any = await API.addNewItemToCollection({ objective: this.state.newQuest });
 			this.setState({ quests: data, newQuest: "" });
 		}
@@ -61,7 +61,7 @@ export default class ToDoSoon extends React.Component {
 	public onChangeHandler(event: any) {
 		this.setState({
 			newQuest: event.target.value,
-			submitDisabled: ((event.target.value).length > 2 ? false : true)
+			isSubmitDisabled: ((event.target.value).length > 2 ? false : true)
 		});
 	}
 
@@ -120,7 +120,7 @@ export default class ToDoSoon extends React.Component {
 
 		//table
 		let newQuest = this.state.newQuest;
-		let submitDisabled = this.state.submitDisabled;
+		let isSubmitDisabled = this.state.isSubmitDisabled;
 		let quests = this.state.quests;
 		let enterHandler = (event: any) => this.enterHandler(event);
 		let onChange = (event: any) => this.onChangeHandler(event);
@@ -140,7 +140,7 @@ export default class ToDoSoon extends React.Component {
 		return (
 			<Table
 				value={newQuest}
-				disableState={submitDisabled}
+				disableState={isSubmitDisabled}
 				onKeyUp={enterHandler}
 				onChange={onChange}
 				onBtnClick={onBtnClick}
