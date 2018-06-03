@@ -1238,15 +1238,33 @@ $tipMessageWidth: 14rem;
 	transition: .5 background-color;
 	background-color: rgba(0,0,0,.8);
 
-	.modal-box {
-		background-color: #fff;
+	.confirm-box {
+		background-color: $white;
 		border-radius: $globalRadius;
 		width: 100%;
 		max-width: 30rem;
-		min-height: 15rem;
+		min-height: 8rem;
 		padding: 1rem;
 		margin: .3rem;
 		position: relative;
+		border: .4rem solid $main;
+		@include themeborder(main);
+		box-shadow: 0 0 .5rem $grayBlack; 	
+	}
+
+	.modal-box {
+		@include flex-column;
+		background-color: $white;
+		border-radius: $globalRadius;
+		width: 100%;
+		max-width: 30rem;
+		min-height: 11rem;
+		padding: 1rem;
+		margin: .3rem;
+		position: relative;
+		border: .4rem solid $main;
+		@include themeborder(main);
+		box-shadow: 0 0 .5rem $grayBlack; 		
 
 			.close-button {
 				@include size(2rem);
@@ -1265,8 +1283,7 @@ $tipMessageWidth: 14rem;
 			}
 
 			.modal-content-wrap {
-				max-width: 100%;
-				min-width: 10rem;
+				flex: 1 1 auto;
 				color: $grayBlack;				
 			}
 	}
@@ -1790,6 +1807,11 @@ footer {
 //****************************************************************************
 // Flex-table
 //****************************************************************************
+
+
+.item-link {
+	cursor: pointer;
+}
 
 .flex-table {
 	display: flex;

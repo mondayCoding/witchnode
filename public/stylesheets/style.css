@@ -1606,15 +1606,56 @@ ol.wizard-path li.current > .bullet {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.modal-fade .modal-box {
+.modal-fade .confirm-box {
   background-color: #fff;
   border-radius: 0.35rem;
   width: 100%;
   max-width: 30rem;
-  min-height: 15rem;
+  min-height: 8rem;
   padding: 1rem;
   margin: .3rem;
   position: relative;
+  border: 0.4rem solid #40cf4e;
+  box-shadow: 0 0 0.5rem #222;
+}
+
+.red .modal-fade .confirm-box {
+  border-color: #e46964;
+}
+
+.light .modal-fade .confirm-box {
+  border-color: #38d860;
+}
+
+.violet .modal-fade .confirm-box {
+  border-color: #dd24ce;
+}
+
+.modal-fade .modal-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 0.35rem;
+  width: 100%;
+  max-width: 30rem;
+  min-height: 11rem;
+  padding: 1rem;
+  margin: .3rem;
+  position: relative;
+  border: 0.4rem solid #40cf4e;
+  box-shadow: 0 0 0.5rem #222;
+}
+
+.red .modal-fade .modal-box {
+  border-color: #e46964;
+}
+
+.light .modal-fade .modal-box {
+  border-color: #38d860;
+}
+
+.violet .modal-fade .modal-box {
+  border-color: #dd24ce;
 }
 
 .modal-fade .modal-box .close-button {
@@ -1646,8 +1687,7 @@ ol.wizard-path li.current > .bullet {
 }
 
 .modal-fade .modal-box .modal-content-wrap {
-  max-width: 100%;
-  min-width: 10rem;
+  flex: 1 1 auto;
   color: #222;
 }
 
@@ -2535,6 +2575,10 @@ footer a, footer a:link {
 .content-centered-sm {
   max-width: 20rem;
   margin: 0 auto;
+}
+
+.item-link {
+  cursor: pointer;
 }
 
 .flex-table {

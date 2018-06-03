@@ -30,7 +30,7 @@ export default class Modal extends React.Component<Iprops> {
 	public onOverlayClick() {
 		this.props.onClose();
 	}
-
+ 
 	public onDialogClick = (event:any) => {
 		event.stopPropagation();
 	}

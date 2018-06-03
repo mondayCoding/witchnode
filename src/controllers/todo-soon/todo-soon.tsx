@@ -7,13 +7,16 @@ import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-ho
 //custom components
 import Table from '../todo-soon/Table';
 import Modal from '../../components/modal';
-import anno from '../../utils/annoModule';
-import API from '../../api/ToDo_soon';
 import SortableList from './sortableList';
 
+//utils
+import anno from '../../utils/annoModule';
+import API from '../../api/ToDo_soon';
+import confirm from './../../utils/confirmUtilModule';
 
 //interfaces
 import { IMissionItem } from '../../interfaces/index';
+
 
 interface IModalContent {
 	title: string;
@@ -37,8 +40,8 @@ export default class ToDoSoon extends React.Component {
 		submitDisabled: true,
 		modalIsOpen: false,
 		modalContent: {
-			title: "sdasdasd",
-			content: "sdasdas",
+			title: "",
+			content: "",
 			remove: null
 		}
 	};
@@ -49,8 +52,10 @@ export default class ToDoSoon extends React.Component {
 	}
 
 	public async clickHandler() {
-		const data: any = await API.addNewItemToCollection({ objective: this.state.newQuest });
-		this.setState({ quests: data, newQuest: "" });
+		if(await confirm("really?")){
+			const data: any = await API.addNewItemToCollection({ objective: this.state.newQuest });
+			this.setState({ quests: data, newQuest: "" });
+		}
 	}
 
 	public onChangeHandler(event: any) {
@@ -61,10 +66,25 @@ export default class ToDoSoon extends React.Component {
 	}
 
 	public async removeMission(mission: IMissionItem) {
-		if (window.confirm(`Really delete item: ${mission.objective}`)) {
-			const data: any = await API.removeFromCollection({ objective: mission.objective, createDate: mission.createDate });
-			this.setState({ quests: data, modalIsOpen: false });
+
+		// close modal if it is open
+		const modalIsOpen = this.state.modalIsOpen;
+
+		if (modalIsOpen){
+			this.setState({ modalIsOpen: false });
 		}
+
+		// confirm deletion
+		if (await confirm(`Really delete item: ${mission.objective}`, null, "heading")) {
+			const data: any = await API.removeFromCollection({ objective: mission.objective, createDate: mission.createDate });
+			this.setState({ quests: data });
+		// deletion canceled
+		} else {
+			// open modal again if it was open			
+			if (modalIsOpen) {
+				this.setState({ modalIsOpen: true });
+			}
+		}	
 	}
 
 	public enterHandler(event: KeyboardEvent) {
@@ -102,7 +122,7 @@ export default class ToDoSoon extends React.Component {
 		let newQuest = this.state.newQuest;
 		let submitDisabled = this.state.submitDisabled;
 		let quests = this.state.quests;
-		let onKeyUp = (event: any) => this.enterHandler(event);
+		let enterHandler = (event: any) => this.enterHandler(event);
 		let onChange = (event: any) => this.onChangeHandler(event);
 		let onBtnClick = () => this.clickHandler();
 		let removeItem = (obj: IMissionItem) => this.removeMission(obj);
@@ -121,7 +141,7 @@ export default class ToDoSoon extends React.Component {
 			<Table
 				value={newQuest}
 				disableState={submitDisabled}
-				onKeyUp={onKeyUp}
+				onKeyUp={enterHandler}
 				onChange={onChange}
 				onBtnClick={onBtnClick}
 			>
