@@ -241,6 +241,28 @@ input[type="text"] {
   border: none;
 }
 
+.baseselect {
+  width: 8rem;
+  height: 2.5rem;
+  padding: .4rem;
+  color: black;
+}
+
+.baseselect option {
+  color: black;
+}
+
+.baseselect option:disabled {
+  opacity: .5;
+  color: gainsboro;
+  background: #222;
+}
+
+.baseselect option:checked {
+  opacity: 1 !important;
+  background: green !important;
+}
+
 .flex-center {
   display: flex;
   flex-direction: column;
