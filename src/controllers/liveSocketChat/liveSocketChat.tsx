@@ -1,7 +1,6 @@
 
 //libs
 import * as React from 'react';
-import axios from 'axios';
 import * as io from 'socket.io-client';
 
 //utils
@@ -12,11 +11,10 @@ import API from '../../api/SocketChat';
 import ChatLine from './line';
 import SelectUserMenu from './selectUserMenu';
 import InputPlain from '../../components/input_plain';
-import Button from '../../components/button';
 
 import { IMessageLine } from '../../interfaces';
 
-interface IStatusList {
+interface IStatusList { 
 	active: boolean;
 	name: string;
 }

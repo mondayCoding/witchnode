@@ -2,6 +2,7 @@
 import * as React from 'react';
 import axios from 'axios';
 import validator = require('validator');
+import DayPicker from 'react-day-picker';
 
 import Input from '../../components/input';
 import Button from '../../components/button';
@@ -53,7 +54,7 @@ export default class UserForm extends React.Component<any,any> {
             document.querySelector(`input[name=${event.target.name}]`).parentElement.setAttribute("data-tooltip-error", this.props.res.usernameIsInvalid);
          }
       }
-
+ 
       if (event.target.name === "email"){
          if (validator.isEmail(event.target.value) || (event.target.value).length === 0){
             document.querySelector(`input[name=${event.target.name}]`).classList.remove("invalid");
@@ -150,6 +151,7 @@ export default class UserForm extends React.Component<any,any> {
 
             <div className="spacing"></div>
             <div className="line-thin"></div>
+            <DayPicker />
          </form>
       );
    }

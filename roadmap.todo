@@ -8,10 +8,13 @@ ROADMAD: witchNode (Front-end):
    ☐ modal stateable extendable
    ☐ confirmation window simple implementation
    ☐ multiple data message support
+   ☐ css generic components with variant classes
+   ☐ video / audio test
    ☐ centralise validation class
-   ☐ global status (lang/theme) (context)
+   ☐ global status => (lang/theme) (context)
    ☐ textarea elements
    ☐ javascript diagrams
+   ☐ manifest
    ✔ env mail address, mail link in footer @done(18-05-29 04:27)
    ✔ Dashboard (log git commits and winston logging) @done(18-05-09 02:57)
    ✔ change viewengine to ejs @done(18-05-09 02:57)

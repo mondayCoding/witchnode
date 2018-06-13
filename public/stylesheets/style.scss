@@ -484,6 +484,56 @@ select.disabled {
 // Components (context free)
 //*******************************************************************************************************************************
 
+// figure caption
+.imageCaptionWrapper {
+	position: relative;
+	background-color: $black;
+
+	&.lg {max-width: 700px;}
+	&.md {max-width: 500px;}
+	&.sm {max-width: 300px;}
+
+	&:hover {
+
+		.imageCaption {
+			visibility: visible;
+			opacity: 1;
+			min-height: 25%;
+		}
+		.imageWithCaption {
+			width: 100%;
+			opacity: .8;
+		}
+	}
+	
+	.imageWithCaption {
+		width: 100%;
+		transition: opacity .2s linear;
+	}
+
+	.imageCaption {
+		@include flex-column();
+		visibility: hidden;
+		opacity: 0;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		min-height: 10%;
+		color: $grayLight;
+		background-color: rgba(0,0,0, .7);
+		padding: 1rem;
+		line-height: 1.3;
+		transition: opacity .2s linear, min-height .2s linear;
+
+		b {
+			margin-bottom: .5rem;
+			display: inline-block;
+		}
+	}
+}
+
+//universal heading
 .heading {
 	font-size: 1rem;
 	display: block;
