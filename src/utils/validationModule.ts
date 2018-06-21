@@ -1,99 +1,139 @@
 
-import validator from 'validator';
+import validator = require('validator');
 
+interface IValidationRule {
+	field: string;
+	message: string;
+	rule(param:string):boolean;
+}
+
+interface IValidationFieldResult {
+	isValid: boolean;
+	message: string;
+}
+
+interface IValidationResult {
+	validations: {[x:string]: IValidationFieldResult};
+	formIsValid: boolean;
+}
+
+
+
+
+//****************************************************************************
+// Validation Class
+//****************************************************************************
 
 export default class FormValidation {
 
-	public validation:{};
-	public isValid:boolean;
+	// properties
+	public validationRules:[IValidationRule];
+	public validationResult:IValidationResult;
+	public stopValidation: boolean;
 
-	constructor(validations:any) {
-		// validations is an array of form-specific validation rules
-		this.validation = validations;
-		this.isValid = false;
+	// constructor (take validation ruleset as argument)
+	constructor(validationRules:[IValidationRule]) {
+		this.validationRules = validationRules;
+		this.validationResult = this.getDefaultValidatResult();
+		this.stopValidation = false;
 	}
 
-	public validate(state:{}) {
-		// iterate through the validation rules and construct
-		// a validation object, and return it
-		let valid: {
-			isValid:boolean,
-		};
-		valid.isValid = true;
-		return valid;
+	// create all valid validation response
+	public getDefaultValidatResult() {
+		let validation: any = [];
+
+		this.validationRules.map((rule) => {
+				validation[rule.field] = { isValid:true, message: null };
+			}
+		);
+
+		return { formIsValid: true, validations: {...validation} };
 	}
 
+
+	// validate rules against received form
+	public validate(form:any) {
+
+		// dont validate if stopped 
+		if (this.stopValidation) {
+			return;
+		}
+		
+		// assume all state fields valid
+		let validatResult = this.getDefaultValidatResult();
+
+		// compare rules to state fields
+		this.validationRules.forEach( (rule) => 
+		{
+			const field = rule.field;
+
+			// check that rule has matching state field
+			if (field in form) {						
+			
+				// if not already set invalid			
+				if (validatResult.validations[field].isValid){
+										
+					const formField = (form[field]).toString();
+					const result = rule.rule(formField);
+					const validationMessage = (result) ? null : rule.message ;				
+
+					// create validation response object
+					validatResult.validations[field] = {
+						isValid: result,
+						message: validationMessage
+					};				
+
+				}
+			} else {
+				console.log("there was ValidationRule with no matching state-field");				
+			}
+		});
+		
+		for (const x in validatResult.validations) {
+			if ( !validatResult.validations[x].isValid ){
+				validatResult.formIsValid = false;				
+			}
+		}
+
+		this.validationResult = validatResult;
+		console.log(validatResult);
+		
+		return validatResult;
+	}
+
+	public isValid(field:string){
+		if (field in this.validationResult.validations){
+			let validity = this.validationResult.validations[field].isValid;
+			return validity;
+		}		
+		return null;
+	}
+
+	public getMessage(field:string){
+		if (field in this.validationResult.validations){
+			let message = this.validationResult.validations[field].message;
+			return message;
+		}		
+		return null;
+	}
+
+	public getValidatedMessage(field:string){
+		if (field in this.validationResult.validations){
+			if (!this.validationResult.validations[field].isValid) {
+				let message = this.validationResult.validations[field].message;
+				return message;
+			}
+		}		
+		return null;
+	}
+
+	public stopValidating(field:string){
+		this.validationResult = this.getDefaultValidatResult();
+		this.stopValidation = true;
+	}
+
+	public continueValidating(field:string){
+		this.stopValidation = false;
+	}
 }
 
-interface Iruleset {	
-	field: string;
-	method: string;
-	args: [any];
-	validWhen: boolean;
-	message: string;	  
-}
-
-const TestValidation = { email: 'loony tunes', age: 19};
-
-// const TestRules =   {
-//     field: 'age',
-//     method: validator.isInt,
-//     args: [{min: 21, max: 65}],  // an array of additional arguments
-//     validWhen: true,
-//     message: 'Your age must be an integer between 21 and 65'
-// };
-
-
-// export class FormValidator {
-
-// 	public validations:Iruleset[];
-// 	public isValid:boolean;
-
-// 	constructor(validations:any) {
-// 		//validation rules package
-// 		this.validations = validations;
-// 	}
-
-// 	public validate(state:any) {
-// 		// start out assuming valid
-// 		let validation = this.valid();
-// 		// for each validation rule
-// 		this.validations.forEach((rule) => {
-
-// 			// if the field isn't already marked invalid by an earlier rule
-// 			if (!validation[rule.field].isInvalid) {
-// 				// determine the field value, the method to invoke and
-// 				// optional args from the rule definition
-// 				const field_value = state[rule.field].toString();
-// 				const args = rule.args || [];
-// 				const validation_method = typeof rule.method === 'string' ?
-// 				validator[rule.method] :
-// 				rule.method;
-
-// 				// call the validation_method with the current field value
-// 				// as the first argument, any additional arguments, and the
-// 				// whole state as a final argument.  If the result doesn't
-// 				// match the rule.validWhen property, then modify the
-// 				// validation object for the field and set the isValid
-// 				// field to false
-// 				if(validation_method(field_value, ...args, state) != rule.validWhen) {
-// 					validation[rule.field] = { 
-// 					isInvalid: true, 
-// 					message: rule.message 
-// 				};
-// 				validation.isValid = false;
-// 				}
-// 			}
-// 		});
-// 		return validation;
-// 	}
-
-// 	// create a validation object for a valid form
-//   	public valid() {
-//     	const validation = {};    
-//     	this.validations.map((rule) => (
-//         	validation[rule.field] = { isInvalid: false, message: '' }
-//     	));
-//     	return { isValid: true, ...validation };
-// 	}	
-// }

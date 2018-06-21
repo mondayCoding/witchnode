@@ -3,9 +3,8 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import API from '../api/Statistics';
-
-//components
-import Input from '../components/input';
+import validator = require('validator');
+import FormValidation from '../utils/validationModule';
 
 interface IStatisticsRespn {
     serverStartCount:string;

@@ -33,18 +33,6 @@ interface IFormState {
    allowMarketing: boolean;
 }
 
-let validator = new FormValidator({});
-
-// validator = new FormValidator([
-//   ...
-//   {
-//     field: 'age',
-//     method: validator.isInt,
-//     args: [{min: 21, max: 65}],  // an array of additional arguments
-//     validWhen: true,
-//     message: 'Your age must be an integer between 21 and 65'
-//   }
-// ]
 
 interface ICurrentStep {
 	formstate:IFormState;
@@ -151,9 +139,6 @@ export default class UserForm extends React.Component {
 
 	public onsubmitHandler(event: any) {
 		event.preventDefault();
-		const validation = validator.validate(this.state);
-
-		return (validation.isValid) ? true : false;
 	}
 
 	public render() {

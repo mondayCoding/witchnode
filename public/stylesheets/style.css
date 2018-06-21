@@ -1179,19 +1179,19 @@ input[type="text"] {
   left: .35rem;
   top: .7rem;
   transition: .2s ease all;
-  color: gainsboro;
+  color: #6e6e6e;
 }
 
 .red .input-text label {
-  color: gainsboro;
+  color: #6e6e6e;
 }
 
 .light .input-text label {
-  color: #272727;
+  color: #6e6e6e;
 }
 
 .violet .input-text label {
-  color: gainsboro;
+  color: #6e6e6e;
 }
 
 .input-text input:focus + label,

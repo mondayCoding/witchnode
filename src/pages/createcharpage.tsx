@@ -38,7 +38,7 @@ export default class CreateCharPage extends React.Component {
                <div className="spacing"></div>
    
                <ImgCaption 
-                  src="../images/blur.jpg" 
+                  src="../images/abyss.jpg" 
                   captionText="This is caption sample for testing imgCaption component. Text here is caption content" 
                   size="md" 
                   captionTitle="Blur by design" 

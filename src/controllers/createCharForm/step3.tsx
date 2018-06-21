@@ -27,6 +27,7 @@ export default class StepThree extends React.Component<IStepThreeForm> {
                label="Your opinion on cats?" 
                name="opinionCats" 
                onChange={onChange}
+               validation={(opinionCats === "love") ? null : "wrong answer"}
             />
             <Input 
                value={opinionDogs} 

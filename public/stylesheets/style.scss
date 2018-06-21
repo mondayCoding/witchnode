@@ -984,8 +984,8 @@ $maxFieldWidth: 30rem;
       left: .35rem;
       top: .7rem;
       transition: .2s ease all;
-		color: $grayLight;
-		@include themecolor(grayLight);		
+		color: $grayMedium;
+		@include themecolor(grayMedium);		
    }
 	
    input:focus + label,

@@ -1,24 +1,40 @@
 
+//****************************************************************************
+// Libraries
+//****************************************************************************
+
 import * as React from 'react';
 import axios from 'axios';
-import validator = require('validator');
 import DayPicker from 'react-day-picker';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import FormValidation from '../../utils/validationModule';
+import validator = require("validator");
 
 import Input from '../../components/input';
 import Button from '../../components/button';
 import anno from '../../utils/annoModule';
 
 
+//****************************************************************************
+// Interface
+//****************************************************************************
+
 interface IStates {
    form: {
-      username:string,
-      email:string,
-      location:string,
-      accountNum:string,
-      color:string
+      username:string;
+      email:string;
+      location:string;
+      accountNum:string;
+		color:string;
+		age: string;
+		date: Date;
    };
-   formIsValid: boolean;
 }
+
+
+//****************************************************************************
+// Form
+//****************************************************************************
 
 export default class UserForm extends React.Component<any,any> {
 
@@ -28,59 +44,50 @@ export default class UserForm extends React.Component<any,any> {
          email:"",
          location:"",
          accountNum:"",
-         color:""
-      },
-      formIsValid:false
+			color:"",
+			age: "", 
+			date: Date.now()
+      }
    };
+
+	public validation: FormValidation;
+	public validating: boolean;
+
+   public componentWillMount(){ 
+		
+		const res = this.props.res;
+
+    	this.validation = new FormValidation([
+			{ field: "email", 		message: res.emailIsInvalid, 			 rule: (x) => validator.isEmail(x) },
+			{	field: "accountNum",message: res.accNumIsInvalid,			 rule: (x) => validator.isInt(x, {min:0, max:9999})},
+			{	field: "username", 	message: "Name is required field", 		rule: (x) => !validator.isEmpty(x) },
+			{	field: "username", 	message: res.usernameIsTaken,			 rule: (x) => (x !== "asd") && (x !=="Mario" ) && (x !== "nom") },
+			{ field: "username", 	message: res.usernameIsInvalid,		 rule: (x) => validator.isLength(x, {min:3, max:16})}
+			{ field: "color", 		message: "must be red",					   rule: (x) => x !== "red" }
+		]);
+	}
+	
+	public validateForm(state = this.state.form){
+		this.validation.validate(state);
+	}
 
    public onChangeHandler(event:any){
       let newState:any = {...this.state.form};
       newState[event.target.name] = event.target.value;
-      this.setState({
-         form:newState
-      });
-
-      if (event.target.name === "username"){
-         if (validator.isLength(event.target.value, {min:4, max:16}) || (event.target.value).length === 0){
-            document.querySelector(`input[name=${event.target.name}]`).classList.remove("invalid");
-            document.querySelector(`input[name=${event.target.name}]`).parentElement.removeAttribute("data-tooltip-error");
-         }
-         else if ((event.target.value === "asdasd") || (event.target.value === "mario") || (event.target.value === "asd")) {
-            document.querySelector(`input[name=${event.target.name}]`).classList.add("invalid");
-            document.querySelector(`input[name=${event.target.name}]`).parentElement.setAttribute("data-tooltip-error", this.props.res.usernameIsTaken);
-         }
-         else {
-            document.querySelector(`input[name=${event.target.name}]`).classList.add("invalid");
-            document.querySelector(`input[name=${event.target.name}]`).parentElement.setAttribute("data-tooltip-error", this.props.res.usernameIsInvalid);
-         }
-      }
- 
-      if (event.target.name === "email"){
-         if (validator.isEmail(event.target.value) || (event.target.value).length === 0){
-            document.querySelector(`input[name=${event.target.name}]`).classList.remove("invalid");
-            document.querySelector(`input[name=${event.target.name}]`).parentElement.removeAttribute("data-tooltip-error");
-         }
-         else {
-            document.querySelector(`input[name=${event.target.name}]`).classList.add("invalid");
-            document.querySelector(`input[name=${event.target.name}]`).parentElement.setAttribute("data-tooltip-error", this.props.res.emailIsInvalid);
-         }
-      }
-
-      if (event.target.name === "accountNum"){
-         if (validator.isNumeric(event.target.value) || (event.target.value).length === 0){
-            document.querySelector(`input[name=${event.target.name}]`).classList.remove("invalid");
-            document.querySelector(`input[name=${event.target.name}]`).parentElement.removeAttribute("data-tooltip-error");
-         }
-         else {
-            document.querySelector(`input[name=${event.target.name}]`).classList.add("invalid");
-            document.querySelector(`input[name=${event.target.name}]`).parentElement.setAttribute("data-tooltip-error", this.props.res.accNumIsInvalid);
-         }
-
-      }
+		
+		if (this.validating){
+			this.validateForm(newState);
+		};
+		
+    	this.setState({form:newState});
    }
 
    public onsubmitHandler(event:any){
-      event.preventDefault();
+		event.preventDefault();
+		this.validating = true;
+		this.validateForm();
+		this.forceUpdate();
+		
       axios.post("/api/forms/userform", {form:this.state.form})
       .then((response) => {
          anno.announce( response.data, "message from server");
@@ -92,14 +99,11 @@ export default class UserForm extends React.Component<any,any> {
    }
 
    public render(){
-      let username = this.state.form.username;
-      let email = this.state.form.email;
-      let location = this.state.form.location;
-      let accountNum = this.state.form.accountNum;
-      let color = this.state.form.color;
+		const {username, email, location, accountNum, color, age } = this.state.form;
+      let res = this.props.res;
+      let validify = this.validation;
       let onChange = (event:any)=>this.onChangeHandler(event);
       let onSubmit = (event:any)=>this.onsubmitHandler(event);
-      let res = this.props.res;
 
 
       return (
@@ -111,15 +115,17 @@ export default class UserForm extends React.Component<any,any> {
                label={res.username} 
                value={username} 
                onChange={onChange} 
-               id="nameID" 
+					id="nameID"
+					validation={validify.getValidatedMessage("username")} 
             />
             <Input 
                name="email"
-               tooltipInfo="You wont actually recieve any emails form us... :)"               
+               tooltipInfo="You wont actually recieve any emails form us... :)"
                label={res.email} 
                value={email} 
                onChange={onChange} 
-               id="emailID" 
+					id="emailID"
+					validation={validify.getValidatedMessage("email")} 
             />
             <Input 
                name="location" 
@@ -127,7 +133,7 @@ export default class UserForm extends React.Component<any,any> {
                label={res.location}  
                value={location} 
                onChange={onChange} 
-               id="locationID" 
+					id="locationID"
             />
             <Input 
                name="accountNum" 
@@ -135,22 +141,49 @@ export default class UserForm extends React.Component<any,any> {
                label={res.accountNum} 
                value={accountNum} 
                onChange={onChange} 
-               id="accountNumID" 
+					id="accountNumID"
+					validation={validify.isValid("accountNum") ? null : validify.getMessage("accountNum")} 
             />
             <Input 
                name="color" 
                label={res.color} 
                value={color} 
                onChange={onChange} 
-               id="colorID" 
+					id="colorID"
+					validation={validify.getValidatedMessage("color")}					
+            />
+            <Input 
+               name="age" 
+               label={res.age} 
+               value={age} 
+               onChange={onChange} 
+               id="ageID"
+               validation={validify.getValidatedMessage("age")}
             />
 
             <div className="spacing"></div>
 
             <Button buttonText={res.submit} type="submit" />
 
+            <div className="line-thin"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
+            <div className="spacing"></div>
             <div className="spacing"></div>
             <div className="line-thin"></div>
+
+
+            <DayPickerInput />
+            <DayPicker />
             <DayPicker />
          </form>
       );

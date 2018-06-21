@@ -49,7 +49,8 @@ const resoursefile = new LocalizedStrings({
       accNumIsInvalid:"Incorrect format for a bank account",
       usernameIsInvalid:"Invalid name length, try different lenght",
       usernameIsTaken:"That user already exists",
-      submit:"submit"
+      submit:"submit",
+      age: "age"
    },
 
    fi: {
@@ -71,7 +72,9 @@ const resoursefile = new LocalizedStrings({
       accNumIsInvalid:"Huono tilinumero, kokeile parempaa",
       usernameIsInvalid:"Väärän pituinen käyttäjänimi, kokeile toista pituutta",
       usernameIsTaken:"Käyttäjä on jo olemassa",
-      submit:"lähetä"
+      submit:"lähetä",
+      age: "ikä"
+
 
    }
 });

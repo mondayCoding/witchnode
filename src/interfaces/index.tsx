@@ -13,6 +13,7 @@ export interface IInputFieldProperties {
    disabled?:boolean;
    tooltipError?:string;
    tooltipInfo?:string;
+   validation?:string;
    onChange?(params?:any):any;
    onKeyUp?(params?:any):any;
 }
