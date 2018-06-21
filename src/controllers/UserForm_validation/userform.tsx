@@ -62,8 +62,8 @@ export default class UserForm extends React.Component<any,any> {
 			{	field: "accountNum",message: res.accNumIsInvalid,			 rule: (x) => validator.isInt(x, {min:0, max:9999})},
 			{	field: "username", 	message: "Name is required field", 		rule: (x) => !validator.isEmpty(x) },
 			{	field: "username", 	message: res.usernameIsTaken,			 rule: (x) => (x !== "asd") && (x !=="Mario" ) && (x !== "nom") },
-			{ field: "username", 	message: res.usernameIsInvalid,		 rule: (x) => validator.isLength(x, {min:3, max:16})}
-			{ field: "color", 		message: "must be red",					   rule: (x) => x !== "red" }
+			{ field: "username", 	message: res.usernameIsInvalid,		 rule: (x) => validator.isLength(x, {min:3, max:16})},
+			{ field: "color", 		message: "must be red",					   rule: (x) => x === "red" }
 		]);
 	}
 	
@@ -166,7 +166,6 @@ export default class UserForm extends React.Component<any,any> {
             <Button buttonText={res.submit} type="submit" />
 
             <div className="line-thin"></div>
-            <div className="spacing"></div>
             <div className="spacing"></div>
             <div className="spacing"></div>
             <div className="spacing"></div>
