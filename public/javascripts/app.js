@@ -1263,33 +1263,6 @@ exports.default = Input;
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = merge;
-function merge() {
-  var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var defaults = arguments[1];
-
-  for (var key in defaults) {
-    if (typeof obj[key] === 'undefined') {
-      obj[key] = defaults[key];
-    }
-  }
-  return obj;
-}
-module.exports = exports['default'];
-
-/***/ }),
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 Object.defineProperty(exports, "__esModule", { value: true });
 var annoModule_1 = __webpack_require__(16);
 var Logging = (function () {
@@ -1319,6 +1292,33 @@ exports.default = Logging;
 
 
 /***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = merge;
+function merge() {
+  var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var defaults = arguments[1];
+
+  for (var key in defaults) {
+    if (typeof obj[key] === 'undefined') {
+      obj[key] = defaults[key];
+    }
+  }
+  return obj;
+}
+module.exports = exports['default'];
+
+/***/ }),
+/* 20 */,
+/* 21 */,
+/* 22 */,
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3461,7 +3461,7 @@ var _assertString = __webpack_require__(1);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _merge = __webpack_require__(18);
+var _merge = __webpack_require__(19);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -7413,7 +7413,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var navigation_1 = __webpack_require__(123);
 var main_1 = __webpack_require__(148);
-var footer_1 = __webpack_require__(314);
+var footer_1 = __webpack_require__(315);
 var React = __webpack_require__(0);
 var react_router_dom_1 = __webpack_require__(26);
 var Layout = (function (_super) {
@@ -7503,7 +7503,11 @@ var Navigation = (function (_super) {
                 React.createElement("li", { className: "navi-item" },
                     React.createElement(react_router_dom_1.NavLink, { exact: true, to: "/apimock", activeClassName: "active", title: "ApiMock" },
                         React.createElement("i", { className: "fa fa-book" }),
-                        React.createElement("span", { className: "pagename" }, "Api Mocking"))))));
+                        React.createElement("span", { className: "pagename" }, "Api Mocking"))),
+                React.createElement("li", { className: "navi-item" },
+                    React.createElement(react_router_dom_1.NavLink, { exact: true, to: "/coinflip", activeClassName: "active", title: "Coin Flipper" },
+                        React.createElement("i", { className: "fa fa-book" }),
+                        React.createElement("span", { className: "pagename" }, "CoinFlipper"))))));
     };
     return Navigation;
 }(React.Component));
@@ -8442,7 +8446,8 @@ var missionpage_1 = __webpack_require__(216);
 var settingsPage_1 = __webpack_require__(220);
 var soonpage_1 = __webpack_require__(222);
 var witchpage_1 = __webpack_require__(237);
-var apiMockPage_1 = __webpack_require__(309);
+var apiMockPage_1 = __webpack_require__(310);
+var coinFlipPage_1 = __webpack_require__(324);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -8469,6 +8474,7 @@ var Main = (function (_super) {
                 React.createElement(react_router_dom_1.Route, { exact: true, path: "/settings", component: settingsPage_1.default }),
                 React.createElement(react_router_dom_1.Route, { exact: true, path: "/docs", component: docsPage_1.default }),
                 React.createElement(react_router_dom_1.Route, { exact: true, path: "/apimock", component: apiMockPage_1.default }),
+                React.createElement(react_router_dom_1.Route, { exact: true, path: "/coinflip", component: coinFlipPage_1.default }),
                 React.createElement(react_router_dom_1.Redirect, { to: "/" }))));
     };
     return Main;
@@ -15078,7 +15084,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __webpack_require__(12);
-var loggingModule_1 = __webpack_require__(22);
+var loggingModule_1 = __webpack_require__(18);
 var api_url = '/api/statistics/';
 var TodoApi = (function () {
     function TodoApi() {
@@ -15697,7 +15703,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __webpack_require__(12);
-var loggingModule_1 = __webpack_require__(22);
+var loggingModule_1 = __webpack_require__(18);
 var api_url = '/api/todo/simple';
 var TodoApi = (function () {
     function TodoApi() {
@@ -16309,7 +16315,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __webpack_require__(12);
-var loggingModule_1 = __webpack_require__(22);
+var loggingModule_1 = __webpack_require__(18);
 var api_url = '/api/todo/soon';
 var TodoApi = (function () {
     function TodoApi() {
@@ -16661,10 +16667,10 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var userform_1 = __webpack_require__(238);
-var langSelect_1 = __webpack_require__(303);
-var timer_1 = __webpack_require__(304);
+var langSelect_1 = __webpack_require__(304);
+var timer_1 = __webpack_require__(305);
 var annoModule_1 = __webpack_require__(16);
-var resourcess_1 = __webpack_require__(305);
+var resourcess_1 = __webpack_require__(306);
 var WitchPage = (function (_super) {
     __extends(WitchPage, _super);
     function WitchPage(props) {
@@ -16727,13 +16733,48 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var axios_1 = __webpack_require__(12);
 var react_day_picker_1 = __webpack_require__(239);
 var DayPickerInput_1 = __webpack_require__(245);
 var validationModule_1 = __webpack_require__(247);
 var validator = __webpack_require__(248);
+var UserForm_1 = __webpack_require__(303);
 var input_1 = __webpack_require__(17);
 var button_1 = __webpack_require__(51);
 var annoModule_1 = __webpack_require__(16);
@@ -16760,36 +16801,35 @@ var UserForm = (function (_super) {
             { field: "email", message: res.emailIsInvalid, rule: function (x) { return validator.isEmail(x); } },
             { field: "accountNum", message: res.accNumIsInvalid, rule: function (x) { return validator.isInt(x, { min: 0, max: 9999 }); } },
             { field: "username", message: "Name is required field", rule: function (x) { return !validator.isEmpty(x); } },
-            { field: "username", message: res.usernameIsTaken, rule: function (x) { return (x !== "asd") && (x !== "Mario") && (x !== "nom"); } },
+            { field: "username", message: res.usernameIsTaken, rule: function (x) { return (x !== "asd") && (x !== "Mario"); } },
             { field: "username", message: res.usernameIsInvalid, rule: function (x) { return validator.isLength(x, { min: 3, max: 16 }); } },
             { field: "color", message: "must be red", rule: function (x) { return x === "red"; } }
         ]);
     };
-    UserForm.prototype.validateForm = function (state) {
-        if (state === void 0) { state = this.state.form; }
-        this.validation.validate(state);
+    UserForm.prototype.validateForm = function () {
+        this.validation.validate(this.state.form);
     };
     UserForm.prototype.onChangeHandler = function (event) {
         var newState = __assign({}, this.state.form);
         newState[event.target.name] = event.target.value;
-        if (this.validating) {
-            this.validateForm(newState);
-        }
-        ;
         this.setState({ form: newState });
     };
     UserForm.prototype.onsubmitHandler = function (event) {
-        event.preventDefault();
-        this.validating = true;
-        this.validateForm();
-        this.forceUpdate();
-        axios_1.default.post("/api/forms/userform", { form: this.state.form })
-            .then(function (response) {
-            annoModule_1.default.announce(response.data, "message from server");
-        })
-            .catch(function (error) {
-            console.log(error.response);
-            annoModule_1.default.announce(error.response.data, "Error", "error");
+        return __awaiter(this, void 0, void 0, function () {
+            var data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        event.preventDefault();
+                        this.validation.activate();
+                        this.forceUpdate();
+                        return [4, UserForm_1.default.postUserForm(this.state.form)];
+                    case 1:
+                        data = _a.sent();
+                        annoModule_1.default.announce("server message", data);
+                        return [2];
+                }
+            });
         });
     };
     UserForm.prototype.render = function () {
@@ -16799,6 +16839,7 @@ var UserForm = (function (_super) {
         var validify = this.validation;
         var onChange = function (event) { return _this.onChangeHandler(event); };
         var onSubmit = function (event) { return _this.onsubmitHandler(event); };
+        this.validateForm();
         return (React.createElement("form", { className: "userform spacing", onSubmit: onSubmit },
             React.createElement("div", { className: "spacing" }),
             React.createElement(input_1.default, { name: "username", label: res.username, value: username, onChange: onChange, id: "nameID", validation: validify.getValidatedMessage("username") }),
@@ -18264,28 +18305,57 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var FormValidation = (function () {
-    function FormValidation(validationRules) {
-        this.validationRules = validationRules;
-        this.validationResult = this.getDefaultValidatResult();
-        this.stopValidation = false;
+var ValidationObject = (function () {
+    function ValidationObject() {
+        this.isValid = true;
+        this.message = null;
     }
-    FormValidation.prototype.getDefaultValidatResult = function () {
+    return ValidationObject;
+}());
+var Rule = (function () {
+    function Rule(rule) {
+        this.field = rule.field;
+        this.message = rule.message;
+        this.rule = rule.rule;
+        this.active = false;
+    }
+    return Rule;
+}());
+var FormValidation = (function () {
+    function FormValidation(rules) {
+        var _this = this;
+        this.rules = [];
+        rules.forEach(function (rule) {
+            _this.rules.push(new Rule(rule));
+        });
+        this.result = this.getDefaultResultObject();
+        this.active = false;
+    }
+    FormValidation.prototype.activate = function () {
+        this.active = true;
+        this.rules.forEach(function (rule) {
+            rule.active = true;
+        });
+    };
+    FormValidation.prototype.disable = function () {
+        this.active = false;
+    };
+    FormValidation.prototype.getDefaultResultObject = function () {
         var validation = [];
-        this.validationRules.map(function (rule) {
-            validation[rule.field] = { isValid: true, message: null };
+        this.rules.map(function (rule) {
+            validation[rule.field] = new ValidationObject();
         });
         return { formIsValid: true, validations: __assign({}, validation) };
     };
     FormValidation.prototype.validate = function (form) {
-        if (this.stopValidation) {
-            return;
+        if (!this.active) {
+            return false;
         }
-        var validatResult = this.getDefaultValidatResult();
-        this.validationRules.forEach(function (rule) {
+        var validatResult = this.getDefaultResultObject();
+        this.rules.forEach(function (rule) {
             var field = rule.field;
             if (field in form) {
-                if (validatResult.validations[field].isValid) {
+                if (rule.active && validatResult.validations[field].isValid) {
                     var formField = (form[field]).toString();
                     var result = rule.rule(formField);
                     var validationMessage = (result) ? null : rule.message;
@@ -18299,44 +18369,45 @@ var FormValidation = (function () {
                 console.log("there was ValidationRule with no matching state-field");
             }
         });
-        for (var x in validatResult.validations) {
-            if (!validatResult.validations[x].isValid) {
-                validatResult.formIsValid = false;
+        validatResult.formIsValid = this.isFormValid(validatResult);
+        this.result = validatResult;
+        return this.result;
+    };
+    FormValidation.prototype.isFormValid = function (result) {
+        var formIsValid = true;
+        for (var x in result.validations) {
+            if (!result.validations[x].isValid) {
+                formIsValid = false;
             }
         }
-        this.validationResult = validatResult;
-        console.log(validatResult);
-        return validatResult;
+        return formIsValid;
+    };
+    FormValidation.prototype.validateAll = function () {
+    };
+    FormValidation.prototype.validateField = function () {
     };
     FormValidation.prototype.isValid = function (field) {
-        if (field in this.validationResult.validations) {
-            var validity = this.validationResult.validations[field].isValid;
+        if (field in this.result.validations) {
+            var validity = this.result.validations[field].isValid;
             return validity;
         }
         return null;
     };
     FormValidation.prototype.getMessage = function (field) {
-        if (field in this.validationResult.validations) {
-            var message = this.validationResult.validations[field].message;
+        if (field in this.result.validations) {
+            var message = this.result.validations[field].message;
             return message;
         }
         return null;
     };
     FormValidation.prototype.getValidatedMessage = function (field) {
-        if (field in this.validationResult.validations) {
-            if (!this.validationResult.validations[field].isValid) {
-                var message = this.validationResult.validations[field].message;
+        if (field in this.result.validations) {
+            if (!this.result.validations[field].isValid) {
+                var message = this.result.validations[field].message;
                 return message;
             }
         }
         return null;
-    };
-    FormValidation.prototype.stopValidating = function (field) {
-        this.validationResult = this.getDefaultValidatResult();
-        this.stopValidation = true;
-    };
-    FormValidation.prototype.continueValidating = function (field) {
-        this.stopValidation = false;
     };
     return FormValidation;
 }());
@@ -18846,7 +18917,7 @@ var _assertString = __webpack_require__(1);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _merge = __webpack_require__(18);
+var _merge = __webpack_require__(19);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -18949,7 +19020,7 @@ var _isIP = __webpack_require__(99);
 
 var _isIP2 = _interopRequireDefault(_isIP);
 
-var _merge = __webpack_require__(18);
+var _merge = __webpack_require__(19);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -19440,7 +19511,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isDecimal;
 
-var _merge = __webpack_require__(18);
+var _merge = __webpack_require__(19);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -20242,7 +20313,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isCurrency;
 
-var _merge = __webpack_require__(18);
+var _merge = __webpack_require__(19);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -20808,7 +20879,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = normalizeEmail;
 
-var _merge = __webpack_require__(18);
+var _merge = __webpack_require__(19);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -20937,6 +21008,70 @@ module.exports = exports['default'];
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var axios_1 = __webpack_require__(12);
+var loggingModule_1 = __webpack_require__(18);
+var api_url = "/api/forms/userform";
+var UserFormApi = (function () {
+    function UserFormApi() {
+    }
+    UserFormApi.postUserForm = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2, new Promise(function (resolve) {
+                        return axios_1.default.post(api_url, { form: params })
+                            .then(function (response) { return resolve(response.data); })
+                            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
+                    })];
+            });
+        });
+    };
+    return UserFormApi;
+}());
+exports.default = UserFormApi;
+
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -20970,7 +21105,7 @@ exports.default = LangSelect;
 
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21022,14 +21157,14 @@ exports.default = Timer;
 
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_localization_1 = __webpack_require__(107);
-__webpack_require__(308).polyfill();
+__webpack_require__(309).polyfill();
 if (typeof Object.assign != 'function') {
     Object.assign = function (target, varArgs) {
         'use strict';
@@ -21094,9 +21229,9 @@ exports.default = resoursefile;
 
 
 /***/ }),
-/* 306 */,
 /* 307 */,
-/* 308 */
+/* 308 */,
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {/*!
@@ -22281,7 +22416,7 @@ return Promise$1;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(5)))
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22333,10 +22468,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var Prism = __webpack_require__(310);
-__webpack_require__(311);
-var ToDo_simple_1 = __webpack_require__(312);
-var ToDo_Soon_1 = __webpack_require__(313);
+var Prism = __webpack_require__(311);
+__webpack_require__(312);
+var ToDo_simple_1 = __webpack_require__(313);
+var ToDo_Soon_1 = __webpack_require__(314);
 var ApiMockPage = (function (_super) {
     __extends(ApiMockPage, _super);
     function ApiMockPage() {
@@ -22393,7 +22528,7 @@ exports.default = ApiMockPage;
 
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -23269,116 +23404,10 @@ Prism.languages.js = Prism.languages.javascript;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports) {
 
 Prism.languages.json={property:/"(?:\\.|[^\\"\r\n])*"(?=\s*:)/i,string:{pattern:/"(?:\\.|[^\\"\r\n])*"(?!\s*:)/,greedy:!0},number:/\b0x[\dA-Fa-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:[Ee][+-]?\d+)?/,punctuation:/[{}[\]);,]/,operator:/:/g,"boolean":/\b(?:true|false)\b/i,"null":/\bnull\b/i},Prism.languages.jsonp=Prism.languages.json;
-
-/***/ }),
-/* 312 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = __webpack_require__(12);
-var loggingModule_1 = __webpack_require__(22);
-var api_url = '/api/todo/simple';
-var TodoApi = (function () {
-    function TodoApi() {
-    }
-    TodoApi.getTodoCollection = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2, new Promise(function (resolve) {
-                        return axios_1.default.get(api_url)
-                            .then(function (response) { return resolve(response.data); })
-                            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
-                    })];
-            });
-        });
-    };
-    TodoApi.toggleHandler = function (params) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2, new Promise(function (resolve) {
-                        return axios_1.default.put(api_url + "/toggle", params)
-                            .then(function (response) { return resolve(response.data); })
-                            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
-                    })];
-            });
-        });
-    };
-    TodoApi.addNewItemToCollection = function (params) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2, new Promise(function (resolve) {
-                        return axios_1.default.put(api_url, params)
-                            .then(function (response) { return resolve(response.data); })
-                            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
-                    })];
-            });
-        });
-    };
-    TodoApi.removeFromCollection = function (params) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2, new Promise(function (resolve) {
-                        return axios_1.default({
-                            method: "delete",
-                            url: api_url,
-                            data: params
-                        })
-                            .then(function (response) { return resolve(response.data); })
-                            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
-                    })];
-            });
-        });
-    };
-    TodoApi.getTodoCollectionCallback = function (callback) {
-        axios_1.default.get(api_url)
-            .then(function (response) { return callback(response.data); })
-            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
-    };
-    return TodoApi;
-}());
-exports.default = TodoApi;
-
 
 /***/ }),
 /* 313 */
@@ -23423,8 +23452,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __webpack_require__(12);
-var loggingModule_1 = __webpack_require__(22);
-var api_url = '/api/todo/soon';
+var loggingModule_1 = __webpack_require__(18);
+var api_url = '/api/todo/simple';
 var TodoApi = (function () {
     function TodoApi() {
     }
@@ -23492,6 +23521,112 @@ exports.default = TodoApi;
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var axios_1 = __webpack_require__(12);
+var loggingModule_1 = __webpack_require__(18);
+var api_url = '/api/todo/soon';
+var TodoApi = (function () {
+    function TodoApi() {
+    }
+    TodoApi.getTodoCollection = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2, new Promise(function (resolve) {
+                        return axios_1.default.get(api_url)
+                            .then(function (response) { return resolve(response.data); })
+                            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
+                    })];
+            });
+        });
+    };
+    TodoApi.toggleHandler = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2, new Promise(function (resolve) {
+                        return axios_1.default.put(api_url + "/toggle", params)
+                            .then(function (response) { return resolve(response.data); })
+                            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
+                    })];
+            });
+        });
+    };
+    TodoApi.addNewItemToCollection = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2, new Promise(function (resolve) {
+                        return axios_1.default.put(api_url, params)
+                            .then(function (response) { return resolve(response.data); })
+                            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
+                    })];
+            });
+        });
+    };
+    TodoApi.removeFromCollection = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2, new Promise(function (resolve) {
+                        return axios_1.default({
+                            method: "delete",
+                            url: api_url,
+                            data: params
+                        })
+                            .then(function (response) { return resolve(response.data); })
+                            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
+                    })];
+            });
+        });
+    };
+    TodoApi.getTodoCollectionCallback = function (callback) {
+        axios_1.default.get(api_url)
+            .then(function (response) { return callback(response.data); })
+            .catch(function (error) { return loggingModule_1.default.LogErrorResponse(error); });
+    };
+    return TodoApi;
+}());
+exports.default = TodoApi;
+
+
+/***/ }),
+/* 315 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -23534,6 +23669,198 @@ var Main = (function (_super) {
     return Main;
 }(React.Component));
 exports.default = Main;
+
+
+/***/ }),
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(0);
+var coinFlip_1 = __webpack_require__(325);
+var CoinFlipPage = (function (_super) {
+    __extends(CoinFlipPage, _super);
+    function CoinFlipPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CoinFlipPage.prototype.render = function () {
+        return (React.createElement("div", { className: "page" },
+            React.createElement(coinFlip_1.default, null)));
+    };
+    return CoinFlipPage;
+}(React.Component));
+exports.default = CoinFlipPage;
+
+
+/***/ }),
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(0);
+var confirmUtilModule_1 = __webpack_require__(232);
+var coinFlipModule_1 = __webpack_require__(326);
+var button_1 = __webpack_require__(51);
+var Flipper = (function (_super) {
+    __extends(Flipper, _super);
+    function Flipper() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.state = {
+            coinFlipHistory: [],
+            coinFlipCount: 0
+        };
+        _this.flipCoin = function () {
+            _this.coinFlipper.flipCoin();
+            _this.updateFlipState();
+        };
+        _this.resetCoinFlips = function () {
+            if (confirmUtilModule_1.default("Are you sure you want to reset flips?, this action cannot be undone", null, "Reset")) {
+                _this.coinFlipper.resetHistory();
+                _this.updateFlipState();
+            }
+        };
+        return _this;
+    }
+    Flipper.prototype.componentWillMount = function () {
+        this.coinFlipper = new coinFlipModule_1.default();
+    };
+    Flipper.prototype.updateFlipState = function () {
+        this.setState({
+            coinFlipHistory: this.coinFlipper.flipHistory,
+            coinFlipCount: this.coinFlipper.flipCount
+        });
+    };
+    Flipper.prototype.render = function () {
+        var total = this.state.coinFlipCount;
+        var headCount = this.coinFlipper.getHeads();
+        var tailCount = this.coinFlipper.getTails();
+        var history = this.state.coinFlipHistory;
+        var latest = this.coinFlipper.lastFlipResult;
+        var count = 0;
+        return (React.createElement("div", { className: "content-centered-md" },
+            React.createElement("div", { className: "coinHeading" },
+                React.createElement("h3", { className: "heading" }, "flipped " + total + " times")),
+            React.createElement("div", { className: "coinFlipWrap" },
+                React.createElement("div", { className: "coin " + latest, onClick: this.flipCoin }, latest)),
+            React.createElement("div", { className: "row-flex spaced" },
+                React.createElement(button_1.default, { buttonText: "Flip Coin?", onClick: this.flipCoin }),
+                React.createElement(button_1.default, { buttonText: "Reset", onClick: this.resetCoinFlips })),
+            React.createElement("div", { className: "spacing" }),
+            React.createElement("div", { className: "row-flex spaced" },
+                React.createElement("div", { className: "countHeading" },
+                    React.createElement("div", null, "Heads:"),
+                    React.createElement("div", null, this.coinFlipper.getHeadPercentage())),
+                React.createElement("div", { className: "countHeading" },
+                    React.createElement("div", null, "Tails:"),
+                    React.createElement("div", null, this.coinFlipper.getTailPercentage()))),
+            React.createElement("div", { className: "spacing" }),
+            React.createElement("div", { className: "line-thin" }),
+            React.createElement("div", { className: "flex-table" }, history.reverse().map(function (item, index) {
+                return (React.createElement("div", { key: index, className: "table-row" },
+                    React.createElement("div", { className: "cell-60px centered" },
+                        React.createElement("b", null, "#" + (history.length - index))),
+                    React.createElement("div", { className: "cell-auto" }, item)));
+            })),
+            React.createElement("div", { className: "line-thin" })));
+    };
+    return Flipper;
+}(React.Component));
+exports.default = Flipper;
+
+
+/***/ }),
+/* 326 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var CoinFlipper = (function () {
+    function CoinFlipper() {
+        this.flipHistory = [];
+        this.flipCount = 0;
+        this.lastFlipResult = null;
+    }
+    CoinFlipper.prototype.flipCoin = function () {
+        var newFlip = this.flip();
+        this.flipCount += 1;
+        this.lastFlipResult = newFlip;
+        this.flipHistory.push(newFlip);
+    };
+    CoinFlipper.prototype.resetHistory = function () {
+        this.flipCount = 0;
+        this.flipHistory = [];
+    };
+    CoinFlipper.prototype.getHeads = function () {
+        var heads = this.flipHistory.filter(function (x) { return x === "heads"; }).length;
+        return heads;
+    };
+    CoinFlipper.prototype.getTails = function () {
+        var tails = this.flipHistory.filter(function (x) { return x === "tails"; }).length;
+        return tails;
+    };
+    CoinFlipper.prototype.getTotalFlips = function () {
+        var totalFlips = this.flipHistory.length;
+        return totalFlips;
+    };
+    CoinFlipper.prototype.getHeadPercentage = function () {
+        if (this.getHeads() === 0) {
+            return "0 %";
+        }
+        var headPercentage = Math.round((this.getHeads() / this.flipCount) * 100 * 10) / 10;
+        return headPercentage + " %";
+    };
+    CoinFlipper.prototype.getTailPercentage = function () {
+        if (this.getTails() === 0) {
+            return "0 %";
+        }
+        var tailPercentage = Math.round((this.getTails() / this.flipCount) * 100 * 10) / 10;
+        return tailPercentage + " %";
+    };
+    CoinFlipper.prototype.flip = function () {
+        var randomBoolean = Math.random() >= 0.5;
+        if (randomBoolean) {
+            return "heads";
+        }
+        else {
+            return "tails";
+        }
+    };
+    return CoinFlipper;
+}());
+exports.default = CoinFlipper;
 
 
 /***/ })

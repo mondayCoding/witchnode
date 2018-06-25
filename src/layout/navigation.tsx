@@ -62,6 +62,12 @@ export default class Navigation extends React.Component {
                         <span className="pagename">Api Mocking</span>
                     </NavLink>
                 </li>
+                <li className="navi-item">
+                    <NavLink exact to="/coinflip" activeClassName="active" title="Coin Flipper">
+                        <i className="fa fa-book"></i>
+                        <span className="pagename">CoinFlipper</span>
+                    </NavLink>
+                </li>
             </ul>
         </nav>
       );

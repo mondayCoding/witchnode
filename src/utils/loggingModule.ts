@@ -4,10 +4,10 @@ import { AxiosError } from 'axios';
 
 export default class Logging {
 
-	  //Log axios errors
+	  //Log axios errors this
 	  public static LogErrorResponse = (error: AxiosError) =>
 	  {
-		 //log server side error response
+		 //log server side error response (recieved message but fell outside 2xx range)
 		 if (error.response) 
 		 {
 			console.warn(error.response.data);

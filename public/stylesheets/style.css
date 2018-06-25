@@ -385,13 +385,17 @@ input[type="text"] {
   display: block;
 }
 
+.heading.md {
+  font-size: 1.5rem;
+}
+
 .heading.lg {
   font-size: 2rem;
 }
 
 .heading.negative {
   background-color: #323232;
-  color: #fff;
+  color: gainsboro;
 }
 
 .close-button {
@@ -486,6 +490,98 @@ input[type="text"] {
 .close-button:hover::before, .close-button:hover::after {
   background-color: #fff;
   transform: rotate(0deg);
+}
+
+.coinHeading h3 {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  background-color: #222;
+  color: #6e6e6e;
+  border: 0.1rem solid #40cf4e;
+}
+
+@keyframes flipHeads {
+  from {
+    -webkit-transform: rotateY(0);
+    -moz-transform: rotateY(0);
+    transform: rotateY(0);
+  }
+  to {
+    -webkit-transform: rotateY(1800deg);
+    -moz-transform: rotateY(1800deg);
+    transform: rotateY(1800deg);
+  }
+}
+
+@keyframes flipTails {
+  from {
+    -webkit-transform: rotateY(0);
+    -moz-transform: rotateY(0);
+    transform: rotateY(0);
+  }
+  to {
+    -webkit-transform: rotateY(1980deg);
+    -moz-transform: rotateY(1980deg);
+    transform: rotateY(1980deg);
+  }
+}
+
+.coinFlipWrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.coinFlipWrap .coin {
+  width: 12rem;
+  height: 12rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 0.2rem solid #40cf4e;
+  color: #40cf4e;
+  text-align: center;
+  line-height: 50%;
+  font-weight: 900;
+  font-size: 3rem;
+  background-color: #222;
+  box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.coinFlipWrap .coin.heads {
+  animation: flipHeads 2s;
+}
+
+.coinFlipWrap .coin.tails {
+  animation: flipTails 2s;
+}
+
+.countHeading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: #323232;
+  border-radius: 0.35rem;
+  font-weight: 900;
+  border: 0.1rem solid #40cf4e;
+  flex: 0 0 48%;
+}
+
+.countHeading div:first-child {
+  font-size: 1.2rem;
+  margin-top: .5rem;
+}
+
+.countHeading div:not(first-child) {
+  font-size: 2.5rem;
 }
 
 .progress-container {
@@ -2663,6 +2759,10 @@ footer a, footer a:link {
   flex-direction: column;
 }
 
+.flex-table .table-row:nth-child(odd) {
+  background-color: #3a3a3a;
+}
+
 .flex-row-table {
   display: flex;
   flex-direction: column;
@@ -2678,6 +2778,7 @@ footer a, footer a:link {
 .table-row {
   display: flex;
   flex-direction: row;
+  background-color: #323232;
   border-bottom: 0.1rem solid #222;
 }
 
@@ -2717,7 +2818,7 @@ footer a, footer a:link {
   border: none;
 }
 
-.table-row:hover {
+.table-row:hover, .table-row:nth-child(odd):hover {
   background-color: #c5ff571a;
 }
 
@@ -2726,9 +2827,21 @@ footer a, footer a:link {
   flex: 0 0 1rem;
 }
 
+.cell-15px.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cell-30px {
   padding: .34rem;
   flex: 0 0 2rem;
+}
+
+.cell-30px.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cell-60px {
@@ -2736,9 +2849,21 @@ footer a, footer a:link {
   flex: 0 0 4rem;
 }
 
+.cell-60px.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cell-120px {
   padding: .34rem;
   flex: 0 0.5 8rem;
+}
+
+.cell-120px.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cell-200px {
@@ -2746,9 +2871,21 @@ footer a, footer a:link {
   flex: 0 0.5 14rem;
 }
 
+.cell-200px.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cell-auto {
   padding: .34rem;
   flex: 1 1 20rem;
+}
+
+.cell-auto.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cell-status {
@@ -2757,6 +2894,12 @@ footer a, footer a:link {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.cell-status.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cell-status .fa {
@@ -2768,9 +2911,21 @@ footer a, footer a:link {
   flex: 0 0 2rem;
 }
 
+.cell-symbol.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cell-name {
   padding: .34rem;
   flex: 0 0.5 12rem;
+}
+
+.cell-name.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cell-type {
@@ -2778,9 +2933,21 @@ footer a, footer a:link {
   flex: 0 0.5 8rem;
 }
 
+.cell-type.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cell-desc {
   padding: .34rem;
   flex: 1 1 18rem;
+}
+
+.cell-desc.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cell-tags {
@@ -2788,9 +2955,21 @@ footer a, footer a:link {
   flex: 1 1 300px;
 }
 
+.cell-tags.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cell-id {
   padding: .34rem;
   flex: 0 0 60px;
+}
+
+.cell-id.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .table-row.complete .cell-status {
