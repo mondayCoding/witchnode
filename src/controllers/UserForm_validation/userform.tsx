@@ -4,11 +4,9 @@
 //****************************************************************************
 
 import * as React from 'react';
-import axios from 'axios';
 import DayPicker from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import FormValidation from '../../utils/validationModule';
-import validator = require("validator");
+import FormValidator from '../../utils/validationModule';
 import API from '../../api/UserForm';
 
 import Input from '../../components/input';
@@ -53,20 +51,21 @@ export default class UserForm extends React.Component<any,any> {
       }
    };
 
-	public validation: FormValidation;
+	public validation: FormValidator;
 	public validating: boolean;
 
    public componentWillMount(){ 
 		
       const res = this.props.res;
+      const test = FormValidator.test;
 
-      this.validation = new FormValidation([
-         {field: "email", 		message: res.emailIsInvalid, 			 rule: (x) => validator.isEmail(x) },
-         {field: "accountNum",message: res.accNumIsInvalid,			 rule: (x) => validator.isInt(x, {min:0, max:9999})},
-         {field: "username", 	message: "Name is required field", 	 rule: (x) => !validator.isEmpty(x) },
-         {field: "username", 	message: res.usernameIsTaken,			 rule: (x) => (x !== "asd") && (x !=="Mario" )},
-         {field: "username", 	message: res.usernameIsInvalid,		 rule: (x) => validator.isLength(x, {min:3, max:16})},
-         {field: "color", 		message: "must be red",					 rule: (x) => x === "red" }
+      this.validation = new FormValidator([
+         {field: "email", 		message: res.emailIsInvalid, 		  rule: (x) => test.isEmail(x) },
+         {field: "accountNum",message: res.accNumIsInvalid,		  rule: (x) => test.isInt(x)},
+         {field: "username", 	message: "Name is required field", rule: (x) => !test.isEmpty(x) },
+         {field: "username", 	message: res.usernameIsTaken,		  rule: (x) => (x !== "asd") && (x !=="Mario" )},
+         {field: "username", 	message: res.usernameIsInvalid,	  rule: (x) => test.isLength(x, {min:3, max:20})},
+         {field: "color", 		message: "must be red",				  rule: (x) => x === "red" }
       ]);
 	}
 	

@@ -1,8 +1,6 @@
 
 import * as React from 'react';
-import axios from 'axios';
 
-import Input from '../../components/input';
 import StepOne from '../../controllers/createCharForm/step1';
 import StepTwo from '../../controllers/createCharForm/step2';
 import StepThree from '../../controllers/createCharForm/step3';
@@ -108,7 +106,7 @@ export default class UserForm extends React.Component {
 	};
 
 
-	public goToNext() {
+	public goToNext = () => {
 		const { step } = this.state;
 		if (step !== this.state.maxStep) {
 			this.setState({ step: step + 1 });
@@ -117,7 +115,7 @@ export default class UserForm extends React.Component {
 		}
 	}
 
-	public goToPrevious() {
+	public goToPrevious = () => {
 		const { step } = this.state;
 		if (step !== 1) {
 			this.setState({ step: step - 1 });
@@ -158,8 +156,8 @@ export default class UserForm extends React.Component {
 					<div className="line-thin"></div>					
 
 					<div className="row-flex spaced">
-						<Button buttonText="return" 	type="button" onClick={() => this.goToPrevious()} />
-						<Button buttonText="next" 		type="button" onClick={() => this.goToNext()} />
+						<Button buttonText="return" 	type="button" onClick={this.goToPrevious} />
+						<Button buttonText="next" 		type="button" onClick={this.goToNext} />
 					</div>
 
 					<div className="line-thin"></div>

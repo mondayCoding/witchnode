@@ -6,6 +6,8 @@ import * as React from 'react';
 import confirm from './../../utils/confirmUtilModule';
 import coinFlipper from '../../utils/coinFlipModule';
 import Button from '../../components/button';
+import Tabs from '../../components/tabs';
+import Tab from '../../components/tab';
 
 interface IState {
    coinFlipHistory: string[];
@@ -113,7 +115,36 @@ export default class Flipper extends React.Component {
             </div>
             <div className="line-thin"></div>
 
+            <Tabs>
+               <Tab title="First">             
+                  <span>
+                    Counter chronological flipping history:
+                  </span>  
+               </Tab>
+               <Tab title="Second">            
+                  <span>
+                     Have you ever implemented something similar?
+                           Did you do something differently? Leave a comment 
+                           below a let’s learn from each other :).
+                  </span>        
+               </Tab>
+               <Tab title="Third">              
+                  <span>
+                     With very little code and yet a lot of flexibility we 
+                        have managed to implement a simple React
+                  </span>       
+               </Tab>
+               <Tab title="Fourth">              
+                  <span>
+                     Have you ever implemented something similar?
+                           Did you do something differently? Leave a comment 
+                           below a let’s learn from each other :).
+                  </span>   
+               </Tab>
+            </Tabs>
+
          </div>
       );
 	}
 }
+

@@ -48,9 +48,7 @@ class Rule {
       this.rule = rule.rule;
       this.active = false;
    }
-   
 }
-
 
 
 //****************************************************************************
@@ -60,9 +58,10 @@ class Rule {
 export default class FormValidation {
 
 	// properties
+   public static test = validator;
 	private rules:Rule[];
 	private result:IValidationResult;
-	private active: boolean;
+   private active: boolean;
 
 	// constructor
 	constructor(rules:IRuleConfig[]) {
@@ -71,7 +70,7 @@ export default class FormValidation {
          this.rules.push(new Rule(rule));
       });
       this.result = this.getDefaultResultObject();
-      this.active = false;
+      this.active = false;    
    }
    
    public activate() {

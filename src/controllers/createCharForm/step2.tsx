@@ -11,7 +11,7 @@ interface IStepTwoForm {
 	onChange(params:any):void;
 }
 
-export default class StepOne extends React.Component<IStepTwoForm> {
+export default class StepTwo extends React.Component<IStepTwoForm> {
 
 	public render(){
 		const {color, count, gender, location, onChange} = this.props;

@@ -683,6 +683,51 @@ select.disabled {
    }
 }
 
+//****************************************************************************
+// Tabs
+//****************************************************************************
+
+.tabs {
+   .tab-titles {
+      // display: flex;
+
+      .tab-title {
+         padding: 0 .5rem;
+         border: none;
+         background-color: transparentize($color: $grayDark, $amount: .5);
+         color: $grayLight;
+         transition: background-color .2s;
+
+         & + .tab-title {
+            margin-left: .5rem;
+         }
+
+         &.active {
+            color: $main;
+         }
+
+         &:hover {
+            background-color: $main;
+            box-shadow: $globalShadow;
+            color: $white;
+         }
+         
+         &:focus {
+            @include focusEffect();
+         }
+
+         &:last-child {
+            border-top-right-radius: .5rem;
+         }
+         &:first-child {
+            border-top-left-radius: .5rem;
+         }
+      }
+   }
+   .tab-content {
+      padding: 1rem 0;
+   }
+}
 
 //****************************************************************************
 // Progress bar (TODO)

@@ -584,6 +584,62 @@ input[type="text"] {
   font-size: 2.5rem;
 }
 
+.tabs .tab-titles .tab-title {
+  padding: 0 .5rem;
+  border: none;
+  background-color: rgba(50, 50, 50, 0.5);
+  color: gainsboro;
+  transition: background-color .2s;
+}
+
+.tabs .tab-titles .tab-title + .tab-title {
+  margin-left: .5rem;
+}
+
+.tabs .tab-titles .tab-title.active {
+  color: #40cf4e;
+}
+
+.tabs .tab-titles .tab-title:hover {
+  background-color: #40cf4e;
+  box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.tabs .tab-titles .tab-title:focus {
+  box-shadow: 0 0 0.35rem black;
+  outline: 0.1rem solid #40cf4e;
+}
+
+.red .tabs .tab-titles .tab-title:focus {
+  outline-color: #e46964;
+}
+
+.light .tabs .tab-titles .tab-title:focus {
+  outline-color: #38d860;
+}
+
+.violet .tabs .tab-titles .tab-title:focus {
+  outline-color: #dd24ce;
+}
+
+.tabs .tab-titles .tab-title:focus:hover {
+  box-shadow: none;
+  outline: none;
+}
+
+.tabs .tab-titles .tab-title:last-child {
+  border-top-right-radius: .5rem;
+}
+
+.tabs .tab-titles .tab-title:first-child {
+  border-top-left-radius: .5rem;
+}
+
+.tabs .tab-content {
+  padding: 1rem 0;
+}
+
 .progress-container {
   position: absolute;
   top: 0;
