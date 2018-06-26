@@ -7436,7 +7436,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var navigation_1 = __webpack_require__(124);
 var main_1 = __webpack_require__(149);
-var footer_1 = __webpack_require__(318);
+var footer_1 = __webpack_require__(320);
 var React = __webpack_require__(0);
 var react_router_dom_1 = __webpack_require__(26);
 var Layout = (function (_super) {
@@ -16237,7 +16237,7 @@ var Modal = (function (_super) {
             return null;
         }
         return (React.createElement("div", { className: "modal-fade", onClick: onClose },
-            React.createElement("div", { className: "modal-box", onClick: onDialogClick },
+            React.createElement("div", { className: "modal-box animated-fall", onClick: onDialogClick },
                 React.createElement("div", { className: "modal-heading" },
                     React.createElement("h3", { className: "heading" }, this.props.heading),
                     React.createElement("button", { onClick: onClose, type: "button", className: "close-button light noborder" })),
@@ -16633,7 +16633,7 @@ var ConfirmationDialog = (function (_super) {
             return null;
         }
         return (React.createElement("div", { className: "modal-fade", onClick: function () { return cancel(); } },
-            React.createElement("div", { className: "modal-box", onClick: this.onDialogClick },
+            React.createElement("div", { className: "modal-box animated-fall", onClick: this.onDialogClick },
                 React.createElement("div", { className: "modal-heading" },
                     heading && React.createElement("h3", { className: "heading" }, heading),
                     React.createElement("button", { onClick: function () { return cancel(); }, type: "button", className: "close-button light noborder" })),
@@ -23677,8 +23677,8 @@ var React = __webpack_require__(0);
 var confirmUtilModule_1 = __webpack_require__(94);
 var coinFlipModule_1 = __webpack_require__(317);
 var button_1 = __webpack_require__(33);
-var tabs_1 = __webpack_require__(327);
-var tab_1 = __webpack_require__(328);
+var tabs_1 = __webpack_require__(318);
+var tab_1 = __webpack_require__(319);
 var Flipper = (function (_super) {
     __extends(Flipper, _super);
     function Flipper() {
@@ -23708,11 +23708,20 @@ var Flipper = (function (_super) {
             coinFlipCount: this.coinFlipper.flipCount
         });
     };
+    Flipper.prototype.getFlipHistory = function (isReversed) {
+        var history = (isReversed) ? this.state.coinFlipHistory.slice().reverse() : this.state.coinFlipHistory;
+        var className = function (index) { return (index === 0) ? "table-row flash-once" : "table-row"; };
+        return (history.map(function (item, index) {
+            return (React.createElement("div", { key: index, className: className(index) },
+                React.createElement("div", { className: "cell-60px centered" },
+                    React.createElement("b", null, "#" + ((isReversed) ? history.length - index : index + 1))),
+                React.createElement("div", { className: "cell-auto" }, item)));
+        }));
+    };
     Flipper.prototype.render = function () {
         var total = this.state.coinFlipCount;
         var headCount = this.coinFlipper.getHeads();
         var tailCount = this.coinFlipper.getTails();
-        var history = this.state.coinFlipHistory;
         var latest = this.coinFlipper.lastFlipResult;
         var count = 0;
         return (React.createElement("div", { className: "content-centered-md" },
@@ -23733,22 +23742,16 @@ var Flipper = (function (_super) {
                     React.createElement("div", null, this.coinFlipper.getTailPercentage()))),
             React.createElement("div", { className: "spacing" }),
             React.createElement("div", { className: "line-thin" }),
-            React.createElement("div", { className: "flex-table" }, history.reverse().map(function (item, index) {
-                return (React.createElement("div", { key: index, className: "table-row" },
-                    React.createElement("div", { className: "cell-60px centered" },
-                        React.createElement("b", null, "#" + (history.length - index))),
-                    React.createElement("div", { className: "cell-auto" }, item)));
-            })),
-            React.createElement("div", { className: "line-thin" }),
             React.createElement(tabs_1.default, null,
-                React.createElement(tab_1.default, { title: "First" },
-                    React.createElement("span", null, "Counter chronological flipping history:")),
-                React.createElement(tab_1.default, { title: "Second" },
-                    React.createElement("span", null, "Have you ever implemented something similar? Did you do something differently? Leave a comment below a let\u2019s learn from each other :).")),
-                React.createElement(tab_1.default, { title: "Third" },
-                    React.createElement("span", null, "With very little code and yet a lot of flexibility we have managed to implement a simple React")),
-                React.createElement(tab_1.default, { title: "Fourth" },
-                    React.createElement("span", null, "Have you ever implemented something similar? Did you do something differently? Leave a comment below a let\u2019s learn from each other :).")))));
+                React.createElement(tab_1.default, { title: "Latest to first" },
+                    React.createElement("div", { className: "line-thin" }),
+                    React.createElement("span", null, "Flip counter in anti-chronological order (latest to first):"),
+                    React.createElement("div", { className: "flex-table" }, this.getFlipHistory(true))),
+                React.createElement(tab_1.default, { title: "First to latest" },
+                    React.createElement("div", { className: "line-thin" }),
+                    React.createElement("span", null, "Flip counter in chronological order (first to latest):"),
+                    React.createElement("div", { className: "flex-table" }, this.getFlipHistory(false)))),
+            React.createElement("div", { className: "line-thin" })));
     };
     return Flipper;
 }(React.Component));
@@ -23836,64 +23839,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var Main = (function (_super) {
-    __extends(Main, _super);
-    function Main() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.theme = true;
-        return _this;
-    }
-    Main.prototype.setTheme = function () {
-        var link = document.getElementById("stylelink");
-        if (this.theme) {
-            link.href = "/stylesheets/style_light.min.css";
-            this.theme = !this.theme;
-        }
-        else {
-            link.href = "/stylesheets/style.min.css";
-            this.theme = !this.theme;
-        }
-    };
-    Main.prototype.render = function () {
-        var _this = this;
-        return (React.createElement("footer", { className: "footer" },
-            React.createElement("a", { href: "https://github.com/mondayCoding/witchnode" },
-                React.createElement("span", null, "code lives "),
-                React.createElement("i", { className: "fas fa-heart" }),
-                React.createElement("span", null, " and dies with ")),
-            React.createElement("i", { onClick: function () { return _this.setTheme(); }, className: "fas fa-coffee" })));
-    };
-    return Main;
-}(React.Component));
-exports.default = Main;
-
-
-/***/ }),
-/* 319 */,
-/* 320 */,
-/* 321 */,
-/* 322 */,
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
 var Tabs = (function (_super) {
     __extends(Tabs, _super);
     function Tabs() {
@@ -23936,7 +23881,7 @@ exports.default = Tabs;
 
 
 /***/ }),
-/* 328 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23949,6 +23894,56 @@ var Tab = function (props) {
     return (React.createElement("button", { className: buttonClass, onClick: function () { return onClick(tabIndex); }, title: title }, title));
 };
 exports.default = Tab;
+
+
+/***/ }),
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(0);
+var Main = (function (_super) {
+    __extends(Main, _super);
+    function Main() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.theme = true;
+        return _this;
+    }
+    Main.prototype.setTheme = function () {
+        var link = document.getElementById("stylelink");
+        if (this.theme) {
+            link.href = "/stylesheets/style_light.min.css";
+            this.theme = !this.theme;
+        }
+        else {
+            link.href = "/stylesheets/style.min.css";
+            this.theme = !this.theme;
+        }
+    };
+    Main.prototype.render = function () {
+        var _this = this;
+        return (React.createElement("footer", { className: "footer" },
+            React.createElement("a", { href: "https://github.com/mondayCoding/witchnode" },
+                React.createElement("span", null, "code lives "),
+                React.createElement("i", { className: "fas fa-heart" }),
+                React.createElement("span", null, " and dies with ")),
+            React.createElement("i", { onClick: function () { return _this.setTheme(); }, className: "fas fa-coffee" })));
+    };
+    return Main;
+}(React.Component));
+exports.default = Main;
 
 
 /***/ })

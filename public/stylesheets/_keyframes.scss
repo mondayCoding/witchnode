@@ -14,10 +14,26 @@
 	100% 	{ background-position: 0% 50%; }
 }
 
-@keyframes flash {
-	0%    {  border-color: none;       }
-	49%   {  border-color: #EE7752;  }
-	50%   {  border-color: #E73C7E;  }
+@keyframes rainbowFlash {
+   0%    { 
+      border-color: #EE7752;
+      box-shadow: 0 0 0 transparent;
+   }
+   25%   { 
+      border-color: #E73C7E;
+      box-shadow: 0 0 .5rem white;
+   }
+   75%   { 
+      border-color: #23A6D5;
+      box-shadow: 0 0 1rem white;
+   }
+   99%  { 
+      border-color: #23D5AB;
+      box-shadow: 0 0 .1rem white;
+   }
+   100%  { 
+      border-color: none;
+      box-shadow: none;
+   }
 }
-
 

@@ -392,28 +392,6 @@ select.disabled {
    @extend %disabled;
 }
 
-.baseselect {
-	width: 8rem;
-	height: 2.5rem;
-	padding: .4rem;
-	color: black;
-
-	option {
-		color: black;
-	
-		&:disabled {
-			opacity: .5;
-			color: $grayLight;
-			background: $grayBlack;
-		}
-		&:checked {
-			opacity: 1 !important;
-			background: green !important;
-		}
-	}
-
-}
-
 
 //****************************************************************************
 // Utility
@@ -482,7 +460,34 @@ select.disabled {
 }
 
 .flash-once {
-	animation: flash 3s once;
+   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 1000%;
+   animation-iteration-count: 1;
+	animation: Gradient 5s;
+}
+
+.animated-fall {
+   animation-iteration-count: 1;
+   animation: fadeInDrop .1s linear; 
+}
+
+@keyframes fadeInDrop {
+	0% 	{ 
+      opacity: 0;
+      transform: scale(0);
+      margin-top: -30%;
+   }
+	50% 	{ 
+      opacity: .5;
+      transform: scale(.5);
+      margin-top: -15%;
+   }
+	100% 	{ 
+      opacity: 1;
+      transform: scale(1);
+      margin-top: none;
+
+   }
 }
 
 
@@ -725,7 +730,6 @@ select.disabled {
       }
    }
    .tab-content {
-      padding: 1rem 0;
    }
 }
 
@@ -1461,7 +1465,6 @@ $tipMessageWidth: 14rem;
 		max-width: 30rem;
 		min-height: 11rem;
 		padding: 1rem;
-		margin: .3rem;
 		position: relative;
 		border: .4rem solid $main;
 		@include themeborder(main);

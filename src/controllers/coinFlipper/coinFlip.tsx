@@ -21,7 +21,7 @@ export default class Flipper extends React.Component {
       coinFlipHistory: [],
       coinFlipCount: 0
    };
-   
+
    private coinFlipper: coinFlipper;
    
    public componentWillMount(){
@@ -45,13 +45,32 @@ export default class Flipper extends React.Component {
          this.coinFlipper.resetHistory();
          this.updateFlipState();
       }
-	}
+   }
+   
+   public getFlipHistory(isReversed:boolean){
+      const history = (isReversed) ? this.state.coinFlipHistory.slice().reverse() : this.state.coinFlipHistory;      
+      const className = (index:number) => (index === 0) ? "table-row flash-once" : "table-row" ;
+
+      return(
+         history.map((item, index)=> {
+            return (
+               <div key={index} className={className(index)}>
+                  <div className="cell-60px centered">
+                     <b>{"#" + ((isReversed) ? history.length - index : index + 1 )}</b>
+                  </div>
+                  <div className="cell-auto">
+                     {item}
+                  </div>
+               </div>
+            );
+         })
+      );      
+   }
 
 	public render() {
       const total = this.state.coinFlipCount;
       const headCount = this.coinFlipper.getHeads();
       const tailCount = this.coinFlipper.getTails();
-      const history = this.state.coinFlipHistory;
       const latest = this.coinFlipper.lastFlipResult;
       let count = 0;
 
@@ -97,51 +116,30 @@ export default class Flipper extends React.Component {
             {/* result table */}
             <div className="spacing"></div>
             <div className="line-thin"></div>
-            <div className="flex-table">
-               {                  
-                  history.reverse().map((item, index)=> {
-                     return (
-                        <div key={index} className="table-row">
-                           <div className="cell-60px centered">
-                              <b>{"#" + (history.length - index)}</b>
-                           </div>
-                           <div className="cell-auto">
-                              {item}
-                           </div>
-                        </div>
-                     );
-                  })
-               }
-            </div>
-            <div className="line-thin"></div>
 
             <Tabs>
-               <Tab title="First">             
+               <Tab title="Latest to first">             
+                  <div className="line-thin"></div>
                   <span>
-                    Counter chronological flipping history:
-                  </span>  
+                     Flip counter in anti-chronological order (latest to first):
+                  </span>
+                  <div className="flex-table">
+                     {this.getFlipHistory(true)}
+                  </div>
                </Tab>
-               <Tab title="Second">            
+
+               <Tab title="First to latest">            
+                  <div className="line-thin"></div>
                   <span>
-                     Have you ever implemented something similar?
-                           Did you do something differently? Leave a comment 
-                           below a let’s learn from each other :).
-                  </span>        
+                     Flip counter in chronological order (first to latest):
+                  </span>
+                  <div className="flex-table">
+                     {this.getFlipHistory(false)}
+                  </div>      
                </Tab>
-               <Tab title="Third">              
-                  <span>
-                     With very little code and yet a lot of flexibility we 
-                        have managed to implement a simple React
-                  </span>       
-               </Tab>
-               <Tab title="Fourth">              
-                  <span>
-                     Have you ever implemented something similar?
-                           Did you do something differently? Leave a comment 
-                           below a let’s learn from each other :).
-                  </span>   
-               </Tab>
+               
             </Tabs>
+            <div className="line-thin"></div>
 
          </div>
       );

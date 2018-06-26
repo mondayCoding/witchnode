@@ -48,7 +48,7 @@ export default class Modal extends React.Component<Iprops> {
 		return (
 			<div className="modal-fade" onClick={onClose}>
 
-				<div className="modal-box" onClick={onDialogClick}>
+				<div className="modal-box animated-fall" onClick={onDialogClick}>
 					<div className="modal-heading">
 						<h3 className="heading">{this.props.heading}</h3>
 						<button onClick={onClose} type="button" className="close-button light noborder"></button>
