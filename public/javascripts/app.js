@@ -23672,6 +23672,41 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var confirmUtilModule_1 = __webpack_require__(94);
@@ -23691,12 +23726,19 @@ var Flipper = (function (_super) {
             _this.coinFlipper.flipCoin();
             _this.updateFlipState();
         };
-        _this.resetCoinFlips = function () {
-            if (confirmUtilModule_1.default("Are you sure you want to reset flips?, this action cannot be undone", null, "Reset")) {
-                _this.coinFlipper.resetHistory();
-                _this.updateFlipState();
-            }
-        };
+        _this.resetCoinFlips = function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4, confirmUtilModule_1.default("Are you sure you want to reset flips?, this action cannot be undone", null, "Reset")];
+                    case 1:
+                        if (_a.sent()) {
+                            this.coinFlipper.resetHistory();
+                            this.updateFlipState();
+                        }
+                        return [2];
+                }
+            });
+        }); };
         return _this;
     }
     Flipper.prototype.componentWillMount = function () {
@@ -23710,12 +23752,20 @@ var Flipper = (function (_super) {
     };
     Flipper.prototype.getFlipHistory = function (isReversed) {
         var history = (isReversed) ? this.state.coinFlipHistory.slice().reverse() : this.state.coinFlipHistory;
-        var className = function (index) { return (index === 0) ? "table-row flash-once" : "table-row"; };
+        var classname = function (index) {
+            if (isReversed && index === 0 || !isReversed && index === history.length - 1) {
+                return "table-row animated-newItemFlash";
+            }
+            else {
+                return "table-row";
+            }
+        };
         return (history.map(function (item, index) {
-            return (React.createElement("div", { key: index, className: className(index) },
+            var key = item.flipCounter + item.result;
+            return (React.createElement("div", { key: key, className: classname(index) },
                 React.createElement("div", { className: "cell-60px centered" },
                     React.createElement("b", null, "#" + ((isReversed) ? history.length - index : index + 1))),
-                React.createElement("div", { className: "cell-auto" }, item)));
+                React.createElement("div", { className: "cell-auto" }, item.result)));
         }));
     };
     Flipper.prototype.render = function () {
@@ -23735,11 +23785,15 @@ var Flipper = (function (_super) {
             React.createElement("div", { className: "spacing" }),
             React.createElement("div", { className: "row-flex spaced" },
                 React.createElement("div", { className: "countHeading" },
-                    React.createElement("div", null, "Heads:"),
-                    React.createElement("div", null, this.coinFlipper.getHeadPercentage())),
+                    React.createElement("div", null,
+                        "Heads: ",
+                        headCount),
+                    React.createElement("div", { key: headCount, className: "animated-glow-once" }, this.coinFlipper.getHeadPercentage())),
                 React.createElement("div", { className: "countHeading" },
-                    React.createElement("div", null, "Tails:"),
-                    React.createElement("div", null, this.coinFlipper.getTailPercentage()))),
+                    React.createElement("div", null,
+                        "Tails: ",
+                        tailCount),
+                    React.createElement("div", { key: tailCount, className: "animated-glow-once" }, this.coinFlipper.getTailPercentage()))),
             React.createElement("div", { className: "spacing" }),
             React.createElement("div", { className: "line-thin" }),
             React.createElement(tabs_1.default, null,
@@ -23772,21 +23826,25 @@ var CoinFlipper = (function () {
         this.lastFlipResult = null;
     }
     CoinFlipper.prototype.flipCoin = function () {
-        var newFlip = this.flip();
+        var flipResult = this.flip();
         this.flipCount += 1;
-        this.lastFlipResult = newFlip;
-        this.flipHistory.push(newFlip);
+        this.lastFlipResult = flipResult;
+        this.pushToHistory(flipResult, this.flipCount);
+    };
+    CoinFlipper.prototype.pushToHistory = function (result, flipCounter) {
+        var newHistoryItem = { result: result, flipCounter: flipCounter };
+        this.flipHistory.push(newHistoryItem);
     };
     CoinFlipper.prototype.resetHistory = function () {
         this.flipCount = 0;
         this.flipHistory = [];
     };
     CoinFlipper.prototype.getHeads = function () {
-        var heads = this.flipHistory.filter(function (x) { return x === "heads"; }).length;
+        var heads = this.flipHistory.filter(function (x) { return x.result === "heads"; }).length;
         return heads;
     };
     CoinFlipper.prototype.getTails = function () {
-        var tails = this.flipHistory.filter(function (x) { return x === "tails"; }).length;
+        var tails = this.flipHistory.filter(function (x) { return x.result === "tails"; }).length;
         return tails;
     };
     CoinFlipper.prototype.getTotalFlips = function () {

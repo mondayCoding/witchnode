@@ -1,10 +1,16 @@
 
+type TResult = "heads" | "tails";
+
+export interface IFlipHistoryItem {
+   result:TResult;
+   flipCounter:number;
+}
 
 export default class CoinFlipper {
 
-   public flipHistory: string[];
+   public flipHistory: IFlipHistoryItem[];
    public flipCount: number;
-   public lastFlipResult: "heads" | "tails";
+   public lastFlipResult: TResult;
 
    constructor(){
       this.flipHistory = [];
@@ -13,10 +19,15 @@ export default class CoinFlipper {
    }
    
    public flipCoin(){
-      const newFlip = this.flip();
+      const flipResult = this.flip();
       this.flipCount += 1;
-      this.lastFlipResult = newFlip;
-      this.flipHistory.push(newFlip);
+      this.lastFlipResult = flipResult;
+      this.pushToHistory(flipResult, this.flipCount);
+   }
+
+   public pushToHistory(result:TResult, flipCounter:number ){
+      const newHistoryItem = {result, flipCounter};
+      this.flipHistory.push(newHistoryItem);
    }
    
    public resetHistory(){
@@ -25,12 +36,12 @@ export default class CoinFlipper {
    }
    
    public getHeads(){
-      const heads = this.flipHistory.filter( (x) => x === "heads" ).length;
+      const heads = this.flipHistory.filter( (x) => x.result === "heads" ).length;
       return heads;
    }
    
    public getTails(){
-      const tails = this.flipHistory.filter( (x) => x === "tails" ).length;
+      const tails = this.flipHistory.filter( (x) => x.result === "tails" ).length;
       return tails;
    }
    

@@ -5,17 +5,17 @@ import * as React from 'react';
 //utils
 import confirm from './../../utils/confirmUtilModule';
 import coinFlipper from '../../utils/coinFlipModule';
+import {IFlipHistoryItem} from '../../utils/coinFlipModule';
 import Button from '../../components/button';
 import Tabs from '../../components/tabs';
 import Tab from '../../components/tab';
 
 interface IState {
-   coinFlipHistory: string[];
+   coinFlipHistory: IFlipHistoryItem[];
    coinFlipCount: number;
 }
 
 export default class Flipper extends React.Component {
-
    
    public state: IState = {
       coinFlipHistory: [],
@@ -40,26 +40,37 @@ export default class Flipper extends React.Component {
       this.updateFlipState();
    }
    
-   public resetCoinFlips = () => {
-      if (confirm("Are you sure you want to reset flips?, this action cannot be undone", null, "Reset")){
+   public resetCoinFlips = async () => {
+      if (await confirm("Are you sure you want to reset flips?, this action cannot be undone", null, "Reset")){
          this.coinFlipper.resetHistory();
          this.updateFlipState();
       }
    }
    
    public getFlipHistory(isReversed:boolean){
-      const history = (isReversed) ? this.state.coinFlipHistory.slice().reverse() : this.state.coinFlipHistory;      
-      const className = (index:number) => (index === 0) ? "table-row flash-once" : "table-row" ;
 
+      const history = (isReversed) ? this.state.coinFlipHistory.slice().reverse() : this.state.coinFlipHistory;
+      const classname = (index:number) => {
+         if (isReversed && index === 0 || !isReversed && index === history.length-1) {
+            return "table-row animated-newItemFlash";
+         } 
+         else {
+            return "table-row";
+         }
+      };
+     
       return(
          history.map((item, index)=> {
+
+            const key = item.flipCounter + item.result;
+
             return (
-               <div key={index} className={className(index)}>
+               <div key={key} className={classname(index)}>
                   <div className="cell-60px centered">
                      <b>{"#" + ((isReversed) ? history.length - index : index + 1 )}</b>
                   </div>
                   <div className="cell-auto">
-                     {item}
+                     {item.result}
                   </div>
                </div>
             );
@@ -104,12 +115,16 @@ export default class Flipper extends React.Component {
             {/* percentage counter */}
             <div className="row-flex spaced">
                <div className="countHeading">
-                  <div>Heads:</div>
-                  <div>{this.coinFlipper.getHeadPercentage()}</div>
+                  <div>Heads: {headCount}</div>
+                  <div key={headCount} className="animated-glow-once">
+                     {this.coinFlipper.getHeadPercentage()}
+                  </div>
                </div>
                <div className="countHeading">
-                  <div>Tails:</div>
-                  <div>{this.coinFlipper.getTailPercentage()}</div>
+                  <div>Tails: {tailCount}</div>
+                  <div key={tailCount} className="animated-glow-once">
+                     {this.coinFlipper.getTailPercentage()}
+                  </div>
                </div>
             </div>
 

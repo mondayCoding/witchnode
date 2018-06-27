@@ -310,16 +310,48 @@ input[type="text"] {
   animation: rainbow 3s infinite alternate;
 }
 
-.flash-once {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+.animated-newItemFlash {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #0a6a8d, #00b48a);
   background-size: 1000%;
   animation-iteration-count: 1;
-  animation: Gradient 5s;
+  animation: newItemFlash 1s;
+}
+
+.animated-glow-once {
+  animation-iteration-count: 1;
+  animation: simple-glow 1s linear;
 }
 
 .animated-fall {
   animation-iteration-count: 1;
-  animation: fadeInDrop .1s linear;
+  animation: fadeInDrop .2s linear;
+}
+
+@keyframes simple-glow {
+  0% {
+    text-shadow: 0 0 0 white;
+  }
+  50% {
+    color: #4fa300;
+    text-shadow: 0 0 .3rem white;
+  }
+  100% {
+    text-shadow: 0 0 0 white;
+  }
+}
+
+@keyframes newItemFlash {
+  0% {
+    transform: scaleY(-1);
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    transform: scaleY(1);
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes fadeInDrop {
@@ -328,7 +360,7 @@ input[type="text"] {
     transform: scale(0);
     margin-top: -30%;
   }
-  50% {
+  65% {
     opacity: .5;
     transform: scale(0.5);
     margin-top: -15%;
@@ -591,8 +623,9 @@ input[type="text"] {
 }
 
 .countHeading div:first-child {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-top: .5rem;
+  font-weight: 700;
 }
 
 .countHeading div:not(first-child) {
