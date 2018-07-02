@@ -99,7 +99,7 @@ export default class Flipper extends React.Component {
 
             {/* coin animation */}
             <div className="coinFlipWrap">
-               <div className={"coin " + latest} onClick={this.flipCoin}>
+               <div key={total} className={"coin " + latest} onClick={this.flipCoin}>
                   {latest}
                </div>
             </div>

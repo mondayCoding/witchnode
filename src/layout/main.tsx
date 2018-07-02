@@ -12,6 +12,7 @@ import soonpage from '../pages/soonpage';
 import witchPage from '../pages/witchpage';
 import apiMockPage from '../pages/apiMockPage';
 import coinFlipPage from '../pages/coinFlipPage';
+import complex from '../pages/complexPage';
 
 import * as $ from 'jquery'; 
 import CoinFlipPage from '../pages/coinFlipPage';
@@ -47,6 +48,7 @@ export default class Main extends React.Component {
                <Route exact path="/docs" component={docsPage}/>
                <Route exact path="/apimock" component={apiMockPage}/>
                <Route exact path="/coinflip" component={coinFlipPage}/>
+               <Route exact path="/complex" component={complex}/>
                <Redirect to="/"/>
             </Switch>
          }         

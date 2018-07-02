@@ -3,8 +3,7 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import API from '../api/Statistics';
-import validator = require('validator');
-import FormValidation from '../utils/validationModule';
+import navicons from '../layout/navIcons';
 
 interface IStatisticsRespn {
     serverStartCount:string;
@@ -44,7 +43,7 @@ export default class Dashboard extends React.Component {
                     <NavLink exact to="/" activeClassName="active" className="dash-item" >
 
                         <div className="pagesymbol">
-                            <i className="fa fa-heart"></i>
+                           {navicons.dashboard}
                         </div>
                         <div className="pagetitle">
                             Dashboard
@@ -53,7 +52,7 @@ export default class Dashboard extends React.Component {
 
                     <NavLink exact to="/createchar" activeClassName="active" className="dash-item" >
                         <div className="pagesymbol">
-                            <i className="fa fa-heart"></i>
+                           {navicons.createchar}                           
                         </div>
                         <div className="pagetitle">
                             Create Character
@@ -62,17 +61,16 @@ export default class Dashboard extends React.Component {
 
                     <NavLink exact to="/soon" activeClassName="active" className="dash-item" >
                         <div className="pagesymbol">
-                            <i className="fa fa-hashtag"></i>
+                           {navicons.soon}                           
                         </div>
                         <div className="pagetitle">
                             Soon™
                         </div>
                     </NavLink>
 
-
                     <NavLink exact to="/missions" activeClassName="active" className="dash-item" >
                         <div className="pagesymbol">
-                            <i className="fa fa-exclamation"></i>
+                           {navicons.missions}                           
                         </div>
                         <div className="pagetitle">
                             Missions
@@ -81,42 +79,66 @@ export default class Dashboard extends React.Component {
 
                     <NavLink exact to="/witchchat" activeClassName="active" className="dash-item" >
                         <div className="pagesymbol">
-                            <i className="fa fa-medkit"></i>
+                           {navicons.covenchat}                           
                         </div>
                         <div className="pagetitle">
                             covenChat
                         </div>
                     </NavLink>
 
-
                     <NavLink exact to="/profile" activeClassName="active" className="dash-item" >
                         <div className="pagesymbol">
-                            <i className="fa fa-flask"></i>
+                           {navicons.profile}                           
                         </div>
                         <div className="pagetitle">
                             Profile
                         </div>
                     </NavLink>
 
-
                     <NavLink exact to="/settings" activeClassName="active" className="dash-item" >
                         <div className="pagesymbol">
-                            <i className="fa fa-cog"></i>
+                           {navicons.settings}                           
                         </div>
                         <div className="pagetitle">
                             Settings
                         </div>
                     </NavLink>
 
-
                     <NavLink exact to="/docs" activeClassName="active" className="dash-item" >
                         <div className="pagesymbol">
-                            <i className="fa fa-book"></i>
+                           {navicons.documentation}                           
                         </div>
                         <div className="pagetitle">
                             Documentation
                             </div>
                     </NavLink>
+
+                     <NavLink exact to="/apimock" activeClassName="active" className="dash-item" >
+                        <div className="pagesymbol">
+                           {navicons.apimocking}                           
+                        </div>
+                        <div className="pagetitle">
+                           Apimock
+                        </div>
+                     </NavLink>
+
+                     <NavLink exact to="/coinflip" activeClassName="active" className="dash-item" >
+                        <div className="pagesymbol">
+                           {navicons.apimocking}                           
+                        </div>
+                        <div className="pagetitle">
+                           Coinflipper
+                        </div>
+                     </NavLink>
+
+                     <NavLink exact to="/apimock" activeClassName="active" className="dash-item" >
+                        <div className="pagesymbol">
+                           {navicons.complex}                           
+                        </div>
+                        <div className="pagetitle">
+                           Complex
+                        </div>
+                     </NavLink>
 
                 </section>
 

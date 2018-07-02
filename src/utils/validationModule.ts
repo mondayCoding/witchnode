@@ -4,7 +4,7 @@ import validator = require('validator');
 interface IRuleConfig {
 	field: string;
 	message: string;
-	rule(param:string):boolean;
+	validIf(param:string):boolean;
 }
 
 interface IValidationFieldResult {
@@ -40,12 +40,12 @@ class Rule {
 	public field: string;
    public message: string;
    public active: boolean;
-   public rule:any;
+   public validIf:any;
    
    public constructor(rule:IRuleConfig){
       this.field = rule.field;
       this.message = rule.message;
-      this.rule = rule.rule;
+      this.validIf = rule.validIf;
       this.active = false;
    }
 }
@@ -120,7 +120,7 @@ export default class FormValidation {
             if (rule.active && validatResult.validations[field].isValid){               
                               
                const formField = (form[field]).toString();
-               const result = rule.rule(formField);
+               const result = rule.validIf(formField);
                const validationMessage = (result) ? null : rule.message ;				
 
                // create validation response object

@@ -16,7 +16,6 @@ interface Iprops {
 
 const SortHandle = SortableHandle(()=><i className="fa fa-bars"></i>);
 
-
 const Row:React.StatelessComponent<Iprops> = ({mission, toggle, onActivation, onRemove}) => {
    let createDate = new Date(mission.createDate).toDateString();
    let iconClass = (mission.complete) ? "fas fa-calendar" : "fas fa-calendar";

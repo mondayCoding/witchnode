@@ -7,7 +7,7 @@ import Tip from '../components/infotip';
 export default class Input extends React.Component<IInputFieldProperties> {
 
     public render() {
-        const {id, value, label, tooltipError, tooltipInfo, validation, ...rest} = this.props;
+        const {id, value, label, isSmall, tooltipInfo, validation, ...rest} = this.props;
         let inputClass = (value === undefined || value.length > 0) ? "input-text hasContent" : "input-text";
         let validationClass = (validation) ? "invalid" : null;
 

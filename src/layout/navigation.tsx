@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import {NavLink} from 'react-router-dom';
+import navicons from "./navIcons";
 
 export default class Navigation extends React.Component {
    public render() {
@@ -9,64 +10,70 @@ export default class Navigation extends React.Component {
             <ul className="navi-list">
                 <li className="navi-item">
                     <NavLink exact to="/" activeClassName="active" title="Dashboard">
-                        <i className="fas fa-tachometer-alt"></i>
+                        {navicons.dashboard}
                         <span className="pagename">Dashboard</span>
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/createchar" activeClassName="active" title="Create Character">
-                        <i className="fa fa-heart"></i>
+                        {navicons.createchar}
                         <span className="pagename">Create Character</span>
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/soon" activeClassName="active" title="Soon™">
-                        <i className="fa fa-hashtag"></i>
+                        {navicons.soon}
                         <span className="pagename">Soon™</span>
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/missions" activeClassName="active" title="Missions">
-                        <i className="fa fa-exclamation"></i>
+                        {navicons.missions}
                         <span className="pagename">Missions</span>
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/witchchat" activeClassName="active" title="covenChat">
-                        <i className="fas fa-comment-dots"></i>
+                        {navicons.covenchat}
                         <span className="pagename">covenChat</span>
                         {/* <i className="far fa-comments"></i> */}
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/profile" activeClassName="active" title="Profile">
-                        <i className="fa fa-flask"></i>
+                        {navicons.profile}
                         <span className="pagename">Profile</span>
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/settings" activeClassName="active" title="Settings">
-                        <i className="fa fa-cog"></i>
+                        {navicons.settings}
                         <span className="pagename">Settings</span>
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/docs" activeClassName="active" title="Documentation">
-                        <i className="fa fa-book"></i>
+                        {navicons.documentation}
                         <span className="pagename">Documentation</span>
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/apimock" activeClassName="active" title="ApiMock">
-                        <i className="fa fa-book"></i>
+                        {navicons.apimocking}
                         <span className="pagename">Api Mocking</span>
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/coinflip" activeClassName="active" title="Coin Flipper">
-                        <i className="fa fa-book"></i>
+                        {navicons.coinflipper}
                         <span className="pagename">CoinFlipper</span>
                     </NavLink>
+                </li>
+               <li className="navi-item">
+                  <NavLink exact to="/complex" activeClassName="active" title="Complex">
+                     {navicons.complex}
+                     <span className="pagename">Complex</span>
+                  </NavLink>
                 </li>
             </ul>
         </nav>

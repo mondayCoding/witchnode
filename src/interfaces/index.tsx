@@ -11,8 +11,23 @@ export interface IInputFieldProperties {
    readonly?:boolean;
    required?:boolean;
    disabled?:boolean;
-   tooltipError?:string;
+   isSmall?:boolean;
    tooltipInfo?:string;
+   validation?:string;
+   onChange?(params?:any):any;
+   onKeyUp?(params?:any):any;
+}
+
+export interface ISelectProperties {
+   id?:string;
+   name?:string;
+   label?:string;
+   value?:string;
+   placeholder?:string;
+   readonly?:boolean;
+   required?:boolean;
+   disabled?:boolean;
+   isSmall?:boolean;
    validation?:string;
    onChange?(params?:any):any;
    onKeyUp?(params?:any):any;
@@ -39,10 +54,6 @@ export interface IInputCheckboxProperties {
     onChange?(params?:any):any;
 }
 
-//generic select element properties
-export interface ISelectProperties {
-     id?:string;
-}
 
  //******************CUSTOM OBJECT MODELS*************************************************/
 

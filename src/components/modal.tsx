@@ -3,7 +3,8 @@ import * as React from 'react';
 
 interface Iprops {
 	show: boolean;
-	heading: string;
+   heading: string;
+   size?: "xl" | "lg" | "md" | "sm" ;
 	onClose(): void;
 }
 
@@ -37,29 +38,30 @@ export default class Modal extends React.Component<Iprops> {
 
 	public render() {
 
-		const onClose = this.props.onClose;
-		const onDialogClick = this.onDialogClick;
+      const onClose = this.props.onClose;
+      const onDialogClick = this.onDialogClick;
+      const size = this.props.size || "md";
 
-		// Render nothing if the "show" prop is false
-		if(!this.props.show) {
-			return null;
-		}
+      // Render nothing if the "show" prop is false
+      if(!this.props.show) {
+         return null;
+      }
 
-		return (
-			<div className="modal-fade" onClick={onClose}>
+      return (
+         <div className="modal-fade" onClick={onClose}>
 
-				<div className="modal-box animated-fall" onClick={onDialogClick}>
-					<div className="modal-heading">
-						<h3 className="heading">{this.props.heading}</h3>
-						<button onClick={onClose} type="button" className="close-button light noborder"></button>
-					</div>
-					<div className="modal-content-wrap">
-						{this.props.children}
-					</div>
-				</div>
-				
-			</div>
-		);
+            <div className={`modal-box animated--scaleIn ${size}`} onClick={onDialogClick}>
+               <div className="modal-heading">
+                  <h3 className="heading">{this.props.heading}</h3>
+                  <button onClick={onClose} type="button" className="close-button light noborder"></button>
+               </div>
+               <div className="modal-content-wrap">
+                  {this.props.children}
+               </div>
+            </div>
+            
+         </div>
+      );
 	}
 
 }

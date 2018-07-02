@@ -24,11 +24,14 @@ export default class Tabs extends React.Component<IProps, IState> {
    public renderTabButtons(){
       return React.Children.map(
          this.props.children, (child, index) => {
-            return React.cloneElement(child as any, {
-               onClick: this.setActiveTab, 
-               tabIndex: index, 
-               isActive: this.state.activeTab === index
-            });
+            // null check, since there are "optional" children
+            if (child) {
+               return React.cloneElement(child as any, {
+                  onClick: this.setActiveTab, 
+                  tabIndex: index, 
+                  isActive: this.state.activeTab === index
+               });
+            }
          }
       );
    }

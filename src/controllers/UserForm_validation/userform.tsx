@@ -60,12 +60,12 @@ export default class UserForm extends React.Component<any,any> {
       const test = FormValidator.test;
 
       this.validation = new FormValidator([
-         {field: "email", 		message: res.emailIsInvalid, 		  rule: (x) => test.isEmail(x) },
-         {field: "accountNum",message: res.accNumIsInvalid,		  rule: (x) => test.isInt(x)},
-         {field: "username", 	message: "Name is required field", rule: (x) => !test.isEmpty(x) },
-         {field: "username", 	message: res.usernameIsTaken,		  rule: (x) => (x !== "asd") && (x !=="Mario" )},
-         {field: "username", 	message: res.usernameIsInvalid,	  rule: (x) => test.isLength(x, {min:3, max:20})},
-         {field: "color", 		message: "must be red",				  rule: (x) => x === "red" }
+         {field: "email", 		message: res.emailIsInvalid, 		  validIf: (x) => test.isEmail(x) },
+         {field: "accountNum",message: res.accNumIsInvalid,		  validIf: (x) => test.isInt(x)},
+         {field: "username", 	message: "Name is required field", validIf: (x) => !test.isEmpty(x) },
+         {field: "username", 	message: res.usernameIsTaken,		  validIf: (x) => (x !== "asd") && (x !=="Mario" )},
+         {field: "username", 	message: res.usernameIsInvalid,	  validIf: (x) => test.isLength(x, {min:3, max:20})},
+         {field: "color", 		message: "must be red",				  validIf: (x) => x === "red" }
       ]);
 	}
 	
