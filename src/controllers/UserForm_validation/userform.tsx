@@ -4,8 +4,6 @@
 //****************************************************************************
 
 import * as React from 'react';
-import DayPicker from 'react-day-picker';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
 import FormValidator from '../../utils/validationModule';
 import API from '../../api/UserForm';
 
@@ -73,9 +71,9 @@ export default class UserForm extends React.Component<any,any> {
 		this.validation.validate(this.state.form);
 	}
 
-   public onChangeHandler(event:any){
+   public onChangeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
       let newState:any = {...this.state.form};
-      newState[event.target.name] = event.target.value;
+      newState[e.target.name] = e.target.value;
 
       this.setState({form:newState});
    }
@@ -93,7 +91,7 @@ export default class UserForm extends React.Component<any,any> {
       const {username, email, location, accountNum, color, age } = this.state.form;
       let res = this.props.res;
       let validify = this.validation;
-      let onChange = (event:any)=>this.onChangeHandler(event);
+      const onChangeHandler = this.onChangeHandler;
       let onSubmit = (event:any)=>this.onsubmitHandler(event);
 
       this.validateForm();  
@@ -106,7 +104,7 @@ export default class UserForm extends React.Component<any,any> {
                name="username" 
                label={res.username} 
                value={username} 
-               onChange={onChange} 
+               onChange={onChangeHandler} 
                id="nameID"
                validation={validify.getValidatedMessage("username")} 
             />
@@ -115,7 +113,7 @@ export default class UserForm extends React.Component<any,any> {
                tooltipInfo="You wont actually recieve any emails form us... :)"
                label={res.email} 
                value={email} 
-               onChange={onChange} 
+               onChange={onChangeHandler} 
                id="emailID"
                validation={validify.getValidatedMessage("email")} 
             />
@@ -124,7 +122,7 @@ export default class UserForm extends React.Component<any,any> {
                tooltipInfo="Original home country" 
                label={res.location}  
                value={location} 
-               onChange={onChange} 
+               onChange={onChangeHandler} 
                id="locationID"
             />
             <Input 
@@ -132,7 +130,7 @@ export default class UserForm extends React.Component<any,any> {
                tooltipInfo="Use only numbers"
                label={res.accountNum} 
                value={accountNum} 
-               onChange={onChange} 
+               onChange={onChangeHandler} 
                id="accountNumID"
                validation={validify.isValid("accountNum") ? null : validify.getMessage("accountNum")} 
             />
@@ -140,7 +138,7 @@ export default class UserForm extends React.Component<any,any> {
                name="color" 
                label={res.color} 
                value={color} 
-               onChange={onChange} 
+               onChange={onChangeHandler} 
                id="colorID"
                validation={validify.getValidatedMessage("color")}					
             />
@@ -148,7 +146,7 @@ export default class UserForm extends React.Component<any,any> {
                name="age" 
                label={res.age} 
                value={age} 
-               onChange={onChange} 
+               onChange={onChangeHandler} 
                id="ageID"
                validation={validify.getValidatedMessage("age")}
             />
@@ -158,24 +156,7 @@ export default class UserForm extends React.Component<any,any> {
             <Button buttonText={res.submit} type="submit" />
 
             <div className="line-thin"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="spacing"></div>
-            <div className="line-thin"></div>
 
-
-            <DayPickerInput />
-            <DayPicker />
-            <DayPicker />
          </form>
       );
    }

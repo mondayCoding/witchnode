@@ -20,12 +20,14 @@ export default class Product{
    public hasPrice: boolean;
    public hasQuantityRules: boolean;
    public hasSetDateValues: boolean;
+   public hasImage: boolean;
    public createDate: Date;
    public modifiedDate: Date;
    public endOfServiceDate: Date;
    public availableFrom: Date;
    public availableTo: Date;
    public unit: string;
+   public imgFileBlob: string;
    public maxAmount: number;
    public minAmount: number;
    public price: number;
@@ -41,11 +43,13 @@ export default class Product{
       this.hasPrice = false;
       this.hasQuantityRules = false;
       this.hasSetDateValues = false;
+      this.hasImage = false;
       this.createDate = new Date();
       this.modifiedDate = new Date();
       this.endOfServiceDate = new Date();
       this.availableFrom = new Date();
       this.availableTo = new Date();
+      this.imgFileBlob = "";
       this.unit = "";
       this.price = 0;
       this.priceWithVat = 0;

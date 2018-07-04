@@ -10,10 +10,11 @@ import anno from '../utils/annoModule';
 import res from '../localization/resourcess';
 
 
-interface Istates {
-   lang: "fi" | "en";
-}
+type LangType = "fi" | "en";
 
+interface Istates {
+   lang: LangType;
+}
 
 export default class WitchPage extends React.Component<any, Istates> {
     constructor(props:any){

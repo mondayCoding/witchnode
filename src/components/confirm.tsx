@@ -41,7 +41,7 @@ export class ConfirmationDialog extends React.Component<ReactConfirmProps> {
 		return (
 			<div className="modal-fade" onClick={() => cancel()}>
 
-				<div className="modal-box animated--scaleIn" onClick={this.onDialogClick}>
+				<div className="modal-box animated--scaleIn sm" onClick={this.onDialogClick}>
 					<div className="modal-heading">
 						{heading && <h3 className="heading">{heading}</h3>}
 						<button onClick={() => cancel()} type="button" className="close-button light noborder"></button>

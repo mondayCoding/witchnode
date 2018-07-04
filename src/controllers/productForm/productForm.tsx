@@ -11,7 +11,10 @@ import SliderCheckbox from '../../components/checkbox-slider';
 import Tabs from '../../components/tabs';
 import Tab from '../../components/tab';
 import TextArea from '../../components/textArea';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
+
+// REMINDER: not best practice but there is no proper definition file for this as of 16.6.2018 
+// tslint:disable:no-var-requires
+const DayPickerInput = require("react-day-picker/DayPickerInput").default;
 
 interface IProps {
    product:Product;
@@ -30,10 +33,10 @@ export default class ProductForm extends React.Component<IProps> {
       product:this.props.product,
    };
 
-   public handleOnChange = (e:any) => {
+   public handleOnChange = (e:React.ChangeEvent<HTMLInputElement>) => {
       const targetValue = e.target.type === "text" ? e.target.value : e.target.checked;
       const targetName = e.target.name;
-      let product = Object.assign({}, this.state.product);
+      let product:any = Object.assign({}, this.state.product);
       product[targetName] = targetValue;
       this.setState({product});
    }
@@ -45,7 +48,7 @@ export default class ProductForm extends React.Component<IProps> {
       this.setState({product});
    }
       
-   public handleFromChange = (from:any) => {
+   public handleFromChange = (from:Date) => {
       console.log(from);      
       let endOf = this.state.product.endOfServiceDate;
    }
@@ -71,10 +74,8 @@ export default class ProductForm extends React.Component<IProps> {
       ];
 
       const {
-         name, id, price, hasPrice, description, memoNote, 
-         hasQuantityRules, minAmount, maxAmount, productType, 
-         hasSetDateValues, priceWithVat, endOfServiceDate,
-         availableFrom, availableTo, createDate, modifiedDate
+         name, id, price, hasPrice, description, memoNote, hasQuantityRules, minAmount, maxAmount, productType, 
+         hasSetDateValues, priceWithVat, endOfServiceDate,availableFrom, availableTo, createDate, modifiedDate, hasImage
       } = this.state.product; 
 
       return(
@@ -106,7 +107,20 @@ export default class ProductForm extends React.Component<IProps> {
                      onChange={this.handleOnChange}
                   />
 
-                  <Select2
+                  <div className="themeinput-responsive">
+                     <label htmlFor="selectID">Product types</label>
+                     <Select 
+                        id="selectID" 
+                        multi={true}
+                        simpleValue={true}
+                        name="lang-field-name"
+                        value={productType}
+                        onChange={this.handleSelectOnChange}
+                        options={productTypeOptions}
+                     />
+                  </div>
+
+                  {/* <Select2
                      label="Product types"
                      multi={true}
                      simpleValue={true}
@@ -114,9 +128,16 @@ export default class ProductForm extends React.Component<IProps> {
                      value={productType}
                      onChange={this.handleSelectOnChange}
                      options={productTypeOptions}
-                  />
+                  /> */}
 
                   <h3 className="heading underlined">Addidional properties</h3>
+                  <SliderCheckbox 
+                     label="Has Product images" 
+                     id="imagePropertiesInUse"
+                     name="hasImage" 
+                     checked={hasImage} 
+                     onChange={this.handleOnChange} 
+                  />
                   <SliderCheckbox 
                      label="Has price table" 
                      id="priceSettingsInUse"
@@ -151,7 +172,17 @@ export default class ProductForm extends React.Component<IProps> {
                      onChange={this.handleOnChange}
                   />                    
                </Tab>
-               
+
+               {/* image Tab */}
+               {
+                  hasImage && 
+                  <Tab title="Avatar">
+
+                     <h3 className="heading underlined">Product image</h3>  
+
+                     <span>image will go here</span>
+                  </Tab>
+               }
                {/* price tab */}
                {
                   hasPrice && 

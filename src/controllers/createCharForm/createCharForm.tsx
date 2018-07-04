@@ -7,7 +7,6 @@ import StepThree from '../../controllers/createCharForm/step3';
 import StepFour from '../../controllers/createCharForm/step4';
 import Button from '../../components/button';
 import anno from '../../utils/annoModule';
-import FormValidator from '../../utils/validationModule';
 
 
 interface IFormState {
@@ -125,7 +124,7 @@ export default class UserForm extends React.Component {
 	}
 
 	//field
-	public onChangeHandler = (event: any) => {
+	public onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const target = event.target;
 		const value = (target.type === "checkbox") ? target.checked : target.value;
 		const name = target.name;
@@ -135,18 +134,17 @@ export default class UserForm extends React.Component {
 		});
 	}
 
-	public onsubmitHandler(event: any) {
-		event.preventDefault();
+	public onsubmitHandler = (event: React.FormEvent) => {
+      event.preventDefault();
+      console.log("no submit handling as of now");      
 	}
 
 	public render() {
-		const onSubmit = (event: any) => this.onsubmitHandler(event);
-		const step = this.state.step;
-		const maxStep = this.state.maxStep;
+		const {step, maxStep } = this.state;
 
 		return (
 			<section className="content-centered-md">
-				<form className="userform spacing" onSubmit={onSubmit}>
+				<form className="userform spacing" onSubmit={this.onsubmitHandler}>
 
 					<div className="spacing"></div>
 

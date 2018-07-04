@@ -10,6 +10,7 @@ export default class InputResponsive extends React.Component<ISelectProperties> 
 
       let validationClass = (validation) ? "invalid" : null;
 
+      //TODO : siirrä tämä rakenne suoraan selectin ympärille 
       return (
          <div className="themeinput-responsive" data-tooltip-error={validation}>
             <label htmlFor={id}>{label}</label>

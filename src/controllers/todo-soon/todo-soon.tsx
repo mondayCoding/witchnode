@@ -51,17 +51,17 @@ export default class ToDoSoon extends React.Component {
 		this.setState({ quests: data });
 	}
 
-	public async clickHandler() {
+	public clickHandler = async () => {
 		if(await confirm(`Add task called: ${this.state.newQuest}`)){
-			const data: any = await API.addNewItemToCollection({ objective: this.state.newQuest });
+			const data = await API.addNewItemToCollection({ objective: this.state.newQuest }) as IMissionItem[];
 			this.setState({ quests: data, newQuest: "" });
 		}
 	}
 
-	public onChangeHandler(event: any) {
+	public onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.setState({
-			newQuest: event.target.value,
-			isSubmitDisabled: ((event.target.value).length > 2 ? false : true)
+			newQuest: e.target.value,
+			isSubmitDisabled: ((e.target.value).length > 7 ? false : true)
 		});
 	}
 
@@ -87,8 +87,8 @@ export default class ToDoSoon extends React.Component {
 		}	
 	}
 
-	public enterHandler(event: KeyboardEvent) {
-		if (event.key === "Enter") { this.clickHandler(); }
+	public enterHandler = (e: KeyboardEvent) => {
+		if (e.key === "Enter") { this.clickHandler(); }
 	}
 
 	public async toggleHandler(mission: IMissionItem) {
@@ -118,26 +118,23 @@ export default class ToDoSoon extends React.Component {
 
 	public render() {
 
-		//table
-		let newQuest = this.state.newQuest;
-		let isSubmitDisabled = this.state.isSubmitDisabled;
-		let quests = this.state.quests;
-		let enterHandler = (event: any) => this.enterHandler(event);
-		let onChange = (event: any) => this.onChangeHandler(event);
-		let onBtnClick = () => this.clickHandler();
-		let removeItem = (obj: IMissionItem) => this.removeMission(obj);
-		let toggle = (obj: IMissionItem) => this.toggleHandler(obj);
+      //table
+      const {newQuest, isSubmitDisabled, quests, modalIsOpen, modalContent } = this.state;
+      let enterHandler = this.enterHandler;
+      let onChange = this.onChangeHandler;
+      let onBtnClick = this.clickHandler;
+      let removeItem = (obj: IMissionItem) => this.removeMission(obj);
+      let toggle = (obj: IMissionItem) => this.toggleHandler(obj);
 
-		//modal
-		const handleClose = this.handleClose;
-		const modalIsOpen = this.state.modalIsOpen;
-		const updateModal = this.updateModal;
+      //modal
+      const handleClose = this.handleClose;
+      const updateModal = this.updateModal;
 
-		const content = this.state.modalContent.content;
-		const title = this.state.modalContent.title;
-		const remove = this.state.modalContent.remove;
+      const content = modalContent.content;
+      const title = modalContent.title;
+      const remove = modalContent.remove;
 
-		return (
+      return (
 			<Table
 				value={newQuest}
 				disableState={isSubmitDisabled}

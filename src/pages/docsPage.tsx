@@ -1,12 +1,11 @@
 
 //libs
 import * as React from 'react';
-import * as $ from 'jquery';
 import Mark = require("mark.js");
 //import ScrollSpy from 'scrollspy-js';
 
 //components
-import Input from '../components/input_debug';
+import Input from '../components/input';
 import CLOCK from '../utils/clockModule';
 
 

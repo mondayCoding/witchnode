@@ -11,11 +11,12 @@ interface ITabButton {
 const Tab: React.StatelessComponent<ITabButton> = (props) => {
    const {onClick, tabIndex, isActive, title} = props;
    const buttonClass = (isActive) ? "tab-title active" : "tab-title";
+   const handleTabClick = () => onClick(tabIndex);
 
    return(
       <button 
          className={buttonClass} 
-         onClick={() => onClick(tabIndex)}
+         onClick={handleTabClick}
          title={title}
       >
          {title}

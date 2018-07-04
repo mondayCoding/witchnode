@@ -1301,19 +1301,16 @@ $maxFieldWidth: 30rem;
 		@include themecolor(main);		
    }
 	
-	&.hascontent input:invalid + label,
 	input.invalid + label {
 		font-weight: 900;
 		color: $errorColor;
 		border: $errorColor;
 	}
 	
-	&.hascontent input:invalid ,
 	input.invalid {
 		border-color: $errorColor;
 	}
 	
-	&.hascontent input:invalid + label + .bar::before,
 	input.invalid + label + .bar::before {
 		background: $errorColor;
 	}

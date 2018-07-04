@@ -1627,19 +1627,16 @@ input[type="text"] {
   color: #dd24ce;
 }
 
-.input-text.hascontent input:invalid + label,
 .input-text input.invalid + label {
   font-weight: 900;
   color: #db6154;
   border: #db6154;
 }
 
-.input-text.hascontent input:invalid,
 .input-text input.invalid {
   border-color: #db6154;
 }
 
-.input-text.hascontent input:invalid + label + .bar::before,
 .input-text input.invalid + label + .bar::before {
   background: #db6154;
 }
