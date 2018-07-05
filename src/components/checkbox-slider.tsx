@@ -9,7 +9,7 @@ export default class SliderCheckbox extends React.Component<IInputCheckboxProper
         const {id, label, ...rest} = this.props;
 
         return (
-            <div className="slider-cb">
+            <div className="themeslider">
                 <input type="checkbox" id={id} {...rest} />
                 <label htmlFor={id} >{label}</label>
             </div>

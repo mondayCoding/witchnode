@@ -3,12 +3,10 @@
 import * as React from 'react';
 
 //components
-import Announcement from '../controllers/announcement/announcement';
-import Input from '../components/input';
 import Checkbox from '../components/checkbox';
 import Radiobutton from '../components/radiobutton';
 import SliderCheckbox from '../components/checkbox-slider';
-import { OnInputChangeHandler } from 'react-select';
+
 
 //Interfaces
 

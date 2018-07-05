@@ -15,6 +15,7 @@ export interface IInputFieldProperties {
    tooltipInfo?:string;
    validation?:string;
    onChange?(params?:any):any;
+   onBlur?(params?:any):any;
    onKeyUp?(params?:any):any;
 }
 

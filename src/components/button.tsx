@@ -7,7 +7,7 @@ export default class Button extends React.Component<IButtonProperties> {
 
     public render() {
         let { className, buttonText, type, ...rest } = this.props;
-        className = className || "btn-green";
+        className = className || "themebutton";
         buttonText = buttonText || "button";
         type = type || "button";
 

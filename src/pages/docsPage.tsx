@@ -5,7 +5,7 @@ import Mark = require("mark.js");
 //import ScrollSpy from 'scrollspy-js';
 
 //components
-import Input from '../components/input';
+import Input from '../components/textinput_material';
 import CLOCK from '../utils/clockModule';
 
 

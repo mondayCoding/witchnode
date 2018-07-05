@@ -53,7 +53,7 @@ export default class ApiMockPage extends React.Component<any, any> {
         return (
             <div className="api-mock">
 
-            <h2 className="heading">sample data</h2>
+            <h2 className="themeheading">sample data</h2>
                 <pre>
                     <code className="language-json">
                         {this.sampleJson}
@@ -61,7 +61,7 @@ export default class ApiMockPage extends React.Component<any, any> {
                 </pre>
 
                 {/* to do soon get method json response print */}
-                <h3 className="heading">{this.funcName}</h3>
+                <h3 className="themeheading">{this.funcName}</h3>
                 <pre>
                     <code className="language-json">
                         {this.func && this.func}
@@ -69,7 +69,7 @@ export default class ApiMockPage extends React.Component<any, any> {
                 </pre>
 
                 {/* to do simple get method response json print */}
-                <h3 className="heading">{this.funcName2 + "| JSON Response "}</h3>
+                <h3 className="themeheading">{this.funcName2 + "| JSON Response "}</h3>
                 <pre>
                     <code className="language-json">
                         {this.func2 && this.func2}

@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import Input from '../../components/input';
+import Input from '../../components/textinput_material';
 
 interface IStepOneForm {
 	name:string; 

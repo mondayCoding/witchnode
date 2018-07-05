@@ -5,12 +5,11 @@ import * as io from 'socket.io-client';
 
 //utils
 import ANNO from '../../utils/annoModule';
-import API from '../../api/SocketChat';
 
 //components
 import ChatLine from './line';
 import SelectUserMenu from './selectUserMenu';
-import InputPlain from '../../components/input_plain';
+import InputPlain from '../../components/textinput_plain';
 
 import { IMessageLine } from '../../interfaces';
 

@@ -21,17 +21,21 @@ export class ConfirmationDialog extends React.Component<ReactConfirmProps> {
 			window.removeEventListener('keydown', this.listenKeyboard, true);
 		}
 	}
-
-	public onOverlayClick() {
-		this.props.cancel();
-	}
  
 	public onDialogClick = (event:any) => {
 		event.stopPropagation();
-	}
+   }
+
+   public handleCancel= () => {
+      this.props.cancel();
+   }
+
+   public handleProceed = () => {
+      this.props.proceed();
+   }
 
 	public render() {
-		const {confirmation, show, proceed, dismiss, cancel, heading } = this.props;
+		const {confirmation, show, dismiss, heading } = this.props;
 
 		// Render nothing if the "show" prop is false
 		if (!this.props.show) {
@@ -39,12 +43,12 @@ export class ConfirmationDialog extends React.Component<ReactConfirmProps> {
 		}
 
 		return (
-			<div className="modal-fade" onClick={() => cancel()}>
+			<div className="modal-fade" onClick={this.handleCancel}>
 
 				<div className="modal-box animated--scaleIn sm" onClick={this.onDialogClick}>
 					<div className="modal-heading">
-						{heading && <h3 className="heading">{heading}</h3>}
-						<button onClick={() => cancel()} type="button" className="close-button light noborder"></button>
+						{heading && <h3 className="themeheading">{heading}</h3>}
+						<button onClick={this.handleCancel} type="button" className="close-button noborder"></button>
 					</div>
 
 					<div className="modal-content-wrap">
@@ -52,11 +56,8 @@ export class ConfirmationDialog extends React.Component<ReactConfirmProps> {
 					</div>
 
 					<div className="row-flex spaced">
-						<button className="themebutton" onClick={() => cancel()}>Cancel</button>
-						<button className="themebutton" autoFocus={true} onClick={() => proceed()}>Ok</button>
-
-						{/* props debug */}
-						{/* <button className="themebutton" onClick={() => console.log(this.props)}>log</button> */}
+						<button className="themebutton" onClick={this.handleCancel}>Cancel</button>
+						<button className="themebutton" autoFocus={true} onClick={this.handleProceed}>Ok</button>
 					</div>
 				</div>
 

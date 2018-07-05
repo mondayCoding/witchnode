@@ -127,65 +127,7 @@ module.exports = warning;
 /* 9 */,
 /* 10 */,
 /* 11 */,
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-var infotip_1 = __webpack_require__(85);
-var Input = (function (_super) {
-    __extends(Input, _super);
-    function Input() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Input.prototype.render = function () {
-        var _a = this.props, id = _a.id, value = _a.value, label = _a.label, isSmall = _a.isSmall, tooltipInfo = _a.tooltipInfo, validation = _a.validation, rest = __rest(_a, ["id", "value", "label", "isSmall", "tooltipInfo", "validation"]);
-        var inputClass = (value === undefined || value.length > 0) ? "input-text hasContent" : "input-text";
-        var validationClass = (validation) ? "invalid" : null;
-        return (React.createElement("div", { className: inputClass, "data-tooltip-error": validation },
-            React.createElement("input", __assign({ type: "text", className: validationClass, id: id }, rest, { value: value })),
-            React.createElement("label", { htmlFor: id },
-                " ",
-                label,
-                " "),
-            React.createElement("span", { className: "bar" }),
-            (tooltipInfo) && React.createElement(infotip_1.default, { message: tooltipInfo })));
-    };
-    return Input;
-}(React.Component));
-exports.default = Input;
-
-
-/***/ }),
+/* 12 */,
 /* 13 */,
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1010,7 +952,7 @@ var Button = (function (_super) {
     }
     Button.prototype.render = function () {
         var _a = this.props, className = _a.className, buttonText = _a.buttonText, type = _a.type, rest = __rest(_a, ["className", "buttonText", "type"]);
-        className = className || "btn-green";
+        className = className || "themebutton";
         buttonText = buttonText || "button";
         type = type || "button";
         return (React.createElement("button", __assign({ type: type, className: className }, rest), buttonText));
@@ -6006,7 +5948,7 @@ var Checkbox = (function (_super) {
     }
     Checkbox.prototype.render = function () {
         var _a = this.props, id = _a.id, label = _a.label, rest = __rest(_a, ["id", "label"]);
-        return (React.createElement("div", { className: "cb" },
+        return (React.createElement("div", { className: "themecheckbox" },
             React.createElement("input", __assign({ type: "checkbox", id: id }, rest)),
             React.createElement("label", { htmlFor: id }, label)));
     };
@@ -6057,7 +5999,7 @@ var Radiobutton = (function (_super) {
     }
     Radiobutton.prototype.render = function () {
         var _a = this.props, id = _a.id, label = _a.label, rest = __rest(_a, ["id", "label"]);
-        return (React.createElement("div", { className: "rb" },
+        return (React.createElement("div", { className: "themeradio" },
             React.createElement("input", __assign({ type: "radio", id: id }, rest)),
             React.createElement("label", { htmlFor: id },
                 " ",
@@ -6093,7 +6035,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var input_1 = __webpack_require__(12);
+var textinput_material_1 = __webpack_require__(334);
 var button_1 = __webpack_require__(16);
 var Table = (function (_super) {
     __extends(Table, _super);
@@ -6105,8 +6047,8 @@ var Table = (function (_super) {
         return (React.createElement("div", null,
             React.createElement("div", { className: "line-thin" }),
             React.createElement("div", { className: "flex-row-table" },
-                React.createElement(input_1.default, { id: "takeNewBtn", value: value, label: "description of new quest", onKeyUp: onKeyUp, onChange: onChange }),
-                React.createElement(button_1.default, { onClick: onBtnClick, buttonText: "Add", className: (disableState) ? "btn-green disabled" : "btn-green" })),
+                React.createElement(textinput_material_1.default, { id: "takeNewBtn", value: value, label: "description of new quest", onKeyUp: onKeyUp, onChange: onChange }),
+                React.createElement(button_1.default, { onClick: onBtnClick, buttonText: "Add", className: (disableState) ? "themebutton disabled" : "themebutton" })),
             React.createElement("div", { className: "spacing" }),
             React.createElement("div", { className: "line-thin" }),
             React.createElement("div", { className: "flex-table" }, children),
@@ -6159,7 +6101,7 @@ var SliderCheckbox = (function (_super) {
     }
     SliderCheckbox.prototype.render = function () {
         var _a = this.props, id = _a.id, label = _a.label, rest = __rest(_a, ["id", "label"]);
-        return (React.createElement("div", { className: "slider-cb" },
+        return (React.createElement("div", { className: "themeslider" },
             React.createElement("input", __assign({ type: "checkbox", id: id }, rest)),
             React.createElement("label", { htmlFor: id }, label)));
     };
@@ -6223,7 +6165,7 @@ var Modal = (function (_super) {
         return (React.createElement("div", { className: "modal-fade", onClick: onClose },
             React.createElement("div", { className: "modal-box animated--scaleIn " + size, onClick: onDialogClick },
                 React.createElement("div", { className: "modal-heading" },
-                    React.createElement("h3", { className: "heading" }, this.props.heading),
+                    React.createElement("h3", { className: "themeheading" }, this.props.heading),
                     React.createElement("button", { onClick: onClose, type: "button", className: "close-button light noborder" })),
                 React.createElement("div", { className: "modal-content-wrap" }, this.props.children))));
     };
@@ -6727,7 +6669,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var navigation_1 = __webpack_require__(126);
 var main_1 = __webpack_require__(151);
-var footer_1 = __webpack_require__(326);
+var footer_1 = __webpack_require__(325);
 var React = __webpack_require__(0);
 var react_router_dom_1 = __webpack_require__(27);
 var Layout = (function (_super) {
@@ -7911,7 +7853,7 @@ var io = __webpack_require__(155);
 var annoModule_1 = __webpack_require__(23);
 var line_1 = __webpack_require__(184);
 var selectUserMenu_1 = __webpack_require__(185);
-var input_plain_1 = __webpack_require__(186);
+var textinput_plain_1 = __webpack_require__(335);
 var ChatWindow = (function (_super) {
     __extends(ChatWindow, _super);
     function ChatWindow() {
@@ -7985,7 +7927,7 @@ var ChatWindow = (function (_super) {
                 React.createElement("div", { className: "chatlog", id: "chatlog" }, this.state.messageHistory.map(function (item, index) {
                     return React.createElement(line_1.default, { key: index, message: item });
                 })),
-                React.createElement(input_plain_1.default, { value: message, name: "message", onKeyUp: onKeyUp, onChange: onChange, placeholder: placeholder })),
+                React.createElement(textinput_plain_1.default, { value: message, name: "message", onKeyUp: onKeyUp, onChange: onChange, placeholder: placeholder })),
             React.createElement(selectUserMenu_1.default, { onClick: function (data) { return _this.connectToChatAs(data); }, statusList: statusList, localUser: localUser })));
     };
     return ChatWindow;
@@ -13769,55 +13711,7 @@ exports.default = SelectUserMenu;
 
 
 /***/ }),
-/* 186 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-var Input = (function (_super) {
-    __extends(Input, _super);
-    function Input() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Input.prototype.render = function () {
-        var rest = __rest(this.props, []);
-        return (React.createElement("input", __assign({ className: "input-plain", type: "text" }, rest)));
-    };
-    return Input;
-}(React.Component));
-exports.default = Input;
-
-
-/***/ }),
+/* 186 */,
 /* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13847,7 +13741,7 @@ var CreateCharPage = (function (_super) {
         return (React.createElement("div", { className: "page" },
             React.createElement("div", { className: "content-centered-md" },
                 React.createElement("h2", null, "Create Account"),
-                React.createElement("h2", { className: "heading sm" }, "fill entire form before asking claiming it doesn't work")),
+                React.createElement("h3", { className: "themeheading sm" }, "fill entire form before asking claiming it doesn't work")),
             React.createElement(createCharForm_1.default, null),
             React.createElement("div", { className: "content-centered-md" },
                 React.createElement(infotip_1.default, { message: "This form is creation of it's time and repsesents no values of any kind" }),
@@ -13856,7 +13750,15 @@ var CreateCharPage = (function (_super) {
                 React.createElement(infotip_1.default, { message: "Not even going to bother anymore" }),
                 React.createElement(infotip_1.default, { message: "..." }),
                 React.createElement(imgCaption_1.default, { src: "../images/blur.jpg", captionText: "This is caption sample for testing imgCaption component. Text here is caption content", size: "sm", captionTitle: "Blur by design" }),
-                React.createElement("div", { className: "spacing" }),
+                React.createElement("div", { className: "spacing-lg" }),
+                React.createElement(imgCaption_1.default, { src: "../images/card.jpg", captionText: "This is caption sample for testing imgCaption component. Text here is caption content", size: "md", captionTitle: "Blur by design" }),
+                React.createElement("div", { className: "spacing-lg" }),
+                React.createElement(imgCaption_1.default, { src: "../images/orbs.png", captionText: "This is caption sample for testing imgCaption component. Text here is caption content", size: "md", captionTitle: "Blur by design" }),
+                React.createElement("div", { className: "spacing-lg" }),
+                React.createElement(imgCaption_1.default, { src: "../images/snek.jpg", captionText: "This is caption sample for testing imgCaption component. Text here is caption content", size: "md", captionTitle: "Blur by design" }),
+                React.createElement("div", { className: "spacing-lg" }),
+                React.createElement(imgCaption_1.default, { src: "../images/holo.jpg", captionText: "This is caption sample for testing imgCaption component. Text here is caption content", size: "md", captionTitle: "Blur by design" }),
+                React.createElement("div", { className: "spacing-lg" }),
                 React.createElement(imgCaption_1.default, { src: "../images/abyss.jpg", captionText: "This is caption sample for testing imgCaption component. Text here is caption content", size: "md", captionTitle: "Blur by design" }))));
     };
     return CreateCharPage;
@@ -14025,7 +13927,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var input_1 = __webpack_require__(12);
+var textinput_material_1 = __webpack_require__(334);
 var StepOne = (function (_super) {
     __extends(StepOne, _super);
     function StepOne() {
@@ -14034,10 +13936,10 @@ var StepOne = (function (_super) {
     StepOne.prototype.render = function () {
         var _a = this.props, name = _a.name, lastname = _a.lastname, pass = _a.pass, passrepeat = _a.passrepeat, onChange = _a.onChange;
         return (React.createElement("section", null,
-            React.createElement(input_1.default, { value: name, id: "NameID", label: "Name", name: "name", onChange: onChange }),
-            React.createElement(input_1.default, { value: lastname, id: "LastNameID", label: "Lastname", name: "lastname", onChange: onChange }),
-            React.createElement(input_1.default, { value: pass, id: "PassID", label: "Password", name: "pass", onChange: onChange }),
-            React.createElement(input_1.default, { value: passrepeat, id: "PassRepeatID", label: "Repeat password", name: "passrepeat", onChange: onChange })));
+            React.createElement(textinput_material_1.default, { value: name, id: "NameID", label: "Name", name: "name", onChange: onChange }),
+            React.createElement(textinput_material_1.default, { value: lastname, id: "LastNameID", label: "Lastname", name: "lastname", onChange: onChange }),
+            React.createElement(textinput_material_1.default, { value: pass, id: "PassID", label: "Password", name: "pass", onChange: onChange }),
+            React.createElement(textinput_material_1.default, { value: passrepeat, id: "PassRepeatID", label: "Repeat password", name: "passrepeat", onChange: onChange })));
     };
     return StepOne;
 }(React.Component));
@@ -14062,7 +13964,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var input_1 = __webpack_require__(12);
+var textinput_material_1 = __webpack_require__(334);
 var StepTwo = (function (_super) {
     __extends(StepTwo, _super);
     function StepTwo() {
@@ -14071,10 +13973,10 @@ var StepTwo = (function (_super) {
     StepTwo.prototype.render = function () {
         var _a = this.props, color = _a.color, count = _a.count, gender = _a.gender, location = _a.location, onChange = _a.onChange;
         return (React.createElement("section", null,
-            React.createElement(input_1.default, { value: color, id: "colorID", label: "color", name: "color", onChange: onChange }),
-            React.createElement(input_1.default, { value: count, id: "countID", label: "count", name: "count", onChange: onChange }),
-            React.createElement(input_1.default, { value: gender, id: "genderID", label: "gender", name: "gender", onChange: onChange }),
-            React.createElement(input_1.default, { value: location, id: "locationID", label: "location", name: "location", onChange: onChange })));
+            React.createElement(textinput_material_1.default, { value: color, id: "colorID", label: "color", name: "color", onChange: onChange }),
+            React.createElement(textinput_material_1.default, { value: count, id: "countID", label: "count", name: "count", onChange: onChange }),
+            React.createElement(textinput_material_1.default, { value: gender, id: "genderID", label: "gender", name: "gender", onChange: onChange }),
+            React.createElement(textinput_material_1.default, { value: location, id: "locationID", label: "location", name: "location", onChange: onChange })));
     };
     return StepTwo;
 }(React.Component));
@@ -14099,7 +14001,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var input_1 = __webpack_require__(12);
+var textinput_material_1 = __webpack_require__(334);
 var StepThree = (function (_super) {
     __extends(StepThree, _super);
     function StepThree() {
@@ -14108,10 +14010,10 @@ var StepThree = (function (_super) {
     StepThree.prototype.render = function () {
         var _a = this.props, opinionCats = _a.opinionCats, opinionDogs = _a.opinionDogs, opinionHouses = _a.opinionHouses, opinionLangues = _a.opinionLangues, onChange = _a.onChange;
         return (React.createElement("section", null,
-            React.createElement(input_1.default, { value: opinionCats, id: "opinionCatsID", label: "Your opinion on cats?", name: "opinionCats", onChange: onChange, validation: (opinionCats === "love") ? null : "wrong answer" }),
-            React.createElement(input_1.default, { value: opinionDogs, id: "opinionDogsID", label: "What about dogs?", name: "opinionDogs", onChange: onChange }),
-            React.createElement(input_1.default, { value: opinionHouses, id: "opinionHousesID", label: "What dod you think about houses?", name: "opinionHouses", onChange: onChange }),
-            React.createElement(input_1.default, { value: opinionLangues, id: "opinionLanguesID", label: "Best programming language?", name: "opinionLangues", onChange: onChange })));
+            React.createElement(textinput_material_1.default, { value: opinionCats, id: "opinionCatsID", label: "Your opinion on cats?", name: "opinionCats", onChange: onChange, validation: (opinionCats === "love") ? null : "wrong answer" }),
+            React.createElement(textinput_material_1.default, { value: opinionDogs, id: "opinionDogsID", label: "What about dogs?", name: "opinionDogs", onChange: onChange }),
+            React.createElement(textinput_material_1.default, { value: opinionHouses, id: "opinionHousesID", label: "What dod you think about houses?", name: "opinionHouses", onChange: onChange }),
+            React.createElement(textinput_material_1.default, { value: opinionLangues, id: "opinionLanguesID", label: "Best programming language?", name: "opinionLangues", onChange: onChange })));
     };
     return StepThree;
 }(React.Component));
@@ -14137,7 +14039,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var react_select_1 = __webpack_require__(34);
-var input_1 = __webpack_require__(12);
+var textinput_material_1 = __webpack_require__(334);
 var checkbox_1 = __webpack_require__(86);
 var radiobutton_1 = __webpack_require__(87);
 var StepFour = (function (_super) {
@@ -14151,7 +14053,7 @@ var StepFour = (function (_super) {
             React.createElement("div", { className: "spacing" }),
             React.createElement("div", { className: "spacing" }),
             React.createElement("div", { className: "spacing" }),
-            React.createElement(input_1.default, { value: email, id: "emailID", label: "Email", name: "email", onChange: onChange }),
+            React.createElement(textinput_material_1.default, { value: email, id: "emailID", label: "Email", name: "email", onChange: onChange }),
             React.createElement("div", { className: "spacing" }),
             React.createElement("div", { className: "spacing" }),
             React.createElement("div", { className: "spacing" }),
@@ -14353,7 +14255,7 @@ var Dashboard = (function (_super) {
                 React.createElement(react_router_dom_1.NavLink, { exact: true, to: "/coinflip", activeClassName: "active", className: "dash-item" },
                     React.createElement("div", { className: "pagesymbol" }, navIcons_1.default.apimocking),
                     React.createElement("div", { className: "pagetitle" }, "Coinflipper")),
-                React.createElement(react_router_dom_1.NavLink, { exact: true, to: "/apimock", activeClassName: "active", className: "dash-item" },
+                React.createElement(react_router_dom_1.NavLink, { exact: true, to: "/complex", activeClassName: "active", className: "dash-item" },
                     React.createElement("div", { className: "pagesymbol" }, navIcons_1.default.complex),
                     React.createElement("div", { className: "pagetitle" }, "Complex")))));
     };
@@ -14463,7 +14365,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var Mark = __webpack_require__(93);
-var input_1 = __webpack_require__(12);
+var textinput_material_1 = __webpack_require__(334);
 var clockModule_1 = __webpack_require__(217);
 var ScrollNav = (function (_super) {
     __extends(ScrollNav, _super);
@@ -14569,7 +14471,7 @@ var SearchInput = (function (_super) {
         }
     };
     return SearchInput;
-}(input_1.default));
+}(textinput_material_1.default));
 
 
 /***/ }),
@@ -15745,6 +15647,12 @@ var ConfirmationDialog = (function (_super) {
         _this.onDialogClick = function (event) {
             event.stopPropagation();
         };
+        _this.handleCancel = function () {
+            _this.props.cancel();
+        };
+        _this.handleProceed = function () {
+            _this.props.proceed();
+        };
         return _this;
     }
     ConfirmationDialog.prototype.componentDidMount = function () {
@@ -15757,23 +15665,20 @@ var ConfirmationDialog = (function (_super) {
             window.removeEventListener('keydown', this.listenKeyboard, true);
         }
     };
-    ConfirmationDialog.prototype.onOverlayClick = function () {
-        this.props.cancel();
-    };
     ConfirmationDialog.prototype.render = function () {
-        var _a = this.props, confirmation = _a.confirmation, show = _a.show, proceed = _a.proceed, dismiss = _a.dismiss, cancel = _a.cancel, heading = _a.heading;
+        var _a = this.props, confirmation = _a.confirmation, show = _a.show, dismiss = _a.dismiss, heading = _a.heading;
         if (!this.props.show) {
             return null;
         }
-        return (React.createElement("div", { className: "modal-fade", onClick: function () { return cancel(); } },
+        return (React.createElement("div", { className: "modal-fade", onClick: this.handleCancel },
             React.createElement("div", { className: "modal-box animated--scaleIn sm", onClick: this.onDialogClick },
                 React.createElement("div", { className: "modal-heading" },
-                    heading && React.createElement("h3", { className: "heading" }, heading),
-                    React.createElement("button", { onClick: function () { return cancel(); }, type: "button", className: "close-button light noborder" })),
+                    heading && React.createElement("h3", { className: "themeheading" }, heading),
+                    React.createElement("button", { onClick: this.handleCancel, type: "button", className: "close-button noborder" })),
                 React.createElement("div", { className: "modal-content-wrap" }, confirmation),
                 React.createElement("div", { className: "row-flex spaced" },
-                    React.createElement("button", { className: "themebutton", onClick: function () { return cancel(); } }, "Cancel"),
-                    React.createElement("button", { className: "themebutton", autoFocus: true, onClick: function () { return proceed(); } }, "Ok")))));
+                    React.createElement("button", { className: "themebutton", onClick: this.handleCancel }, "Cancel"),
+                    React.createElement("button", { className: "themebutton", autoFocus: true, onClick: this.handleProceed }, "Ok")))));
     };
     return ConfirmationDialog;
 }(React.Component));
@@ -15905,7 +15810,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var validationModule_1 = __webpack_require__(238);
 var UserForm_1 = __webpack_require__(294);
-var input_1 = __webpack_require__(12);
+var textinput_material_1 = __webpack_require__(334);
 var button_1 = __webpack_require__(16);
 var annoModule_1 = __webpack_require__(23);
 var UserForm = (function (_super) {
@@ -15923,10 +15828,14 @@ var UserForm = (function (_super) {
                 date: Date.now()
             }
         };
-        _this.onChangeHandler = function (e) {
+        _this.handleOnChange = function (e) {
             var newState = __assign({}, _this.state.form);
             newState[e.target.name] = e.target.value;
             _this.setState({ form: newState });
+        };
+        _this.handleOnBlur = function (e) {
+            _this.validation.activateRule(e.target.name);
+            _this.forceUpdate();
         };
         return _this;
     }
@@ -15952,7 +15861,7 @@ var UserForm = (function (_super) {
                 switch (_a.label) {
                     case 0:
                         event.preventDefault();
-                        this.validation.activate();
+                        this.validation.activateAllRules();
                         this.forceUpdate();
                         return [4, UserForm_1.default.postUserForm(this.state.form)];
                     case 1:
@@ -15968,17 +15877,16 @@ var UserForm = (function (_super) {
         var _a = this.state.form, username = _a.username, email = _a.email, location = _a.location, accountNum = _a.accountNum, color = _a.color, age = _a.age;
         var res = this.props.res;
         var validify = this.validation;
-        var onChangeHandler = this.onChangeHandler;
         var onSubmit = function (event) { return _this.onsubmitHandler(event); };
         this.validateForm();
         return (React.createElement("form", { className: "userform spacing", onSubmit: onSubmit },
             React.createElement("div", { className: "spacing" }),
-            React.createElement(input_1.default, { name: "username", label: res.username, value: username, onChange: onChangeHandler, id: "nameID", validation: validify.getValidatedMessage("username") }),
-            React.createElement(input_1.default, { name: "email", tooltipInfo: "You wont actually recieve any emails form us... :)", label: res.email, value: email, onChange: onChangeHandler, id: "emailID", validation: validify.getValidatedMessage("email") }),
-            React.createElement(input_1.default, { name: "location", tooltipInfo: "Original home country", label: res.location, value: location, onChange: onChangeHandler, id: "locationID" }),
-            React.createElement(input_1.default, { name: "accountNum", tooltipInfo: "Use only numbers", label: res.accountNum, value: accountNum, onChange: onChangeHandler, id: "accountNumID", validation: validify.isValid("accountNum") ? null : validify.getMessage("accountNum") }),
-            React.createElement(input_1.default, { name: "color", label: res.color, value: color, onChange: onChangeHandler, id: "colorID", validation: validify.getValidatedMessage("color") }),
-            React.createElement(input_1.default, { name: "age", label: res.age, value: age, onChange: onChangeHandler, id: "ageID", validation: validify.getValidatedMessage("age") }),
+            React.createElement(textinput_material_1.default, { name: "username", label: res.username, value: username, onChange: this.handleOnChange, onBlur: this.handleOnBlur, id: "nameID", validation: validify.getValidatedMessage("username") }),
+            React.createElement(textinput_material_1.default, { name: "email", tooltipInfo: "You wont actually recieve any emails form us... :)", label: res.email, value: email, onChange: this.handleOnChange, onBlur: this.handleOnBlur, id: "emailID", validation: validify.getValidatedMessage("email") }),
+            React.createElement(textinput_material_1.default, { name: "location", tooltipInfo: "Original home country", label: res.location, value: location, onChange: this.handleOnChange, onBlur: this.handleOnBlur, id: "locationID" }),
+            React.createElement(textinput_material_1.default, { name: "accountNum", tooltipInfo: "Use only numbers", label: res.accountNum, value: accountNum, onChange: this.handleOnChange, onBlur: this.handleOnBlur, id: "accountNumID", validation: validify.isValid("accountNum") ? null : validify.getMessage("accountNum") }),
+            React.createElement(textinput_material_1.default, { name: "color", label: res.color, value: color, onChange: this.handleOnChange, onBlur: this.handleOnBlur, id: "colorID", validation: validify.getValidatedMessage("color") }),
+            React.createElement(textinput_material_1.default, { name: "age", label: res.age, value: age, onChange: this.handleOnChange, onBlur: this.handleOnBlur, id: "ageID", validation: validify.getValidatedMessage("age") }),
             React.createElement("div", { className: "spacing" }),
             React.createElement(button_1.default, { buttonText: res.submit, type: "submit" }),
             React.createElement("div", { className: "line-thin" })));
@@ -16030,13 +15938,24 @@ var FormValidation = (function () {
         this.result = this.getDefaultResultObject();
         this.active = false;
     }
-    FormValidation.prototype.activate = function () {
-        this.active = true;
+    FormValidation.prototype.activateAllRules = function () {
+        this.beginValidation();
         this.rules.forEach(function (rule) {
             rule.active = true;
         });
     };
-    FormValidation.prototype.disable = function () {
+    FormValidation.prototype.activateRule = function (field) {
+        this.beginValidation();
+        this.rules.forEach(function (rule) {
+            if (rule.field === field) {
+                rule.active = true;
+            }
+        });
+    };
+    FormValidation.prototype.beginValidation = function () {
+        this.active = true;
+    };
+    FormValidation.prototype.endValidation = function () {
         this.active = false;
     };
     FormValidation.prototype.getDefaultResultObject = function () {
@@ -16046,44 +15965,51 @@ var FormValidation = (function () {
         });
         return { formIsValid: true, validations: __assign({}, validation) };
     };
+    FormValidation.prototype.validateAgainstRule = function (string, rule) {
+        var isValid = rule.validIf(string);
+        var message = (isValid) ? null : rule.message;
+        return { isValid: isValid, message: message };
+    };
+    FormValidation.prototype.ruleHasMatchingField = function (field, form) {
+        if (field in form) {
+            return true;
+        }
+        else {
+            console.log("there was ValidationRule with no matching state-field");
+            return false;
+        }
+    };
+    FormValidation.prototype.ruleIsActive = function (rule) {
+        return rule.active;
+    };
     FormValidation.prototype.validate = function (form) {
+        var _this = this;
         if (!this.active) {
             return false;
         }
-        var validatResult = this.getDefaultResultObject();
+        var result = this.getDefaultResultObject();
         this.rules.forEach(function (rule) {
             var field = rule.field;
-            if (field in form) {
-                if (rule.active && validatResult.validations[field].isValid) {
-                    var formField = (form[field]).toString();
-                    var result = rule.validIf(formField);
-                    var validationMessage = (result) ? null : rule.message;
-                    validatResult.validations[field] = {
-                        isValid: result,
-                        message: validationMessage
-                    };
-                }
-            }
-            else {
-                console.log("there was ValidationRule with no matching state-field");
+            var hasMatchingField = _this.ruleHasMatchingField(field, form);
+            var ruleIsActive = _this.ruleIsActive(rule);
+            var fieldIsValid = result.validations[field].isValid;
+            if (ruleIsActive && hasMatchingField && fieldIsValid) {
+                var formField = (form[field]).toString();
+                result.validations[field] = _this.validateAgainstRule(formField, rule);
             }
         });
-        validatResult.formIsValid = this.isFormValid(validatResult);
-        this.result = validatResult;
+        result.formIsValid = this.isFormValid(result);
+        this.result = result;
         return this.result;
     };
     FormValidation.prototype.isFormValid = function (result) {
         var formIsValid = true;
-        for (var x in result.validations) {
-            if (!result.validations[x].isValid) {
+        for (var i in result.validations) {
+            if (!result.validations[i].isValid) {
                 formIsValid = false;
             }
         }
         return formIsValid;
-    };
-    FormValidation.prototype.validateAll = function () {
-    };
-    FormValidation.prototype.validateField = function () {
     };
     FormValidation.prototype.isValid = function (field) {
         if (field in this.result.validations) {
@@ -20212,13 +20138,13 @@ var ApiMockPage = (function (_super) {
     };
     ApiMockPage.prototype.render = function () {
         return (React.createElement("div", { className: "api-mock" },
-            React.createElement("h2", { className: "heading" }, "sample data"),
+            React.createElement("h2", { className: "themeheading" }, "sample data"),
             React.createElement("pre", null,
                 React.createElement("code", { className: "language-json" }, this.sampleJson)),
-            React.createElement("h3", { className: "heading" }, this.funcName),
+            React.createElement("h3", { className: "themeheading" }, this.funcName),
             React.createElement("pre", null,
                 React.createElement("code", { className: "language-json" }, this.func && this.func)),
-            React.createElement("h3", { className: "heading" }, this.funcName2 + "| JSON Response "),
+            React.createElement("h3", { className: "themeheading" }, this.funcName2 + "| JSON Response "),
             React.createElement("pre", null,
                 React.createElement("code", { className: "language-json" }, this.func2 && this.func2))));
     };
@@ -21474,7 +21400,7 @@ var Flipper = (function (_super) {
         var count = 0;
         return (React.createElement("div", { className: "content-centered-md" },
             React.createElement("div", { className: "coinHeading" },
-                React.createElement("h3", { className: "heading" }, "flipped " + total + " times")),
+                React.createElement("h3", { className: "themeheading" }, "flipped " + total + " times")),
             React.createElement("div", { className: "coinFlipWrap" },
                 React.createElement("div", { key: total, className: "coin " + latest, onClick: this.flipCoin }, latest)),
             React.createElement("div", { className: "row-flex spaced" },
@@ -21630,7 +21556,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
-var productModule_1 = __webpack_require__(311);
+var productModule_1 = __webpack_require__(337);
 var productTable_1 = __webpack_require__(312);
 var productForm_1 = __webpack_require__(313);
 var button_1 = __webpack_require__(16);
@@ -21674,6 +21600,11 @@ var Complex = (function (_super) {
                 isModalOpen: true
             });
         };
+        _this.handleProductRemove = function (index) {
+            var productTable = _this.state.productTable;
+            productTable.splice(index, 1);
+            _this.setState({ productTable: productTable });
+        };
         _this.closeModal = function () {
             _this.setState({ isModalOpen: false });
         };
@@ -21684,9 +21615,9 @@ var Complex = (function (_super) {
         var selectedProduct = Object.assign({}, this.state.selectedProduct);
         var modalheading = (selectedProduct) ? selectedProduct.name : "no selected product";
         return (React.createElement("div", { className: "Complex--wrapper" },
-            React.createElement("div", { className: "row-flex" },
-                React.createElement(button_1.default, { buttonText: "Create new", onClick: this.handleAddProduct })),
-            React.createElement(productTable_1.default, { productTable: productTable, onProductClick: this.handleProductSelection }),
+            React.createElement("div", { className: "row-flex row-spacing" },
+                React.createElement(button_1.default, { className: "themebutton wide", buttonText: "Create new", onClick: this.handleAddProduct })),
+            React.createElement(productTable_1.default, { productTable: productTable, onProductClick: this.handleProductSelection, onRemoveClick: this.handleProductRemove }),
             React.createElement(modal_1.default, { onClose: this.closeModal, show: isModalOpen, heading: modalheading },
                 React.createElement(productForm_1.default, { product: selectedProduct, onSave: this.updateProduct, onCancel: this.closeModal }))));
     };
@@ -21696,66 +21627,7 @@ exports.default = Complex;
 
 
 /***/ }),
-/* 311 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var userType;
-(function (userType) {
-    userType[userType["admin"] = 0] = "admin";
-    userType[userType["user"] = 1] = "user";
-    userType[userType["visitor"] = 2] = "visitor";
-})(userType = exports.userType || (exports.userType = {}));
-var Product = (function () {
-    function Product(name) {
-        this.name = name;
-        this.id = "";
-        this.description = "";
-        this.memoNote = "";
-        this.isVisibleTo = [userType.admin];
-        this.productType = ["gm_debug"];
-        this.hasPrice = false;
-        this.hasQuantityRules = false;
-        this.hasSetDateValues = false;
-        this.hasImage = false;
-        this.createDate = new Date();
-        this.modifiedDate = new Date();
-        this.endOfServiceDate = new Date();
-        this.availableFrom = new Date();
-        this.availableTo = new Date();
-        this.imgFileBlob = "";
-        this.unit = "";
-        this.price = 0;
-        this.priceWithVat = 0;
-        this.maxAmount = 0;
-        this.minAmount = 0;
-    }
-    Product.prototype.addProductType = function (newType) {
-        if (!(newType in this.productType)) {
-            this.productType.push();
-        }
-    };
-    return Product;
-}());
-exports.default = Product;
-var ProductList = (function () {
-    function ProductList(list) {
-        this.list = list;
-    }
-    ProductList.prototype.hasProductWithId = function (id) {
-        return this.list.some(function (product) { return product.id === id; });
-    };
-    ProductList.prototype.updateProduct = function (updateProduct) {
-        if (this.list.some(function (product) { return product.id === updateProduct.id; })) {
-        }
-    };
-    return ProductList;
-}());
-
-
-/***/ }),
+/* 311 */,
 /* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21778,17 +21650,33 @@ var ProductTable = (function (_super) {
     function ProductTable() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    ProductTable.prototype.getPlaceholder = function () {
+        return (React.createElement("div", { className: "product-placeholder" }, "No products have been created yet. Please press \"Add-button\" to begin creating products"));
+    };
+    ProductTable.prototype.getMappedTypes = function (types) {
+        return types.map(function (typename, index) {
+            return (React.createElement("span", { key: index, className: "type-label shift-background" }, typename));
+        });
+    };
     ProductTable.prototype.render = function () {
+        var _this = this;
         var productTable = this.props.productTable || [];
-        var onProductClick = this.props.onProductClick;
-        return (React.createElement("div", { className: "flex-table" }, productTable.map(function (product, index) {
-            var name = product.name, id = product.id, description = product.description, hasPrice = product.hasPrice, price = product.price;
-            return (React.createElement("div", { className: "table-row", key: name + index },
-                React.createElement("div", { className: "cell-auto", title: description },
-                    React.createElement("span", { className: "interactable", onClick: function () { return onProductClick(product, index); } }, name)),
-                React.createElement("div", { className: "cell-60px" }, id && id),
-                React.createElement("div", { className: "cell-60px" }, hasPrice && price)));
-        })));
+        var hasProducts = productTable.length > 0;
+        return (React.createElement("div", { className: "flex-table" }, (hasProducts) ?
+            productTable.map(function (product, index) {
+                var name = product.name, id = product.id, description = product.description, hasPrice = product.hasPrice, price = product.price;
+                var handleProductClick = function () { return _this.props.onProductClick(product, index); };
+                var handleRemove = function () { return _this.props.onRemoveClick(index); };
+                return (React.createElement("div", { className: "table-row", key: name + index },
+                    React.createElement("div", { className: "cell-auto", title: description },
+                        React.createElement("span", { className: "interactable", onClick: handleProductClick }, name),
+                        React.createElement("span", null, _this.getMappedTypes(product.productType))),
+                    React.createElement("div", { className: "cell-60px" },
+                        React.createElement("b", null, hasPrice && price)),
+                    React.createElement("div", { className: "cell-60px flex-center" },
+                        React.createElement("button", { onClick: handleRemove, className: "close-button" }))));
+            })
+            : this.getPlaceholder()));
     };
     return ProductTable;
 }(React.Component));
@@ -21814,13 +21702,13 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var react_select_1 = __webpack_require__(34);
-var input_responsive_1 = __webpack_require__(314);
+var textinput_responsive_1 = __webpack_require__(336);
 var button_1 = __webpack_require__(16);
 var checkbox_slider_1 = __webpack_require__(95);
 var tabs_1 = __webpack_require__(109);
 var tab_1 = __webpack_require__(110);
-var textArea_1 = __webpack_require__(316);
-var DayPickerInput = __webpack_require__(317).default;
+var textArea_1 = __webpack_require__(315);
+var DayPickerInput = __webpack_require__(316).default;
 var ProductForm = (function (_super) {
     __extends(ProductForm, _super);
     function ProductForm() {
@@ -21868,43 +21756,44 @@ var ProductForm = (function (_super) {
         return (React.createElement("div", { className: "product--modal" },
             React.createElement(tabs_1.default, null,
                 React.createElement(tab_1.default, { title: "General" },
-                    React.createElement("h3", { className: "heading underlined" }, "Base Properties"),
-                    React.createElement(input_responsive_1.default, { label: "Name", name: "name", id: "name", value: name, onChange: this.handleOnChange }),
-                    React.createElement(input_responsive_1.default, { label: "Item ID", name: "id", id: "id", value: id, onChange: this.handleOnChange }),
-                    React.createElement(input_responsive_1.default, { label: "Product summary", name: "description", id: "description", value: description, onChange: this.handleOnChange }),
+                    React.createElement("h4", { className: "themeheading underlined" }, "Base Properties"),
+                    React.createElement(textinput_responsive_1.default, { label: "Name", name: "name", id: "name", value: name, onChange: this.handleOnChange }),
+                    React.createElement(textinput_responsive_1.default, { label: "Item ID", name: "id", id: "id", value: id, onChange: this.handleOnChange }),
+                    React.createElement(textinput_responsive_1.default, { label: "Product summary", name: "description", id: "description", value: description, onChange: this.handleOnChange }),
                     React.createElement("div", { className: "themeinput-responsive" },
                         React.createElement("label", { htmlFor: "selectID" }, "Product types"),
                         React.createElement(react_select_1.default, { id: "selectID", multi: true, simpleValue: true, name: "lang-field-name", value: productType, onChange: this.handleSelectOnChange, options: productTypeOptions })),
-                    React.createElement("h3", { className: "heading underlined" }, "Addidional properties"),
+                    React.createElement("h3", { className: "themeheading underlined" }, "Addidional properties"),
                     React.createElement(checkbox_slider_1.default, { label: "Has Product images", id: "imagePropertiesInUse", name: "hasImage", checked: hasImage, onChange: this.handleOnChange }),
                     React.createElement(checkbox_slider_1.default, { label: "Has price table", id: "priceSettingsInUse", name: "hasPrice", checked: hasPrice, onChange: this.handleOnChange }),
                     React.createElement(checkbox_slider_1.default, { label: "Has avaibility settings", id: "hasSetDateValues", name: "hasSetDateValues", checked: hasSetDateValues, onChange: this.handleOnChange }),
                     React.createElement(checkbox_slider_1.default, { label: "Has limited supply", id: "quantitySettingsInUse", name: "hasQuantityRules", checked: hasQuantityRules, onChange: this.handleOnChange })),
                 React.createElement(tab_1.default, { title: "Note" },
-                    React.createElement("h3", { className: "heading underlined" }, "Summary"),
+                    React.createElement("h4", { className: "themeheading underlined" }, "Summary"),
                     React.createElement(textArea_1.default, { label: "Product summary", name: "memoNote", id: "memoNote", value: memoNote, onChange: this.handleOnChange })),
-                hasPrice &&
-                    React.createElement(tab_1.default, { title: "Avatar" },
-                        React.createElement("h3", { className: "heading underlined" }, "Product image"),
-                        React.createElement("span", null, "image will go here")),
                 hasImage &&
+                    React.createElement(tab_1.default, { title: "Avatar" },
+                        React.createElement("h4", { className: "themeheading underlined" }, "Product image"),
+                        React.createElement("span", null, "image will go here")),
+                hasPrice &&
                     React.createElement(tab_1.default, { title: "Price" },
-                        React.createElement("h3", { className: "heading underlined" }, "Product associated price"),
-                        React.createElement(input_responsive_1.default, { isSmall: true, label: "Base cost", name: "price", value: price.toString(), onChange: this.handleOnChange }),
-                        React.createElement(input_responsive_1.default, { isSmall: true, label: "Taxless cost", name: "priceWithVat", value: priceWithVat.toString(), onChange: this.handleOnChange })),
+                        React.createElement("h4", { className: "themeheading underlined" }, "Product associated price"),
+                        React.createElement(textinput_responsive_1.default, { isSmall: true, label: "Base cost", name: "price", value: price.toString(), onChange: this.handleOnChange }),
+                        React.createElement(textinput_responsive_1.default, { isSmall: true, label: "Taxless cost", name: "priceWithVat", value: priceWithVat.toString(), onChange: this.handleOnChange })),
                 hasSetDateValues &&
                     React.createElement(tab_1.default, { title: "Avaibility" },
-                        React.createElement("h3", { className: "heading underlined" }, "Avaibility settings"),
+                        React.createElement("h4", { className: "themeheading underlined" }, "Avaibility settings"),
                         React.createElement(DayPickerInput, { value: endOfServiceDate, onDayChange: this.handleFromChange }),
                         React.createElement(DayPickerInput, { value: endOfServiceDate, onDayChange: this.handleFromChange }),
-                        React.createElement("h3", { className: "heading underlined" }, "Remove from catalog"),
+                        React.createElement("h4", { className: "themeheading underlined" }, "Remove from catalog"),
                         React.createElement(DayPickerInput, { value: endOfServiceDate, onDayChange: this.handleFromChange }),
-                        React.createElement("h3", { className: "heading underlined" }, "Internal dates"),
+                        React.createElement("h4", { className: "themeheading underlined" }, "Internal dates"),
                         React.createElement(DayPickerInput, { value: endOfServiceDate, onDayChange: this.handleFromChange })),
                 hasQuantityRules &&
                     React.createElement(tab_1.default, { title: "Quantity" },
-                        React.createElement(input_responsive_1.default, { label: "Minimum required amount", name: "minAmount", value: minAmount.toString(), onChange: this.handleOnChange }),
-                        React.createElement(input_responsive_1.default, { label: "Maximum allowed amount", name: "maxAmount", value: maxAmount.toString(), onChange: this.handleOnChange }))),
+                        React.createElement("h4", { className: "themeheading underlined" }, "Quantity rules"),
+                        React.createElement(textinput_responsive_1.default, { label: "Minimum required amount", name: "minAmount", value: minAmount.toString(), onChange: this.handleOnChange }),
+                        React.createElement(textinput_responsive_1.default, { label: "Maximum allowed amount", name: "maxAmount", value: maxAmount.toString(), onChange: this.handleOnChange }))),
             React.createElement("div", { className: "line-thin" }),
             React.createElement("div", { className: "row-flex spaced" },
                 React.createElement(button_1.default, { buttonText: "Cancel", onClick: this.handleCancel }),
@@ -21916,70 +21805,8 @@ exports.default = ProductForm;
 
 
 /***/ }),
-/* 314 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(0);
-var InputResponsive = (function (_super) {
-    __extends(InputResponsive, _super);
-    function InputResponsive() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    InputResponsive.prototype.render = function () {
-        var _a = this.props, id = _a.id, value = _a.value, label = _a.label, validation = _a.validation, isSmall = _a.isSmall, rest = __rest(_a, ["id", "value", "label", "validation", "isSmall"]);
-        var inputClass = "themeinput-responsive";
-        if (value && value.length > 0) {
-            inputClass = inputClass + " hasContent";
-        }
-        if (isSmall) {
-            inputClass = inputClass + " number";
-        }
-        var validationClass = (validation) ? "invalid" : null;
-        return (React.createElement("div", { className: inputClass, "data-tooltip-error": validation },
-            React.createElement("label", { htmlFor: id },
-                " ",
-                label,
-                " "),
-            React.createElement("input", __assign({ type: "text", className: validationClass, id: id }, rest, { value: value }))));
-    };
-    return InputResponsive;
-}(React.Component));
-exports.default = InputResponsive;
-
-
-/***/ }),
-/* 315 */,
-/* 316 */
+/* 314 */,
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22030,7 +21857,7 @@ exports.default = Select;
 
 
 /***/ }),
-/* 317 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -22040,13 +21867,13 @@ exports.default = Select;
 /* eslint-disable no-var */
 /* eslint-env node */
 
-var DayPickerInput = __webpack_require__(318);
+var DayPickerInput = __webpack_require__(317);
 
 module.exports = DayPickerInput;
 
 
 /***/ }),
-/* 318 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22073,7 +21900,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _DayPicker = __webpack_require__(319);
+var _DayPicker = __webpack_require__(318);
 
 var _DayPicker2 = _interopRequireDefault(_DayPicker);
 
@@ -22711,7 +22538,7 @@ DayPickerInput.propTypes = process.env.NODE_ENV !== "production" ? {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 319 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22734,19 +22561,19 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Caption = __webpack_require__(320);
+var _Caption = __webpack_require__(319);
 
 var _Caption2 = _interopRequireDefault(_Caption);
 
-var _Navbar = __webpack_require__(321);
+var _Navbar = __webpack_require__(320);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _Month = __webpack_require__(322);
+var _Month = __webpack_require__(321);
 
 var _Month2 = _interopRequireDefault(_Month);
 
-var _Weekday = __webpack_require__(325);
+var _Weekday = __webpack_require__(324);
 
 var _Weekday2 = _interopRequireDefault(_Weekday);
 
@@ -23364,7 +23191,7 @@ exports.default = DayPicker;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 320 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23466,7 +23293,7 @@ Caption.propTypes = process.env.NODE_ENV !== "production" ? {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 321 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23644,7 +23471,7 @@ Navbar.propTypes = process.env.NODE_ENV !== "production" ? {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 322 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23664,11 +23491,11 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Weekdays = __webpack_require__(323);
+var _Weekdays = __webpack_require__(322);
 
 var _Weekdays2 = _interopRequireDefault(_Weekdays);
 
-var _Day = __webpack_require__(324);
+var _Day = __webpack_require__(323);
 
 var _Day2 = _interopRequireDefault(_Day);
 
@@ -23902,7 +23729,7 @@ Month.propTypes = process.env.NODE_ENV !== "production" ? {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 323 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24009,7 +23836,7 @@ Weekdays.propTypes = process.env.NODE_ENV !== "production" ? {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 324 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24208,7 +24035,7 @@ Day.propTypes = process.env.NODE_ENV !== "production" ? {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 325 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24303,7 +24130,7 @@ Weekday.propTypes = process.env.NODE_ENV !== "production" ? {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 326 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24350,6 +24177,244 @@ var Main = (function (_super) {
     return Main;
 }(React.Component));
 exports.default = Main;
+
+
+/***/ }),
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(0);
+var infotip_1 = __webpack_require__(85);
+var Input = (function (_super) {
+    __extends(Input, _super);
+    function Input() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Input.prototype.render = function () {
+        var _a = this.props, id = _a.id, value = _a.value, label = _a.label, isSmall = _a.isSmall, tooltipInfo = _a.tooltipInfo, validation = _a.validation, rest = __rest(_a, ["id", "value", "label", "isSmall", "tooltipInfo", "validation"]);
+        var inputClass = (value === undefined || value.length > 0) ? "input-text hasContent" : "input-text";
+        var validationClass = (validation) ? "invalid" : null;
+        return (React.createElement("div", { className: inputClass, "data-tooltip-error": validation },
+            React.createElement("input", __assign({ type: "text", className: validationClass, id: id }, rest, { value: value })),
+            React.createElement("label", { htmlFor: id },
+                " ",
+                label,
+                " "),
+            React.createElement("span", { className: "bar" }),
+            (tooltipInfo) && React.createElement(infotip_1.default, { message: tooltipInfo })));
+    };
+    return Input;
+}(React.Component));
+exports.default = Input;
+
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(0);
+var Input = (function (_super) {
+    __extends(Input, _super);
+    function Input() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Input.prototype.render = function () {
+        var rest = __rest(this.props, []);
+        return (React.createElement("input", __assign({ className: "input-plain", type: "text" }, rest)));
+    };
+    return Input;
+}(React.Component));
+exports.default = Input;
+
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(0);
+var InputResponsive = (function (_super) {
+    __extends(InputResponsive, _super);
+    function InputResponsive() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    InputResponsive.prototype.render = function () {
+        var _a = this.props, id = _a.id, value = _a.value, label = _a.label, validation = _a.validation, isSmall = _a.isSmall, rest = __rest(_a, ["id", "value", "label", "validation", "isSmall"]);
+        var inputClass = "themeinput-responsive";
+        if (value && value.length > 0) {
+            inputClass = inputClass + " hasContent";
+        }
+        if (isSmall) {
+            inputClass = inputClass + " number";
+        }
+        var validationClass = (validation) ? "invalid" : null;
+        return (React.createElement("div", { className: inputClass, "data-tooltip-error": validation },
+            React.createElement("label", { htmlFor: id },
+                " ",
+                label,
+                " "),
+            React.createElement("input", __assign({ type: "text", className: validationClass, id: id }, rest, { value: value }))));
+    };
+    return InputResponsive;
+}(React.Component));
+exports.default = InputResponsive;
+
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var userType;
+(function (userType) {
+    userType[userType["admin"] = 0] = "admin";
+    userType[userType["user"] = 1] = "user";
+    userType[userType["visitor"] = 2] = "visitor";
+})(userType = exports.userType || (exports.userType = {}));
+var Product = (function () {
+    function Product(name) {
+        this.name = name;
+        this.id = "";
+        this.description = "";
+        this.memoNote = "";
+        this.isVisibleTo = [userType.admin];
+        this.productType = ["gm_debug"];
+        this.hasPrice = false;
+        this.hasQuantityRules = false;
+        this.hasSetDateValues = false;
+        this.hasImage = false;
+        this.createDate = new Date();
+        this.modifiedDate = new Date();
+        this.endOfServiceDate = new Date();
+        this.availableFrom = new Date();
+        this.availableTo = new Date();
+        this.imgFileBlob = "";
+        this.unit = "";
+        this.price = 0;
+        this.priceWithVat = 0;
+        this.maxAmount = 0;
+        this.minAmount = 0;
+    }
+    Product.prototype.addProductType = function (newType) {
+        if (!(newType in this.productType)) {
+            this.productType.push();
+        }
+    };
+    return Product;
+}());
+exports.default = Product;
+var ProductList = (function () {
+    function ProductList(list) {
+        this.list = list;
+    }
+    ProductList.prototype.hasProductWithId = function (id) {
+        return this.list.some(function (product) { return product.id === id; });
+    };
+    ProductList.prototype.updateProduct = function (updateProduct) {
+        if (this.list.some(function (product) { return product.id === updateProduct.id; })) {
+        }
+    };
+    return ProductList;
+}());
 
 
 /***/ })

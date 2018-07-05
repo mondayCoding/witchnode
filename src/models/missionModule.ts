@@ -1,6 +1,6 @@
 
 
-export class Mission {
+export class Task {
    public objective: string;
    public complete: boolean;
    public createDate: Date;
@@ -12,16 +12,15 @@ export class Mission {
       this.createDate = createDate;
       this.completeDate = completeDate;
    }
-
 }
 
-export class MissionControl {
+export class TaskList {
 
    //properties
-   public missionBoard: Mission[]
+   public missionBoard: Task[]
 
    //constructor
-   constructor(missionBoard: Mission[]) {
+   constructor(missionBoard: Task[]) {
       this.missionBoard = missionBoard || [];
    }
 
@@ -34,16 +33,16 @@ export class MissionControl {
    }
 
    public newMission(objective:string, complete = false) {
-      let newMission = new Mission(objective, complete);
+      let newMission = new Task(objective, complete);
       this.missionBoard.push(newMission);
    }
 
-   public getCompleted():Mission[]{
+   public getCompleted():Task[]{
       let completed = this.missionBoard.filter( (mission) => mission.complete === true );
       return completed;
    }
 
-   public getIncomplete():Mission[]{
+   public getIncomplete():Task[]{
       let incomplete = this.missionBoard.filter( (mission) => mission.complete !== true );
       return incomplete;
    }

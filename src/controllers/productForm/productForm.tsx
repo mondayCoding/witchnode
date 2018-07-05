@@ -2,10 +2,9 @@
 //libraries
 import * as React from 'react';
 import Select, { Option } from 'react-select';
-import Product from '../../utils/productModule';
-import {userType, productType} from '../../utils/productModule';
-import Input from '../../components/input_responsive';
-import Select2 from '../../components/select_responsive';
+import Product from '../../models/productModule';
+import {userType, productType} from '../../models/productModule';
+import Input from '../../components/textinput_responsive';
 import Button from '../../components/button';
 import SliderCheckbox from '../../components/checkbox-slider';
 import Tabs from '../../components/tabs';
@@ -84,7 +83,7 @@ export default class ProductForm extends React.Component<IProps> {
             <Tabs>
                {/* general settings tab */}
                <Tab title="General">
-                  <h3 className="heading underlined">Base Properties</h3>
+                  <h4 className="themeheading underlined">Base Properties</h4>
                   <Input
                      label="Name"
                      name="name"
@@ -130,7 +129,7 @@ export default class ProductForm extends React.Component<IProps> {
                      options={productTypeOptions}
                   /> */}
 
-                  <h3 className="heading underlined">Addidional properties</h3>
+                  <h3 className="themeheading underlined">Addidional properties</h3>
                   <SliderCheckbox 
                      label="Has Product images" 
                      id="imagePropertiesInUse"
@@ -163,7 +162,7 @@ export default class ProductForm extends React.Component<IProps> {
 
                {/* Note tab */}
                <Tab title="Note"> 
-                  <h3 className="heading underlined">Summary</h3>                
+                  <h4 className="themeheading underlined">Summary</h4>                
                   <TextArea
                      label="Product summary"
                      name="memoNote"
@@ -178,7 +177,7 @@ export default class ProductForm extends React.Component<IProps> {
                   hasImage && 
                   <Tab title="Avatar">
 
-                     <h3 className="heading underlined">Product image</h3>  
+                     <h4 className="themeheading underlined">Product image</h4>  
 
                      <span>image will go here</span>
                   </Tab>
@@ -188,7 +187,7 @@ export default class ProductForm extends React.Component<IProps> {
                   hasPrice && 
                   <Tab title="Price">
 
-                     <h3 className="heading underlined">Product associated price</h3>  
+                     <h4 className="themeheading underlined">Product associated price</h4>  
 
                      <Input
                         isSmall={true}
@@ -212,14 +211,14 @@ export default class ProductForm extends React.Component<IProps> {
                   hasSetDateValues && 
                   <Tab title="Avaibility"> 
 
-                     <h3 className="heading underlined">Avaibility settings</h3>
+                     <h4 className="themeheading underlined">Avaibility settings</h4>
                      <DayPickerInput value={endOfServiceDate} onDayChange={this.handleFromChange} />   
                      <DayPickerInput value={endOfServiceDate} onDayChange={this.handleFromChange} />   
 
-                     <h3 className="heading underlined">Remove from catalog</h3> 
+                     <h4 className="themeheading underlined">Remove from catalog</h4> 
                      <DayPickerInput  value={endOfServiceDate} onDayChange={this.handleFromChange} />               
 
-                     <h3 className="heading underlined">Internal dates</h3>
+                     <h4 className="themeheading underlined">Internal dates</h4>
                      <DayPickerInput value={endOfServiceDate} onDayChange={this.handleFromChange} />               
 
                   </Tab>
@@ -228,7 +227,9 @@ export default class ProductForm extends React.Component<IProps> {
                {/* quantity tab */}
                {
                   hasQuantityRules && 
-                  <Tab title="Quantity"> 
+                  <Tab title="Quantity">
+                     <h4 className="themeheading underlined">Quantity rules</h4>
+
                      <Input
                         label="Minimum required amount"
                         name="minAmount"

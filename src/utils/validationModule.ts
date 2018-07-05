@@ -73,14 +73,28 @@ export default class FormValidation {
       this.active = false;    
    }
    
-   public activate() {
-      this.active = true;
+   public activateAllRules() {
+      this.beginValidation();
       this.rules.forEach( (rule) => {
          rule.active = true;
       });
    }
+
+   public activateRule(field:string) {
+      this.beginValidation();
+      this.rules.forEach((rule) => {
+            if (rule.field === field) {
+               rule.active = true;
+            }
+         }
+      );
+   }
+
+   public beginValidation() {
+      this.active = true;
+   }
       
-   public disable() {
+   public endValidation() {
       this.active = false;      
    }
 
@@ -94,70 +108,65 @@ export default class FormValidation {
 		);
 
 		return { formIsValid: true, validations: {...validation} };
-	}
+   }
+   
+   public validateAgainstRule(string:string, rule:Rule){
+      const isValid = rule.validIf(string);     
+      const message = (isValid) ? null : rule.message;           
+      return {isValid, message};   
+   }
 
+   public ruleHasMatchingField(field:string, form:any){
+      if (field in form) {
+         return true;
+      } else {
+         console.log("there was ValidationRule with no matching state-field");
+         return false;
+      }
+   }
+
+   public ruleIsActive(rule:Rule){
+      return rule.active;
+   }
 
 	// validate rules against received form
 	public validate(form:any) {
 
 		// dont validate if stopped 
-		if (!this.active) {
-			return false;
-		}
+		if (!this.active) { return false; }
 		
 		// assume all state fields valid
-		let validatResult = this.getDefaultResultObject();
+		let result = this.getDefaultResultObject();
 
-		// compare rules to state fields
+		// compare rules to form fields
 		this.rules.forEach( (rule) => 
       {
          const field = rule.field;
+         const hasMatchingField = this.ruleHasMatchingField(field, form);
+         const ruleIsActive = this.ruleIsActive(rule);
+         const fieldIsValid = result.validations[field].isValid;
 
-         // check that rule has matching state field
-         if (field in form) {						
-         
-            // if rule is active and field is still valid		
-            if (rule.active && validatResult.validations[field].isValid){               
-                              
-               const formField = (form[field]).toString();
-               const result = rule.validIf(formField);
-               const validationMessage = (result) ? null : rule.message ;				
-
-               // create validation response object
-               validatResult.validations[field] = {
-                  isValid: result,
-                  message: validationMessage
-               };				
-
-            }
-         } else {
-            console.log("there was ValidationRule with no matching state-field");				
+         if (ruleIsActive && hasMatchingField && fieldIsValid) {
+            const formField = (form[field]).toString();				
+            result.validations[field] = this.validateAgainstRule(formField, rule);
          }
       });
       
-      validatResult.formIsValid = this.isFormValid(validatResult);
-      this.result = validatResult;
+      result.formIsValid = this.isFormValid(result);
+      this.result = result;
       return this.result;
    }
 
    public isFormValid(result: IValidationResult){
       let formIsValid = true;
 
-      for (const x in result.validations) {
-			if ( !result.validations[x].isValid ){
+      for (const i in result.validations) {
+			if ( !result.validations[i].isValid ){
 				formIsValid = false;				
 			}
 		}
 
       return formIsValid;
-   }
-   
-   public validateAll() {
-      // validate all fields if validation is on
-   }
-
-   public validateField() {
-      // validate single field and return validation object
    }
 
 	public isValid(field:string){

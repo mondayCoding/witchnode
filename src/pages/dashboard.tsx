@@ -131,7 +131,7 @@ export default class Dashboard extends React.Component {
                         </div>
                      </NavLink>
 
-                     <NavLink exact to="/apimock" activeClassName="active" className="dash-item" >
+                     <NavLink exact to="/complex" activeClassName="active" className="dash-item" >
                         <div className="pagesymbol">
                            {navicons.complex}                           
                         </div>

@@ -7,7 +7,7 @@ import * as React from 'react';
 import FormValidator from '../../utils/validationModule';
 import API from '../../api/UserForm';
 
-import Input from '../../components/input';
+import Input from '../../components/textinput_material';
 import Button from '../../components/button';
 import anno from '../../utils/annoModule';
 
@@ -64,23 +64,27 @@ export default class UserForm extends React.Component<any,any> {
          {field: "username", 	message: res.usernameIsTaken,		  validIf: (x) => (x !== "asd") && (x !=="Mario" )},
          {field: "username", 	message: res.usernameIsInvalid,	  validIf: (x) => test.isLength(x, {min:3, max:20})},
          {field: "color", 		message: "must be red",				  validIf: (x) => x === "red" }
-      ]);
+      ]);      
 	}
 	
 	public validateForm(){
-		this.validation.validate(this.state.form);
+      this.validation.validate(this.state.form);
 	}
 
-   public onChangeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
+   public handleOnChange = (e:React.ChangeEvent<HTMLInputElement>) => {
       let newState:any = {...this.state.form};
       newState[e.target.name] = e.target.value;
-
       this.setState({form:newState});
+   }
+
+   public handleOnBlur = (e:React.ChangeEvent<HTMLInputElement>) => {
+      this.validation.activateRule(e.target.name);
+      this.forceUpdate();
    }
 
    public async onsubmitHandler(event:any){
       event.preventDefault();
-      this.validation.activate();
+      this.validation.activateAllRules();
       this.forceUpdate();
 
       let data:any = await API.postUserForm(this.state.form);
@@ -91,7 +95,6 @@ export default class UserForm extends React.Component<any,any> {
       const {username, email, location, accountNum, color, age } = this.state.form;
       let res = this.props.res;
       let validify = this.validation;
-      const onChangeHandler = this.onChangeHandler;
       let onSubmit = (event:any)=>this.onsubmitHandler(event);
 
       this.validateForm();  
@@ -104,7 +107,8 @@ export default class UserForm extends React.Component<any,any> {
                name="username" 
                label={res.username} 
                value={username} 
-               onChange={onChangeHandler} 
+               onChange={this.handleOnChange} 
+               onBlur={this.handleOnBlur}
                id="nameID"
                validation={validify.getValidatedMessage("username")} 
             />
@@ -113,7 +117,8 @@ export default class UserForm extends React.Component<any,any> {
                tooltipInfo="You wont actually recieve any emails form us... :)"
                label={res.email} 
                value={email} 
-               onChange={onChangeHandler} 
+               onChange={this.handleOnChange}
+               onBlur={this.handleOnBlur}
                id="emailID"
                validation={validify.getValidatedMessage("email")} 
             />
@@ -122,7 +127,8 @@ export default class UserForm extends React.Component<any,any> {
                tooltipInfo="Original home country" 
                label={res.location}  
                value={location} 
-               onChange={onChangeHandler} 
+               onChange={this.handleOnChange}
+               onBlur={this.handleOnBlur}
                id="locationID"
             />
             <Input 
@@ -130,7 +136,8 @@ export default class UserForm extends React.Component<any,any> {
                tooltipInfo="Use only numbers"
                label={res.accountNum} 
                value={accountNum} 
-               onChange={onChangeHandler} 
+               onChange={this.handleOnChange}
+               onBlur={this.handleOnBlur} 
                id="accountNumID"
                validation={validify.isValid("accountNum") ? null : validify.getMessage("accountNum")} 
             />
@@ -138,7 +145,8 @@ export default class UserForm extends React.Component<any,any> {
                name="color" 
                label={res.color} 
                value={color} 
-               onChange={onChangeHandler} 
+               onChange={this.handleOnChange}
+               onBlur={this.handleOnBlur}
                id="colorID"
                validation={validify.getValidatedMessage("color")}					
             />
@@ -146,7 +154,8 @@ export default class UserForm extends React.Component<any,any> {
                name="age" 
                label={res.age} 
                value={age} 
-               onChange={onChangeHandler} 
+               onChange={this.handleOnChange}
+               onBlur={this.handleOnBlur}
                id="ageID"
                validation={validify.getValidatedMessage("age")}
             />

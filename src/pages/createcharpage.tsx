@@ -15,7 +15,7 @@ export default class CreateCharPage extends React.Component {
 
             <div className="content-centered-md">
                <h2>Create Account</h2>
-               <h2 className="heading sm">fill entire form before asking claiming it doesn't work</h2>
+               <h3 className="themeheading sm">fill entire form before asking claiming it doesn't work</h3>
             </div>
 
             <Form />
@@ -34,8 +34,44 @@ export default class CreateCharPage extends React.Component {
                   size="sm" 
                   captionTitle="Blur by design"
                />
+
+               <div className="spacing-lg"></div>
+
+               <ImgCaption 
+                  src="../images/card.jpg" 
+                  captionText="This is caption sample for testing imgCaption component. Text here is caption content" 
+                  size="md" 
+                  captionTitle="Blur by design"
+               />
+
+               <div className="spacing-lg"></div>
+
+               <ImgCaption 
+                  src="../images/orbs.png" 
+                  captionText="This is caption sample for testing imgCaption component. Text here is caption content" 
+                  size="md" 
+                  captionTitle="Blur by design"
+               />
+
+               <div className="spacing-lg"></div>
+
+               <ImgCaption 
+                  src="../images/snek.jpg" 
+                  captionText="This is caption sample for testing imgCaption component. Text here is caption content" 
+                  size="md" 
+                  captionTitle="Blur by design"
+               />
+
+               <div className="spacing-lg"></div>
+
+               <ImgCaption 
+                  src="../images/holo.jpg" 
+                  captionText="This is caption sample for testing imgCaption component. Text here is caption content" 
+                  size="md" 
+                  captionTitle="Blur by design"
+               />
    
-               <div className="spacing"></div>
+               <div className="spacing-lg"></div>
    
                <ImgCaption 
                   src="../images/abyss.jpg" 

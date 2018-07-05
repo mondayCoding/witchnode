@@ -52,7 +52,7 @@ export default class Modal extends React.Component<Iprops> {
 
             <div className={`modal-box animated--scaleIn ${size}`} onClick={onDialogClick}>
                <div className="modal-heading">
-                  <h3 className="heading">{this.props.heading}</h3>
+                  <h3 className="themeheading">{this.props.heading}</h3>
                   <button onClick={onClose} type="button" className="close-button light noborder"></button>
                </div>
                <div className="modal-content-wrap">

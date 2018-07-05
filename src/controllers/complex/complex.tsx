@@ -1,7 +1,7 @@
 
 //libraries
 import * as React from 'react';
-import Product from '../../utils/productModule';
+import Product from '../../models/productModule';
 import ProductTable from './productTable';
 import EditProductForm from '../productForm/productForm';
 import Button from '../../components/button';
@@ -46,7 +46,7 @@ export default class Complex extends React.Component {
       this.setState({
          productTable,
          isModalOpen:false
-      });      
+      });
    }
 
    public handleProductSelection = (selectedProduct:Product, selectedIndex:number) => {
@@ -55,7 +55,12 @@ export default class Complex extends React.Component {
          selectedProduct, 
          isModalOpen:true
       });
+   }
 
+   public handleProductRemove = (index:number) => {
+      const productTable = this.state.productTable;
+      productTable.splice(index,1);      
+      this.setState({productTable});
    }
 
    public closeModal = () => {
@@ -70,11 +75,15 @@ export default class Complex extends React.Component {
       return(
          <div className="Complex--wrapper">
 
-            <div className="row-flex">
-               <Button buttonText="Create new" onClick={this.handleAddProduct} />
+            <div className="row-flex row-spacing">
+               <Button className="themebutton wide" buttonText="Create new" onClick={this.handleAddProduct} />
             </div>
 
-            <ProductTable productTable={productTable} onProductClick={this.handleProductSelection} />
+            <ProductTable 
+               productTable={productTable} 
+               onProductClick={this.handleProductSelection} 
+               onRemoveClick={this.handleProductRemove}
+            />
 
             <Modal onClose={this.closeModal} show={isModalOpen} heading={modalheading} >
                <EditProductForm 

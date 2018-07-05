@@ -2,7 +2,7 @@
 import * as React from 'react';
 import Select from 'react-select';
 
-import Input from '../../components/input';
+import Input from '../../components/textinput_material';
 import CheckBox from '../../components/checkbox';
 import Radiobutton from '../../components/radiobutton';
 

@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 
-import Input from '../../components/input';
+import Input from '../../components/textinput_material';
 import Button from '../../components/button';
 
 
@@ -23,7 +23,7 @@ export default class Table extends React.Component<any> {
             <Button 
               onClick={onBtnClick} 
               buttonText="Add" 
-              className={(disableState) ? "btn-green disabled" : "btn-green"} 
+              className={(disableState) ? "themebutton disabled" : "themebutton"} 
             />
           </div>
           <div className="spacing"></div>

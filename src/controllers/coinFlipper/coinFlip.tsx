@@ -90,7 +90,7 @@ export default class Flipper extends React.Component {
 
             {/* total counter */}
             <div className="coinHeading">
-               <h3 className="heading">
+               <h3 className="themeheading">
                   {
                      "flipped " + total + " times"
                   }

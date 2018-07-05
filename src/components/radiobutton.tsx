@@ -9,7 +9,7 @@ export default class Radiobutton extends React.Component<IInputCheckboxPropertie
         const {id, label, ...rest} = this.props;
 
         return (
-            <div className="rb">
+            <div className="themeradio">
                 <input type="radio" id={id} {...rest} />
                 <label htmlFor={id}> {label} </label>
             </div>
