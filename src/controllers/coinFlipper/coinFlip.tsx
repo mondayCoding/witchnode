@@ -3,17 +3,17 @@
 import * as React from 'react';
 
 //utils
-import confirm from './../../utils/confirmUtilModule';
+import confirm from '../../utils/confirmUtilModule';
 import coinFlipper from '../../utils/coinFlipModule';
 import {IFlipHistoryItem} from '../../utils/coinFlipModule';
 import Button from '../../components/button';
 import Tabs from '../../components/tabs';
-import Tab from '../../components/tab';
+import Tab from '../../components/tab'; 
 
 interface IState {
    coinFlipHistory: IFlipHistoryItem[];
    coinFlipCount: number;
-}
+} 
 
 export default class Flipper extends React.Component {
    

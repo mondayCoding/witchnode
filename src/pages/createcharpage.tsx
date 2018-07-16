@@ -5,7 +5,7 @@ import * as React from 'react';
 //components
 import Form from '../controllers/CreateCharForm/createCharForm';
 import Tip from '../components/infotip';
-import ImgCaption from '../components/imgCaption';
+import ImgCaption from '../components/img_caption';
 
 
 export default class CreateCharPage extends React.Component {

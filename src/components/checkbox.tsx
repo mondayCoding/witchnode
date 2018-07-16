@@ -10,7 +10,7 @@ export default class Checkbox extends React.Component<IInputCheckboxProperties> 
 
         return (
             <div className="themecheckbox">
-                <input type="checkbox" id={id} {...rest} />
+                <input type="checkbox" id={id}  {...rest} />
                 <label htmlFor={id} >{label}</label>
             </div>
         );

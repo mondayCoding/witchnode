@@ -1,7 +1,7 @@
 
 //libraries
 import * as React from 'react';
-import Product from '../../models/productModule';
+import Product from '../../models/productModel';
 import ProductTable from './productTable';
 import EditProductForm from '../productForm/productForm';
 import Button from '../../components/button';
@@ -73,7 +73,9 @@ export default class Complex extends React.Component {
       const modalheading = (selectedProduct) ? selectedProduct.name : "no selected product";
 
       return(
-         <div className="Complex--wrapper">
+         <div className="Complex--wrapper content-centered-lg">
+
+            <h2 className="heading underlined">Complex form testing || null/encompass</h2>
 
             <div className="row-flex row-spacing">
                <Button className="themebutton wide" buttonText="Create new" onClick={this.handleAddProduct} />

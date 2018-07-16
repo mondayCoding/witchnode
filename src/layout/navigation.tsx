@@ -27,15 +27,15 @@ export default class Navigation extends React.Component {
                     </NavLink>
                 </li>
                 <li className="navi-item">
-                    <NavLink exact to="/missions" activeClassName="active" title="Missions">
+                    <NavLink exact to="/gallery" activeClassName="active" title="Missions">
                         {navicons.missions}
-                        <span className="pagename">Missions</span>
+                        <span className="pagename">Gallery</span>
                     </NavLink>
                 </li>
                 <li className="navi-item">
                     <NavLink exact to="/witchchat" activeClassName="active" title="covenChat">
                         {navicons.covenchat}
-                        <span className="pagename">covenChat</span>
+                        <span className="pagename">CovenChat</span>
                         {/* <i className="far fa-comments"></i> */}
                     </NavLink>
                 </li>

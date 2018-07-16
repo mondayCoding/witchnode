@@ -5,7 +5,7 @@ import {SortableContainer, SortableElement, SortableHandle} from 'react-sortable
 import SortItem from './sortItem';
 
 //interface
-import { IMissionItem } from '../../interfaces/index';
+import { IMissionItem } from '../../interfaces';
 
 const list = (props: any) => {
 

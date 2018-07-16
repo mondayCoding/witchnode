@@ -228,7 +228,7 @@ $breakpoints: (
 
 @mixin flex-center {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
@@ -361,6 +361,11 @@ mark {
 	padding: 0;
 	background-color: $alt;
 	@include themebackground(alt);	
+}
+
+img {
+   display: block;
+   width: 100%;
 }
 
 kbd {
@@ -629,6 +634,10 @@ select.disabled {
    &.lg {   font-size:2rem;      }
    &.xl {   font-size:2,5rem;    }
 
+   &.padded {
+      padding: .5rem;
+   }
+
 	&.negative {
 		background-color: $grayDark;
 		color: $grayLight;
@@ -714,6 +723,10 @@ select.disabled {
          text-align: right;
       }
    }
+
+   &.disabled {
+      @extend %disabled;
+   }
    
    label {
       display: flex;
@@ -758,6 +771,100 @@ select.disabled {
          flex: 1 1 auto;
       }
    }
+}
+
+//****************************************************************************
+// Component | Text input -> Material
+//****************************************************************************
+
+$maxFieldWidth: 30rem;
+
+.input-text {
+   position: relative;
+	margin: 1rem 0 .5rem;
+	max-width: $maxFieldWidth;
+
+   input {
+     font-size: 1rem;
+     padding: .35rem;
+     display: block;
+     width: 100%;
+     border: none;
+	  background: none;
+	  outline: none;
+	  color: $grayLight;
+     border-bottom: .1rem solid $grayMedium;
+	  @include themecolor(grayLight);	 
+	  @include themeborder(grayMedium);	   
+   }
+	
+   input:focus { outline: none; }
+	
+   label {
+		font-size: 1rem;
+      font-weight: normal;
+      position: absolute;
+      pointer-events: none;
+      left: .35rem;
+      top: .7rem;
+      transition: .2s ease all;
+		color: $grayMedium;
+		@include themecolor(grayMedium);		
+   }
+	
+   input:focus + label,
+	&.hasContent input + label {
+		top: -.7rem;
+      font-size: .8rem;
+		color: $main;
+		@include themecolor(main);		
+   }
+	
+	&.invalid > input {
+      border-color: $errorColor;
+      
+      & + label {
+         font-weight: 900;
+         color: $errorColor;
+         border: $errorColor;
+
+         & + .bar::before {
+            background: $errorColor;
+         }
+      }
+   }
+   
+   &.disabled {
+      @extend %disabled;
+	}
+	
+	.bar {
+		position: relative;
+		display: block;
+		width: 100%;
+		max-width: 100%;
+	}
+	
+	.bar::before {
+		content: '';
+		height: .15rem;
+		width: 0;
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		transition: .15s ease all;
+		background-color: $main;
+		@include themebackground(main);	  
+	}
+	
+	/* active state */
+	input:focus ~ .bar::before {
+		width: 100%;
+	}
+	
+	input:required {
+		box-shadow: none;
+	}
 }
 
 //****************************************************************************
@@ -825,7 +932,7 @@ select.disabled {
 
       .tab-title {
          padding: .2rem .65rem;
-         border: none;
+         border: .1rem solid $grayMedium;
          background-color: transparentize($color: $grayDark, $amount: .5);
          color: $grayLight;
          transition: background-color .2s;
@@ -861,6 +968,24 @@ select.disabled {
    }
 }
 
+//****************************************************************************
+// Component | Notice (emphasis)
+//****************************************************************************
+
+.emphasis-wrapper {
+   display: flex;
+   justify-content: center;
+   border: .1rem solid $grayDark;
+   padding: .35rem;
+   min-height: 2.5rem;
+   border-radius: $globalRadius;
+
+   &.negative {
+      color: $grayLight;
+      background-color: $grayDark;
+      border-color: $grayDark;
+   }
+}
 
 //****************************************************************************
 // Component | Progress bar (TODO)
@@ -915,7 +1040,18 @@ select.disabled {
 		@include focusEffect;
 		border: .15rem solid $white;
 		@include themeborder(white);		  
-	}
+   }
+
+   &:disabled {
+      filter: grayscale(90%);
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: .7;
+   }
+
+   &.dark {
+      background-color: $grayBlack;      
+   }
 
 	&.uppercase {
 		text-transform: uppercase;
@@ -924,7 +1060,11 @@ select.disabled {
 	&.wide {
 		width: 100%;
 		display: block;
-	}
+   }
+   
+   & + .themebutton {
+      margin-left: .5rem;
+   }
 	
 }
 
@@ -1176,96 +1316,6 @@ $radioSize: 1.5rem;
 	}
 }
 
-//****************************************************************************
-// Component | Text input -> Material
-//****************************************************************************
-
-$maxFieldWidth: 30rem;
-
-.input-text {
-   position: relative;
-	margin-top: 1rem;
-	max-width: $maxFieldWidth;
-
-   input[type="text"] {
-     font-size: 1rem;
-     padding: .35rem;
-     display: block;
-     width: 100%;
-     border: none;
-	  background: none;
-	  outline: none;
-	  color: $grayLight;
-     border-bottom: .1rem solid $grayMedium;
-	  @include themecolor(grayLight);	 
-	  @include themeborder(grayMedium);	   
-   }
-	
-   input:focus { outline: none; }
-	
-   label {
-		font-size: 1rem;
-      font-weight: normal;
-      position: absolute;
-      pointer-events: none;
-      left: .35rem;
-      top: .7rem;
-      transition: .2s ease all;
-		color: $grayMedium;
-		@include themecolor(grayMedium);		
-   }
-	
-   input:focus + label,
-	&.hasContent input + label {
-		top: -.7rem;
-      font-size: .8rem;
-		color: $main;
-		@include themecolor(main);		
-   }
-	
-	input.invalid + label {
-		font-weight: 900;
-		color: $errorColor;
-		border: $errorColor;
-	}
-	
-	input.invalid {
-		border-color: $errorColor;
-	}
-	
-	input.invalid + label + .bar::before {
-		background: $errorColor;
-	}
-	
-	.bar {
-		position: relative;
-		display: block;
-		width: 100%;
-		max-width: 100%;
-	}
-	
-	.bar::before {
-		content: '';
-		height: .15rem;
-		width: 0;
-		bottom: 0;
-		left: 0;
-		position: absolute;
-		transition: .15s ease all;
-		background-color: $main;
-		@include themebackground(main);	  
-	}
-	
-	/* active state */
-	input:focus ~ .bar::before {
-		width: 100%;
-	}
-	
-	input:required {
-		box-shadow: none;
-	}
-}
-
 
 //****************************************************************************
 // Component | Text input -> Plain
@@ -1305,20 +1355,82 @@ input[type="text"].input-plain {
 }
 
 // empty space - spacings
-.spacing-sm {
-	height: .1rem;
-	margin-bottom: .5rem;
-   @extend %clearfix;
-}
-
 .spacing {
+   display: block;
+	height: .1rem;
    margin-bottom: .8rem;
    @extend %clearfix;
+
+   &.lg {
+      margin-bottom: 1.6rem;
+   }
+
+   &.xl {
+      margin-bottom: 3rem;
+   }
 }
 
-.spacing-lg {
-   margin-bottom: .8rem;
-   @extend %clearfix;
+
+//****************************************************************************
+// Component | Loader
+//****************************************************************************
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #ffffff;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
 }
 
 
@@ -1540,6 +1652,8 @@ $tipMessageWidth: 14rem;
 		border: .4rem solid $main;
 		@include themeborder(main);
       box-shadow: 0 0 .5rem $grayBlack;
+      align-self: flex-start;
+      margin-top: 5%;
 
          &.xl {
             max-width: 58rem;
@@ -1564,7 +1678,7 @@ $tipMessageWidth: 14rem;
 				right: .3rem;
 			}
 
-			.modal-heading .heading {
+			.modal-heading .themeheading {
 				text-align: center;
 				font-size: 1.5rem;
 				margin: .8rem;
@@ -1580,7 +1694,7 @@ $tipMessageWidth: 14rem;
 .product--modal {
    display: flex;
    flex-direction: column;
-   min-height: 30rem; 
+   min-height: 75vh; 
 
    .tabs {
       flex: 1 1 auto;
@@ -1589,8 +1703,58 @@ $tipMessageWidth: 14rem;
    .row-flex {
       flex: 0 0 auto;
    }
-}¨
+}
 
+
+//****************************************************************************
+// Component | File upload 
+//****************************************************************************
+
+.upload--preview {
+   @include flex-center();
+   margin: .5rem;
+   border: .4rem dotted $grayMedium;
+   padding: 1.4rem;
+   width: 100%;
+   min-height: 10rem;
+   transition: border-color .2s, color .2s;
+   position: relative;
+   border-radius: $globalRadius*2;
+
+   &:hover {
+      border-color: $link;
+      color: $link;
+   }
+
+   .upload--preview--noImage {
+      @include flex-center();
+      line-height: 1.1;
+      text-align: center;
+
+      .fas {
+         font-size: 2.2rem;
+         margin-bottom: .5rem;
+      }
+   }
+   
+   .upload--preview--image {
+      pointer-events: none;
+      display: block;
+      max-height: 20rem;
+      width: auto;
+      max-width: 100%;
+   }
+
+   input[type="file"] {
+      display: none;
+   }
+}
+
+.button--upload {
+   input {
+      display: none;
+   }
+}
 
 //****************************************************************************
 // Component | Flex Table
@@ -1745,6 +1909,10 @@ $tipMessageWidth: 14rem;
       border-color: $grayMedium;
       color: $link;
       margin-top: 3px;
+
+      .Select-value-label {
+         color: $grayLight !important;
+      }
    }
    .Select-value-icon {
       @include themeborder(grayMedium);
@@ -1804,13 +1972,54 @@ $tipMessageWidth: 14rem;
 // Layout
 //****************************************************************************
 
-.body-layout {
+.body--layout {
 	min-height: 100vh;
 	height: auto;
    display: flex;
 	flex-direction: column;
 	color: $grayLight;
 	@include themecolor(grayLight);
+}
+
+.login {
+   @include flex-center();
+   min-height: 100vh;
+   height: auto;
+   color: $grayLight;
+   background: radial-gradient($grayDarkAlt, $grayDark);
+   background-color: $grayBlack;
+   @include themecolor(grayLight);
+
+   .login--window {
+      width: 100%;
+      max-width: 25rem;
+      border: .35rem solid $main;
+      background-color: $grayDark;
+      @include themebackground(grayDarkAlt);      
+      @include themeborder(main);
+      box-shadow: $globalShadow;
+      
+      .login--window--title {
+         display: flex;
+         justify-content: center;
+      }
+      .login--window--content {
+         padding: 2rem;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+
+         .input-text {
+            width: 100%;
+            text-align: center;
+         }
+
+         .forgot-pass {
+            padding: 1.5rem 0;
+         }
+      }
+   }
 }
 
 .content-layout {
@@ -1832,7 +2041,6 @@ nav.navigation {
 main.main {
    flex: 1 1 auto;
    height: auto;
-	padding: 1.6rem;
 	transition: $globalTransitionColors;
 	background-color: $grayDarkAlt;
 	@include themebackground(grayDarkAlt);
@@ -2059,6 +2267,37 @@ footer {
 
 }
 
+.avatar--grid {
+   background-color: $grayBlack;
+   margin: 1rem 0;
+   display: grid;
+   grid-template-columns: 25% 25% 25% 25%;
+
+   .avatar {
+      position: relative;
+      object-fit: cover;
+      padding: .2rem;
+
+      &.selected {
+         border: .15rem solid $main;
+
+         &:after {
+            content: "✔";
+            text-shadow: 0 0 5px black;
+            font-size: 2.5rem;            
+            position: absolute;
+            padding: .25rem;
+            top: 0;
+            right: 0;
+            color: $main;
+            @include themecolor(main);
+            @include flex-center();
+         }
+      }
+   }
+
+
+}
 
 
 //****************************************************************************
@@ -2299,6 +2538,47 @@ footer {
    }
 }
 
+//****************************************************************************
+// Page | Live Chat (page)
+//****************************************************************************
+
+.api-mock {
+   padding: 2rem;
+}
+
+//****************************************************************************
+// Page | gallery
+//****************************************************************************
+
+.gallery {
+   .item{
+      
+      .item--content {
+         box-shadow: $globalShadowInset;
+         padding: 2rem 0 2.5rem 0;
+      }
+   }
+   .themeheading.negative {
+      position: sticky;
+      top: 3rem;
+      z-index: 200;
+      margin: 0;
+      background-color: rgba(25, 25, 25, .35);
+   }
+   .settings {
+      display: flex;
+      align-items: center;
+      padding: .25rem;
+      background-color: $grayBlack;
+      position: sticky;
+      top: 0;
+      z-index: 300;
+
+      .settings--label {
+
+      }
+   }
+}
 
 /////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////¨
@@ -2323,9 +2603,7 @@ footer {
       background-color: $grayDark;
 		border: .1rem solid $grayBlack;
 		@include themebackground(graydark);
-		@include themeborder(grayBlack);
-		
-		
+		@include themeborder(grayBlack);				
    }
 }
 

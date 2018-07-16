@@ -29,6 +29,19 @@ export default class TodoApi {
 					(error) => LOGGING.LogErrorResponse(error)
 				)
 		);
+   }
+   
+   //testing server delay
+   public static async getDelayedCollection() {
+		return new Promise((resolve, reject) =>
+			axios.get(`${api_url}/delayed`)
+				.then(
+					(response) => resolve(response.data)
+				)
+				.catch(
+					(error) => LOGGING.LogErrorResponse(error)
+				)
+		);
 	}
 
 	//update item

@@ -33,9 +33,11 @@ router.get('/', function (req, res, next)
 //add new item
 router.put('/', function (req, res, next) 
 {
-	const addition = (req.body.objective).trim();
+   const addition = (req.body.objective).trim();
+   const isProperLenght = validator.isLength(addition, { min: 3, max: 64 });
+   const isNotEmpty = !validator.isEmpty(addition);
 
-	if (!validator.isEmpty(addition) && validator.isLength(addition, { min: 3, max: 64 })) {
+	if ( isNotEmpty && isProperLenght) {
 		const newMission = {
 			objective: addition,
 			complete: false,

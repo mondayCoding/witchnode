@@ -3,6 +3,8 @@
 ROADMAD: witchNode (Front-end):
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
    
+   ☐ !!! Break witchnode to 2 different projects (witchNode & witchReact)
+   ☐ user creation and selection
    ☐ Create code documentation => e.g constructor docs, themings docs, etc (+ styled samples)
    ☐ todo (mission tab) routes / function => api redirection
    ☐ modal stateable extendable
@@ -11,11 +13,11 @@ ROADMAD: witchNode (Front-end):
    ☐ css generic components with variant classes
    ☐ video / audio test
    ☐ global status => (lang/theme) (context)
-   ☐ textarea elements
    ☐ javascript diagrams
    ☐ manifest
-   ☐ coin flip machine with result counters
-   ✔ centralise validation class @done(18-06-23 15:52)
+   ✔ coin flip machine with result counters @done(18-07-08 00:38)
+   ✔ textarea elements @done(18-07-08 00:38)
+   ✔ centralise validation class @done(18-07-08 00:38)
    ✔ env mail address, mail link in footer @done(18-05-29 04:27)
    ✔ Dashboard (log git commits and winston logging) @done(18-05-09 02:57)
    ✔ change viewengine to ejs @done(18-05-09 02:57)
@@ -31,14 +33,14 @@ ROADMAD: witchNode (Front-end):
 ROADMAD: witchNode (Back-end):
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
    
-   ✔ Clean up routes, separate to different api paths (use("/x"...)...) @done(18-05-29 04:25)
+   ☐ websockets cleaner server side
    ☐ chatroom find way to tie in (websockets) finish this
+   ☐ data permanence
+   ☐ Redux or Redux-like global-state solution?
+   ✔ Clean up routes, separate to different api paths (use("/x"...)...) @done(18-05-29 04:25)
    ✔ chatroom limit users to 10 @done(18-05-02 01:16)
    ✔ make 10 premade user profiles (selectable, ownable) @done(18-05-02 01:16)
    ✔ allow 1 owner per profile @done(18-05-02 01:16)
-   ☐ websockets cleaner server side
-   ☐ data permanence
-   ☐ Redux or Redux-like global-state solution?
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Art (Styling):

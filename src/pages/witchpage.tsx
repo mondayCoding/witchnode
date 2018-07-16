@@ -3,9 +3,9 @@
 import * as React from 'react';
 
 //components
-import Userform from '../controllers/UserForm_validation/userform';
-import LangSelect from '../controllers/UserForm_validation/langSelect';
-import Timer from '../controllers/UserForm_validation/timer';
+import Userform from '../controllers/createNewUser/userform';
+import LangSelect from '../controllers/createNewUser/langSelect';
+import Timer from '../controllers/createNewUser/timer';
 import anno from '../utils/annoModule';
 import res from '../localization/resourcess';
 

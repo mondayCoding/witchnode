@@ -1,22 +1,26 @@
 
 import * as React from 'react';
 import {IInputFieldProperties} from '../interfaces';
-import Tip from '../components/infotip';
+import Tip from './infotip';
 
 
 export default class Input extends React.Component<IInputFieldProperties> {
 
     public render() {
-        const {id, value, label, isSmall, tooltipInfo, validation, ...rest} = this.props;
-        let inputClass = (value === undefined || value.length > 0) ? "input-text hasContent" : "input-text";
-        let validationClass = (validation) ? "invalid" : null;
+        const {id, value, label, tooltip, validation, ...rest} = this.props;
+        const hasContent = value && value.length > 0;
+        const isDisabled = this.props.disabled;
+        let classString = "input-text";
+        if (hasContent) {classString += " hasContent";}
+        if (isDisabled) {classString += " disabled";}
+        if (validation) {classString += " invalid";}
 
         return (
-            <div className={inputClass} data-tooltip-error={validation}>
-                <input type="text" className={validationClass} id={id} {...rest} value={value} />
+            <div className={classString} data-tooltip-error={validation}>
+                <input type="text" id={id} {...rest} value={value} />
                 <label htmlFor={id}> {label} </label>
                 <span className="bar"></span>   
-                {(tooltipInfo) && <Tip message={tooltipInfo} />}
+                {(tooltip) && <Tip message={tooltip} />}
                 {/* {(validation) && <Tip message={validation} />}*/}
             </div>
         );

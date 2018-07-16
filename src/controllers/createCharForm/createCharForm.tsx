@@ -1,13 +1,13 @@
 
 import * as React from 'react';
 
-import StepOne from '../../controllers/createCharForm/step1';
-import StepTwo from '../../controllers/createCharForm/step2';
-import StepThree from '../../controllers/createCharForm/step3';
-import StepFour from '../../controllers/createCharForm/step4';
+import StepOne from './step1';
+import StepTwo from './step2';
+import StepThree from './step3';
+import StepFour from './step4';
 import Button from '../../components/button';
 import anno from '../../utils/annoModule';
-
+import WizardPath from '../../components/wizard_path';
 
 interface IFormState {
 	step: number;
@@ -61,25 +61,7 @@ const CurrentStep = (props:ICurrentStep) => {
 
 };
 
-const WizardPath = (props:any) => {
-	
-	const {step, maxStep} = props;
-	let steps = [];
 
-	for(let i = 1; i < maxStep+1; i++ ){
-		if (i === step) {
-			steps.push(<li className="current" key={i}><div className="bullet"></div></li>);
-		} else {
-			steps.push(<li key={i}><div className="bullet"></div></li>);
-		}		
-	}
-
-	return (
-		<ol className="wizard-path">
-			{steps.map((item, index) => item)}
-		</ol>
-	);
-};
 
 export default class UserForm extends React.Component {
 
@@ -144,7 +126,7 @@ export default class UserForm extends React.Component {
 
 		return (
 			<section className="content-centered-md">
-				<form className="userform spacing" onSubmit={this.onsubmitHandler}>
+				<form className="userform" onSubmit={this.onsubmitHandler}>
 
 					<div className="spacing"></div>
 

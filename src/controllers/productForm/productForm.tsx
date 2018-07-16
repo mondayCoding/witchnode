@@ -1,29 +1,23 @@
 
 //libraries
 import * as React from 'react';
+
+//components
 import Select, { Option } from 'react-select';
-import Product from '../../models/productModule';
-import {userType, productType} from '../../models/productModule';
+import Product from '../../models/productModel';
+import {userType, productType} from '../../models/productModel';
 import Input from '../../components/textinput_responsive';
 import Button from '../../components/button';
-import SliderCheckbox from '../../components/checkbox-slider';
+
+//tabs
 import Tabs from '../../components/tabs';
 import Tab from '../../components/tab';
-import TextArea from '../../components/textArea';
-
-// REMINDER: not best practice but there is no proper definition file for this as of 16.6.2018 
-// tslint:disable:no-var-requires
-const DayPickerInput = require("react-day-picker/DayPickerInput").default;
-
-interface IProps {
-   product:Product;
-   onSave(param:Product):void;
-   onCancel():void;
-}
-
-interface IState {
-   product:Product;
-}
+import GeneralTab from './tabGeneral';
+import NoteTab from './tabNote';
+import AvaibilityTab from './tabAvaibility';
+import AvatarTab from './tabAvatar';
+import PriceTab from './tabPrices';
+import QuantityTab from './tabQuantity';
 
 
 export default class ProductForm extends React.Component<IProps> {
@@ -46,6 +40,14 @@ export default class ProductForm extends React.Component<IProps> {
       product.productType = selectionArray;      
       this.setState({product});
    }
+
+   public handleAvatarSelection = (selectedAvatar:Avatar) => {
+      //TODO: set avatar as product avatar
+      //for now just log selected avarat's name so we can test this works
+      console.log(selectedAvatar.name);
+      console.log(selectedAvatar.path);
+      
+   }
       
    public handleFromChange = (from:Date) => {
       console.log(from);      
@@ -61,187 +63,57 @@ export default class ProductForm extends React.Component<IProps> {
    }
 
    public render() {
-      const productTypeOptions = [
-         {value: "armor",        label: "Armor"       },
-         {value: "weapon",       label: "Weapon"      },
-         {value: "accessory",    label: "Accessory"   },
-         {value: "consumable",   label: "Consumable"  },
-         {value: "tool",         label: "Tool"        },
-         {value: "trash",        label: "Trash"       },
-         {value: "quest",        label: "Quest"       },
-         {value: "gm_debug",     label: "Gm_debug"    }
-      ];
 
-      const {
-         name, id, price, hasPrice, description, memoNote, hasQuantityRules, minAmount, maxAmount, productType, 
-         hasSetDateValues, priceWithVat, endOfServiceDate,availableFrom, availableTo, createDate, modifiedDate, hasImage
-      } = this.state.product; 
+      const {hasPrice, hasQuantityRules, minAmount, maxAmount, hasSetDateValues, hasImage} = this.state.product;
+      const product = this.state.product;
+      const handleOnChange = this.handleOnChange;
+      const handleSelectOnChange = this.handleSelectOnChange;
+      const handleFromChange = this.handleFromChange;
 
       return(
          <div className="product--modal">
 
             <Tabs>
+
                {/* general settings tab */}
                <Tab title="General">
-                  <h4 className="themeheading underlined">Base Properties</h4>
-                  <Input
-                     label="Name"
-                     name="name"
-                     id="name"
-                     value={name}
-                     onChange={this.handleOnChange}
-                  />
-                  <Input
-                     label="Item ID"
-                     name="id"
-                     id="id"
-                     value={id}
-                     onChange={this.handleOnChange}
-                  />
-                  <Input
-                     label="Product summary"
-                     name="description"
-                     id="description"
-                     value={description}
-                     onChange={this.handleOnChange}
-                  />
-
-                  <div className="themeinput-responsive">
-                     <label htmlFor="selectID">Product types</label>
-                     <Select 
-                        id="selectID" 
-                        multi={true}
-                        simpleValue={true}
-                        name="lang-field-name"
-                        value={productType}
-                        onChange={this.handleSelectOnChange}
-                        options={productTypeOptions}
-                     />
-                  </div>
-
-                  {/* <Select2
-                     label="Product types"
-                     multi={true}
-                     simpleValue={true}
-                     name="lang-field-name"
-                     value={productType}
-                     onChange={this.handleSelectOnChange}
-                     options={productTypeOptions}
-                  /> */}
-
-                  <h3 className="themeheading underlined">Addidional properties</h3>
-                  <SliderCheckbox 
-                     label="Has Product images" 
-                     id="imagePropertiesInUse"
-                     name="hasImage" 
-                     checked={hasImage} 
-                     onChange={this.handleOnChange} 
-                  />
-                  <SliderCheckbox 
-                     label="Has price table" 
-                     id="priceSettingsInUse"
-                     name="hasPrice" 
-                     checked={hasPrice} 
-                     onChange={this.handleOnChange} 
-                  />
-                  <SliderCheckbox 
-                     label="Has avaibility settings" 
-                     id="hasSetDateValues"
-                     name="hasSetDateValues" 
-                     checked={hasSetDateValues} 
-                     onChange={this.handleOnChange} 
-                  />
-                  <SliderCheckbox 
-                     label="Has limited supply" 
-                     id="quantitySettingsInUse"
-                     name="hasQuantityRules" 
-                     checked={hasQuantityRules} 
-                     onChange={this.handleOnChange} 
-                  />
+                  <GeneralTab onChange={handleOnChange} onSelectChange={handleSelectOnChange} product={product} />
                </Tab>
 
                {/* Note tab */}
-               <Tab title="Note"> 
-                  <h4 className="themeheading underlined">Summary</h4>                
-                  <TextArea
-                     label="Product summary"
-                     name="memoNote"
-                     id="memoNote"
-                     value={memoNote}
-                     onChange={this.handleOnChange}
-                  />                    
+               <Tab title="Notes"> 
+                  <NoteTab product={product} onChange={handleOnChange} />
                </Tab>
 
-               {/* image Tab */}
                {
+                  // Avatar tab
                   hasImage && 
                   <Tab title="Avatar">
-
-                     <h4 className="themeheading underlined">Product image</h4>  
-
-                     <span>image will go here</span>
+                     <AvatarTab onSelection={this.handleAvatarSelection} />
                   </Tab>
                }
-               {/* price tab */}
+               
                {
+                  // Price tab
                   hasPrice && 
                   <Tab title="Price">
-
-                     <h4 className="themeheading underlined">Product associated price</h4>  
-
-                     <Input
-                        isSmall={true}
-                        label="Base cost"
-                        name="price"
-                        value={price.toString()}
-                        onChange={this.handleOnChange}
-                     />
-                     <Input
-                        isSmall={true}
-                        label="Taxless cost"
-                        name="priceWithVat"
-                        value={priceWithVat.toString()}
-                        onChange={this.handleOnChange}
-                     />
+                     <PriceTab onChange={handleOnChange} product={product} />
                   </Tab>
                }
 
-               {/* price tab */}
                {
+                  // Avaibility tab
                   hasSetDateValues && 
                   <Tab title="Avaibility"> 
-
-                     <h4 className="themeheading underlined">Avaibility settings</h4>
-                     <DayPickerInput value={endOfServiceDate} onDayChange={this.handleFromChange} />   
-                     <DayPickerInput value={endOfServiceDate} onDayChange={this.handleFromChange} />   
-
-                     <h4 className="themeheading underlined">Remove from catalog</h4> 
-                     <DayPickerInput  value={endOfServiceDate} onDayChange={this.handleFromChange} />               
-
-                     <h4 className="themeheading underlined">Internal dates</h4>
-                     <DayPickerInput value={endOfServiceDate} onDayChange={this.handleFromChange} />               
-
+                     <AvaibilityTab onDayChange={handleFromChange} product={product} />               
                   </Tab>
                }
 
-               {/* quantity tab */}
                {
+                  // Quantity tab
                   hasQuantityRules && 
                   <Tab title="Quantity">
-                     <h4 className="themeheading underlined">Quantity rules</h4>
-
-                     <Input
-                        label="Minimum required amount"
-                        name="minAmount"
-                        value={minAmount.toString()}
-                        onChange={this.handleOnChange}
-                     />
-                     <Input
-                        label="Maximum allowed amount"
-                        name="maxAmount"
-                        value={maxAmount.toString()}
-                        onChange={this.handleOnChange}
-                     />
+                     <QuantityTab onChange={handleOnChange} product={product} />
                   </Tab>
                }
             </Tabs>
@@ -256,4 +128,20 @@ export default class ProductForm extends React.Component<IProps> {
          </div>
       ); 
    }
+}
+
+interface IProps {
+   product:Product;
+   onSave(param:Product):void;
+   onCancel():void;
+}
+
+interface IState {
+   product:Product;
+}
+
+interface Avatar {
+   selected: boolean;  
+   name: string;        
+   path: string;          
 }

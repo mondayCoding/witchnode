@@ -6,7 +6,7 @@ import chatPage from '../pages/chatPage';
 import createCharPage from '../pages/createCharPage';
 import dashboard from '../pages/dashboard';
 import docsPage from '../pages/docsPage';
-import missionpage from '../pages/missionpage';
+import gallerypage from '../pages/galleryPage';
 import settingsPage from '../pages/settingsPage';
 import soonpage from '../pages/soonpage';
 import witchPage from '../pages/witchpage';
@@ -41,7 +41,7 @@ export default class Main extends React.Component {
                <Route exact path="/" component={dashboard}/>
                <Route exact path="/createchar" component={createCharPage}/>
                <Route exact path="/soon" component={soonpage}/>
-               <Route exact path="/missions" component={missionpage}/>
+               <Route exact path="/gallery" component={gallerypage}/>
                <Route exact path="/witchchat" component={chatPage}/>
                <Route exact path="/profile" component={witchPage}/>
                <Route exact path="/settings" component={settingsPage}/>

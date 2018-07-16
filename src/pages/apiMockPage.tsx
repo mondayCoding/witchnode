@@ -4,8 +4,8 @@ import * as React from 'react';
 import * as Prism from "prismjs";
 import 'prismjs/components/prism-json.min.js';
 
-import API from '../api/ToDo_simple';
-import API2 from '../api/ToDo_Soon';
+import API from '../api/Todo_simple';
+import API2 from '../api/ToDo_soon';
 
 
 export default class ApiMockPage extends React.Component<any, any> {

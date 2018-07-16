@@ -12,7 +12,8 @@ export interface IInputFieldProperties {
    required?:boolean;
    disabled?:boolean;
    isSmall?:boolean;
-   tooltipInfo?:string;
+   type?:string;
+   tooltip?:string;
    validation?:string;
    onChange?(params?:any):any;
    onBlur?(params?:any):any;
@@ -38,6 +39,7 @@ export interface ISelectProperties {
 export interface IButtonProperties {
     className?: string;
     id?: string;
+    disabled?:boolean;
     buttonText?: string;
     type?: string;
     onClick?(params:any):any;

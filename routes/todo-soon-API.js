@@ -26,9 +26,17 @@ router.get('/', function(req, res, next) {
    res.send(soonlist);
 });
 
+router.get('/delayed', function(req, res, next) {
+
+   setTimeout(() => { res.send(soonlist) }, 5000);
+});
+
 router.put('/', function(req, res, next) {
    const addition = (req.body.objective).trim();
-   if (!validator.isEmpty(addition) && validator.isLength(addition, {min:3, max: 64})) {
+   const isProperLenght = validator.isLength(addition, { min: 3, max: 64 });
+   const isNotEmpty = !validator.isEmpty(addition);
+
+	if ( isNotEmpty && isProperLenght) {
       const newMission = {
          objective: addition,
          complete:false,

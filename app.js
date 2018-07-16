@@ -16,6 +16,7 @@ var todosimple 	= require('./routes/todo-simple-API');
 var todosoon 		= require('./routes/todo-soon-API');
 var forms 			= require('./routes/forms-API');
 var users 			= require('./routes/users');
+var filehandler 	= require('./routes/fileHandlerAPI');
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use('/api/statistics', statistics);
 app.use('/api/forms', forms);
 app.use('/api/todo/simple', todosimple);
 app.use('/api/todo/soon', todosoon);
+app.use('/api/filehandler', filehandler);
 app.use('/', index);
 //app.use('/', users);
 
@@ -56,6 +58,37 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// var http = require('http');
+// var formidable = require('formidable');
+// var fs = require('fs');
+
+// http.createServer(function (req, res) {
+//   if (req.url == '/fileupload') {
+//     var form = new formidable.IncomingForm({
+//       uploadDir:path.join(__dirname, 'temp')
+//     });
+//     form.parse(req, function (err, fields, files) {
+//       var oldpath = files.filetoupload.path;
+//       var newpath = path.join(__dirname, 'temp/') + files.filetoupload.name;
+//       console.log(chalk.green(oldpath));
+//       console.log(chalk.green(newpath));
+
+//       fs.rename(oldpath, newpath, function (err) {
+//         if (err) throw err;
+//         res.write('File uploaded and moved!');
+//         res.end();
+//       });
+//  });
+//   } else {
+//     res.writeHead(200, {'Content-Type': 'text/html'});
+//     res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
+//     res.write('<input type="file" name="filetoupload"><br>');
+//     res.write('<input type="submit">');
+//     res.write('</form>');
+//     return res.end();
+//   }
+// }).listen(8080); 
 
 
 /////////////////////////////////////////////// SECKET.IO ////////////////////////////////////////TESTING

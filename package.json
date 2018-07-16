@@ -24,6 +24,7 @@
     "debug": "~2.6.9",
     "ejs": "^2.5.9",
     "express": "~4.15.5",
+    "formidable": "^1.2.1",
     "jquery": "^3.3.1",
     "mark.js": "^8.11.1",
     "mongoose": "^5.0.7",
@@ -48,6 +49,8 @@
     "winston": "^2.4.2"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/formidable": "^1.0.31",
     "@types/jquery": "^1.10.34",
     "@types/mark.js": "^8.11.1",
     "@types/prismjs": "^1.9.0",

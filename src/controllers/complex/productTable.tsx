@@ -1,7 +1,7 @@
 
 //libraries
 import * as React from 'react';
-import Product, { productType } from '../../models/productModule';
+import Product, { productType } from '../../models/productModel';
 
 interface IProps {
    productTable:Product[];

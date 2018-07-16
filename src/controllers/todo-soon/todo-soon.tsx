@@ -1,36 +1,20 @@
 
 //libraries
-import axios from 'axios';
 import * as React from 'react';
-import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
+import { arrayMove } from 'react-sortable-hoc';
 
 //custom components
-import Table from '../todo-soon/Table';
+import Table from './Table';
 import Modal from '../../components/modal';
 import SortableList from './sortableList';
 
 //utils
-import anno from '../../utils/annoModule';
 import API from '../../api/ToDo_soon';
-import confirm from './../../utils/confirmUtilModule';
+import confirm from '../../utils/confirmUtilModule';
 
 //interfaces
-import { IMissionItem } from '../../interfaces/index';
+import { IMissionItem } from '../../interfaces';
 
-
-interface IModalContent {
-	title: string;
-	content: string;
-	remove(): void;
-}
-
-interface IState {
-	quests: IMissionItem[];
-	newQuest: string;
-	isSubmitDisabled: boolean;
-	modalIsOpen: boolean;
-	modalContent: IModalContent;
-}
 
 export default class ToDoSoon extends React.Component {
 
@@ -38,7 +22,8 @@ export default class ToDoSoon extends React.Component {
 		quests: [],
 		newQuest: "",
 		isSubmitDisabled: true,
-		modalIsOpen: false,
+      modalIsOpen: false,
+      isLoading: true,
 		modalContent: {
 			title: "",
 			content: "",
@@ -47,9 +32,13 @@ export default class ToDoSoon extends React.Component {
 	};
 
 	public async componentDidMount() {
-		const data: any = await API.getTodoCollection();
-		this.setState({ quests: data });
-	}
+		// const data = await API.getTodoCollection() as IMissionItem[];
+		const data = await API.getDelayedCollection() as IMissionItem[];
+		this.setState({ quests: data, isLoading:false });
+   }
+   public componentWillUnmount(){
+      
+   }
 
 	public clickHandler = async () => {
 		if(await confirm(`Add task called: ${this.state.newQuest}`)){
@@ -103,7 +92,11 @@ export default class ToDoSoon extends React.Component {
 	public onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number, newIndex: number }) => {
 		this.setState({ quests: arrayMove(this.state.quests, oldIndex, newIndex) });
 		console.log("sorted");
-	}
+   }
+   
+   public showLoader(){
+      return(<div className="loader">Loading...</div>);
+   }
 
 	public updateModal = (item: IMissionItem) => {
 		this.setState({
@@ -119,7 +112,7 @@ export default class ToDoSoon extends React.Component {
 	public render() {
 
       //table
-      const {newQuest, isSubmitDisabled, quests, modalIsOpen, modalContent } = this.state;
+      const {newQuest, isSubmitDisabled, quests, modalIsOpen, modalContent, isLoading } = this.state;
       let enterHandler = this.enterHandler;
       let onChange = this.onChangeHandler;
       let onBtnClick = this.clickHandler;
@@ -153,20 +146,40 @@ export default class ToDoSoon extends React.Component {
 					<button className="themebutton wide" onClick={remove}>Remove this item</button>
 				</Modal>
 
-				<SortableList
-					//component properties
-					lockAxis="y"
-					lockToContainerEdges={true}
-					useDragHandle={true}
-					onSortEnd={this.onSortEnd}
-
-					//passed data
-					items={quests}
-					updateModal={updateModal}
-					removeItem={removeItem}
-					toggle={toggle}
-				/>
+            {
+               !isLoading ?
+               <SortableList
+                  //component properties
+                  lockAxis="y"
+                  lockToContainerEdges={true}
+                  useDragHandle={true}
+                  onSortEnd={this.onSortEnd}
+   
+                  //passed data
+                  items={quests}
+                  updateModal={updateModal}
+                  removeItem={removeItem}
+                  toggle={toggle}
+               />
+               : this.showLoader()
+            }
 			</Table>
 		);
 	}
+}
+
+
+interface IModalContent {
+	title: string;
+	content: string;
+	remove(): void;
+}
+
+interface IState {
+	quests: IMissionItem[];
+	newQuest: string;
+	isSubmitDisabled: boolean;
+	modalIsOpen: boolean;
+   isLoading: boolean;
+   modalContent: IModalContent;
 }
