@@ -30,7 +30,10 @@ $black: 	rgb(0,0,0) !default;
 
 //fonts
 $bodyfont: 'fira-sans', sans-serif;
+$bodyfont: 'Rubik', sans-serif;
 $headingfont: 'fira-sans', sans-serif;
+$headingfont: 'Roboto', sans-serif;
+$headingfont: 'Rubik', sans-serif;
 
 //globals
 $globalRadius: 				.35rem !default;
@@ -308,38 +311,36 @@ html {
 
 body {
    box-sizing: border-box;
-   font: 1rem $bodyfont;
+   font: .9rem $bodyfont;
    height: 100vh;
    line-height: 1.6;
    color: $grayLight;
 }
 
 p, span {
-   font-size: 1rem;
-}
-
-li {
-	list-style: none; 
+   font-size: .9rem;
 }
 
 h1, h2, h3, h4, h5 {
-	font-family: $headingfont;
+	font-family: $headingfont !important;
 }
 
 h1 {
-   font-size: 2.5rem;
+   font-size: 2.2rem;
 }
 
 h2 {
-	font-size: 2.2rem;
+   font-size: 1.9rem;   
 }
 
 h3 {
-	font-size: 1.7rem;
+   font-size: 1.25rem;
+   color: $link;
+   @include themecolor(link);      
 }
 
 a, a:link {
-	font-size: 1rem;
+	font-size: .9rem;
    text-decoration: none;
    color: $link;
    transition: color .2s;
@@ -350,6 +351,10 @@ a, a:link {
       text-decoration: none;
       color: darken($color: $link, $amount: 35%)
    }
+}
+
+ul > li {
+   margin-left: 1rem;
 }
 
 label {
@@ -724,6 +729,10 @@ select.disabled {
       }
    }
 
+   &.invalid label {
+      background-color: transparentize($color: $errorColor, $amount: .2);
+   }
+
    &.disabled {
       @extend %disabled;
    }
@@ -734,10 +743,11 @@ select.disabled {
       padding: 0 .3rem;
       font-weight: 500;
       color: $grayLight;
-      background-color: $grayMedium;
+      background-color: transparentize($color: $grayMedium, $amount: 0.5) ;
       flex: 0 0 10rem;
       border-top-left-radius: $globalRadius;
       border-bottom-left-radius: $globalRadius;
+      cursor: pointer;
       @include themecolor(grayLight);
    }
    
@@ -766,6 +776,8 @@ select.disabled {
 
       label {
          flex: 1 1 auto;
+         border-top-left-radius: 0;
+         border-bottom-left-radius: 0;
       }
       input[type="text"] {
          flex: 1 1 auto;
@@ -779,7 +791,7 @@ select.disabled {
 
 $maxFieldWidth: 30rem;
 
-.input-text {
+.themeinput {
    position: relative;
 	margin: 1rem 0 .5rem;
 	max-width: $maxFieldWidth;
@@ -1507,7 +1519,7 @@ ol.wizard-path {
 // Error tooltip
 //****************************************************************************
 
-.input-text[data-tooltip-error]::before {
+[data-tooltip-error]::before {
 	visibility: hidden;
 	opacity: 0;
 	transition: opacity .15s ease-in-out, visibility .15s ease-in-out;
@@ -1527,7 +1539,7 @@ ol.wizard-path {
 	
 }
 
-.input-text[data-tooltip-error]:hover::before {
+[data-tooltip-error]:hover::before {
 	opacity: 1;
 	visibility: visible;
 }
@@ -1604,13 +1616,13 @@ $tipMessageWidth: 14rem;
 }
 
 //text inside input field special case
-.input-text .tip {
+.themeinput .tip {
 	position: absolute;
 	right: .0;
 	bottom: .0;
 }
 
-.input-text > input:focus ~ .tip  {
+.themeinput > input:focus ~ .tip  {
 	opacity: 1;
 	color: $main;
 	@include themecolor(main);	
@@ -2073,71 +2085,74 @@ nav.navigation {
 	}
 
 	//single nav item (li)
-	.navi-item > a {
-		padding: .6rem;
-		font-size: 1rem;
-		font-weight: 400;
-		text-align: left;
-		border-top: .15rem solid transparent;
-		border-bottom: .15rem solid transparent;
-		white-space: nowrap;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		color: $grayLight;
-		@extend %bgAndColorTransition;
-		@include themecolor(grayLight);		
+	.navi-item {
+      margin: 0;
 
-		&:focus {
-			@include focusEffect;
-		}
+      & > a {
+         padding: .6rem;
+         font-size: 1rem;
+         font-weight: 400;
+         text-align: left;
+         border-top: .15rem solid transparent;
+         border-bottom: .15rem solid transparent;
+         white-space: nowrap;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         color: $grayLight;
+         @extend %bgAndColorTransition;
+         @include themecolor(grayLight);	
 
-		&:hover {
-			color: $main;
-			border-top-color: $main;
-			border-bottom-color: $main;
-			@include themeborder(main);
-			@include themecolor(main);						
-		}
-
-		&.active {
-			color: $white;
-			background-color: $main;
-			@include themebackground(main);
-			&:hover {
-				color: $white;
-			}						
-		}
-		
-		.fa, .fas, .far {
-			flex: 0 0 4rem;
-			font-size: 1.2rem;
-			text-align: center
-		}
-
-		.pagename {
-			flex: 1 1 auto;
-		}
-		
-		@include respond-below(lg){
-			padding: 1rem .7rem ;
-			text-align: center;
-			border: .15rem solid transparent;
-
-			&:hover {
-				border: .15rem solid $main;
-				@include themeborder(main);				
-			}
-
-			.fa, .fas {
-				font-size: 1.5rem;
-				flex: 1 1 auto;
-			}
-	
-			.pagename {
-				display: none;
-			}
-		}				
+         &:focus {
+            @include focusEffect;
+         }
+   
+         &:hover {
+            color: $main;
+            border-top-color: $main;
+            border-bottom-color: $main;
+            @include themeborder(main);
+            @include themecolor(main);						
+         }
+   
+         &.active {
+            color: $white;
+            background-color: $main;
+            @include themebackground(main);
+            &:hover {
+               color: $white;
+            }						
+         }
+         .fa, .fas, .far {
+            flex: 0 0 4rem;
+            font-size: 1.2rem;
+            text-align: center
+         }
+   
+         .pagename {
+            flex: 1 1 auto;
+         }
+         
+         @include respond-below(lg){
+            padding: 1rem .7rem ;
+            text-align: center;
+            border: .15rem solid transparent;
+   
+            &:hover {
+               border: .15rem solid $main;
+               @include themeborder(main);				
+            }
+   
+            .fa, .fas {
+               font-size: 1.5rem;
+               flex: 1 1 auto;
+            }
+      
+            .pagename {
+               display: none;
+            }
+         }
+      }							
 	}
 
 	@include respond-below(lg){
@@ -2542,17 +2557,14 @@ footer {
 // Page | Live Chat (page)
 //****************************************************************************
 
-.api-mock {
-   padding: 2rem;
-}
+.api-mock {}
 
 //****************************************************************************
 // Page | gallery
 //****************************************************************************
 
 .gallery {
-   .item{
-      
+   .item{      
       .item--content {
          box-shadow: $globalShadowInset;
          padding: 2rem 0 2.5rem 0;
@@ -2574,8 +2586,27 @@ footer {
       top: 0;
       z-index: 300;
 
-      .settings--label {
+      @include respond-below(md) {
+         flex-wrap: wrap;
+         justify-content: flex-start;
 
+         & > label{
+            display: none;
+         } 
+         
+         & >div {
+            flex: 0 0 50%;
+         }
+      }
+
+      @include respond-below(sm) {
+         flex-direction: column;
+         justify-content: flex-start;
+         align-content: flex-start;
+         
+         & >div {
+            flex: 1 1 auto;
+         }
       }
    }
 }
@@ -2683,19 +2714,38 @@ footer {
 // Content-Wraps
 //****************************************************************************
 
-.content-centered-lg {
-	max-width: 50rem;
-	margin: 0 auto;
+@mixin content($maxWidth){
+   padding: 3rem;
+   transition: padding .2s;
+   margin: 0 auto;
+
+   @if $maxWidth != null {
+      max-width: $maxWidth;
+   }
+
+   @include respond-below(sm){
+      padding: 2rem;
+   }
 }
 
-.content-centered-md {
-	max-width: 35rem;
-	margin: 0 auto;
+.content--full {
+   @include content(null);
 }
 
-.content-centered-sm {
-	max-width: 20rem;
-	margin: 0 auto;
+.content--xl {
+   @include content(74rem);
+}
+
+.content--lg {
+   @include content(56rem);
+}
+
+.content--md {
+   @include content(40rem);
+}
+
+.content--sm {
+   @include content(30rem);
 }
 
 

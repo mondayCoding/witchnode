@@ -19,17 +19,6 @@ As testing prepository there is no npm method provided.
 * Socket.IO
 * Axios
 
-## Current Stack list  (Front-end)
-
-* React
-* React-Router
-* React-DOM
-* Typescript
-* TSLint
-* Webpack
-* Socket.IO
-* Axios
-* SaSS (theming)
 
 
 ## License
