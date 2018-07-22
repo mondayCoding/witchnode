@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+@import '_toastr.scss';
+@import '_react-select.scss';
+@import '_react-day-picker.scss';
 
 //***********************************************************************
 //Default colors
@@ -281,7 +284,7 @@ $breakpoints: (
 
 %radioCheckboxSharedProperties {
 	font-weight: 400;
-	font-size: 1rem;
+	font-size: .95rem;
 	position: relative;
 	cursor: pointer;
 	height: auto;
@@ -305,13 +308,13 @@ $breakpoints: (
 
 html {
    box-sizing: border-box;
-   font-size: 1rem;
+   font-size: .95rem;
    height: 100vh;
 }
 
 body {
    box-sizing: border-box;
-   font: .9rem $bodyfont;
+   font: .95rem $bodyfont;
    height: 100vh;
    line-height: 1.6;
    color: $grayLight;
@@ -753,7 +756,6 @@ select.disabled {
    
    input[type="text"] {
       flex: 1 1 auto;
-      font-size: 1rem;
       padding: .2rem .5rem;
       width: 100%;
       background: none;
@@ -813,7 +815,7 @@ $maxFieldWidth: 30rem;
    input:focus { outline: none; }
 	
    label {
-		font-size: 1rem;
+		font-size: .9rem;
       font-weight: normal;
       position: absolute;
       pointer-events: none;
