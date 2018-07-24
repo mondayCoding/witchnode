@@ -1988,33 +1988,48 @@ input[type="text"] {
   border-color: #323232;
 }
 
-.progress-container {
+.themeprogress {
+  position: relative;
+  height: .5rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 0.1rem solid #3a3a3a;
+  box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.5);
+  border-radius: 0.35rem;
+}
+
+.themeprogress.showingStatus {
+  height: 1.5rem;
+}
+
+.themeprogress.showingStatus span {
+  text-shadow: 0 0 .1rem black;
   position: absolute;
   top: 0;
-  right: 0;
-  width: .2rem;
+  left: .5rem;
+  pointer-events: none;
+}
+
+.themeprogress .themeprogress--fill {
+  transition: width .2s ease-in-out;
+  border-radius: 0.35rem;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  border: none;
+  background: linear-gradient(to right, #2ab137 0%, #2aafb1);
+  -webkit-animation: ScrollBackground 3s infinite;
+  -moz-animation: ScrollBackground 3s infinite;
+  background-size: 200%;
+  animation: ScrollBackground 3s ease infinite;
 }
 
-.progress-bar {
-  height: 0%;
-  background: #40cf4e;
-  max-width: 100%;
-  width: .2rem;
-}
-
-.red .progress-bar {
-  background-color: #e46964;
-}
-
-.light .progress-bar {
-  background-color: #38d860;
-}
-
-.violet .progress-bar {
-  background-color: #dd24ce;
+@keyframes ScrollBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .themebutton {

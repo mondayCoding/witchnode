@@ -49,6 +49,7 @@ $globalTransitionColors: 	color .8s, background-color .8s;
 $errorColor:#db6154 !default;
 $infoColor: #accff0 !default;
 $warnColor: #e7e972 !default;
+$successColor: rgb(42, 177, 55) !default;
 
 
 //****************************************************************************
@@ -1002,26 +1003,48 @@ $maxFieldWidth: 30rem;
 }
 
 //****************************************************************************
-// Component | Progress bar (TODO)
+// Component | Progress bar 
 //****************************************************************************
 
-.progress-container {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: .2rem;
-	height: 100%;
+.themeprogress {
+   position: relative;
+   height: .5rem;
 	background: rgba(0, 0, 0, .6);
-	border: none;
+   border: .1rem solid $grayDarkAlt;
+   box-shadow: $globalShadow;
+   border-radius: $globalRadius;
+
+   &.showingStatus {
+      height: 1.5rem;
+
+      span {
+         text-shadow: 0 0 .1rem black;
+         position: absolute;
+         top: 0;
+         left: .5rem;
+         pointer-events: none;
+      }
+   }
+   
+   .themeprogress--fill {
+      transition: width .2s ease-in-out;
+      border-radius: $globalRadius;
+      height: 100%;
+      background: linear-gradient(to right, $successColor 0%, adjust-hue($successColor, 55%));
+      -webkit-animation: ScrollBackground 3s infinite;
+      -moz-animation: ScrollBackground 3s infinite;
+      background-size: 200%;
+      animation: ScrollBackground 3s ease infinite; 
+   }
 }
 
-.progress-bar {
-	height: 0%;
-	background: $main;
-	@include themebackground(main);	
-	max-width: 100%;
-	width: .2rem;
+// animation
+@keyframes ScrollBackground {
+   0%{background-position:0% 50%}
+   50%{background-position:100% 50%}
+   100%{background-position:0% 50%}
 }
+
 
 //****************************************************************************
 // Component | Button
