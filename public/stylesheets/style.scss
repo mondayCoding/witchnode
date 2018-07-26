@@ -9,7 +9,7 @@
 //***********************************************************************
 
 //accents
-$main: 	 rgb(64, 207, 78) !default;
+$main: 	 #75AB35 !default;
 $alt: 	 #c4f56b !default;
 $tertiary:rgb(215, 250, 210) !default;
 $link:	 #23d5ab;
@@ -1006,18 +1006,25 @@ $maxFieldWidth: 30rem;
 // Component | Progress bar 
 //****************************************************************************
 
+$smallProgressBarHeight: .5rem;
+$bigProgressBarHeight: 1.5rem;
 .themeprogress {
    position: relative;
-   height: .5rem;
+   height: $smallProgressBarHeight;
 	background: rgba(0, 0, 0, .6);
    border: .1rem solid $grayDarkAlt;
    box-shadow: $globalShadow;
    border-radius: $globalRadius;
+   
 
    &.showingStatus {
+      height: $bigProgressBarHeight;
       height: 1.5rem;
 
       span {
+         display: inline-block;
+         height: $bigProgressBarHeight;
+         line-height: $bigProgressBarHeight;
          text-shadow: 0 0 .1rem black;
          position: absolute;
          top: 0;
@@ -1076,7 +1083,12 @@ $maxFieldWidth: 30rem;
 	&:focus {
 		@include focusEffect;
 		border: .15rem solid $white;
-		@include themeborder(white);		  
+      @include themeborder(white);		
+   
+      &::-moz-focus-inner {
+         border: 0;
+      }  
+ 
    }
 
    &:disabled {
@@ -1084,6 +1096,10 @@ $maxFieldWidth: 30rem;
       cursor: not-allowed;
       pointer-events: none;
       opacity: .7;
+   }
+
+   &.rounded {
+      border-radius: 1rem;
    }
 
    &.dark {
@@ -1099,7 +1115,13 @@ $maxFieldWidth: 30rem;
 		display: block;
    }
    
+   // space between if repeated buttons
    & + .themebutton {
+      margin-left: .5rem;
+   }
+
+   // space if icon and text used together
+   & > span:nth-child(2) {
       margin-left: .5rem;
    }
 	
