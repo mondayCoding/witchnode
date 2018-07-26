@@ -49,7 +49,7 @@ $globalTransitionColors: 	color .8s, background-color .8s;
 $errorColor:#db6154 !default;
 $infoColor: #accff0 !default;
 $warnColor: #e7e972 !default;
-$successColor: rgb(42, 177, 55) !default;
+$successColor: #75AB35 !default;
 
 
 //****************************************************************************
@@ -723,7 +723,7 @@ select.disabled {
    position: relative;
    margin-bottom: .5rem;
    display: flex;
-   border: .1rem solid transparentize($color: $grayBlack, $amount: .5);
+   border: .1rem solid transparentize($color: $black, $amount: .5);
    border-radius: $globalRadius;
 
    &.number {
