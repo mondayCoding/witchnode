@@ -10,13 +10,13 @@ var router = express.Router();
 //***************************API (SOON)*****************************
 
 var soonlist = [
-   {objective:"get milk", complete: false, createDate:new Date(), completeDate:null},
-   {objective:"feed cats", complete: false, createDate:new Date(), completeDate:null},
-   {objective:"learn about healthy life", complete: false, createDate:new Date(), completeDate:null},
-   {objective:"go grab a drink", complete: false, createDate:new Date(), completeDate:null},
-   {objective:"forget about healthy life", complete: false, createDate:new Date(), completeDate:null},
-   {objective:"contemplate your life", complete: false, createDate:new Date(), completeDate:null},
-   {objective:"existential crisis", complete: false, createDate:new Date(), completeDate:null},
+   {objective:"get milk", complete: false, createDate:new Date(), completeDate:null, order:0},
+   {objective:"feed cats", complete: false, createDate:new Date(), completeDate:null, order:1},
+   {objective:"learn about healthy life", complete: false, createDate:new Date(), completeDate:null, order:2},
+   {objective:"go grab a drink", complete: false, createDate:new Date(), completeDate:null, order:3},
+   {objective:"forget about healthy life", complete: false, createDate:new Date(), completeDate:null, order:4},
+   {objective:"contemplate your life", complete: false, createDate:new Date(), completeDate:null, order:5},
+   {objective:"existential crisis", complete: false, createDate:new Date(), completeDate:null, order:6},
 ];
 
 

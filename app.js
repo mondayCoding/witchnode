@@ -17,6 +17,7 @@ var todosoon 		= require('./routes/todo-soon-API');
 var forms 			= require('./routes/forms-API');
 var users 			= require('./routes/users');
 var filehandler 	= require('./routes/fileHandlerAPI');
+var login 	      = require('./routes/login-API');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/api/forms', forms);
 app.use('/api/todo/simple', todosimple);
 app.use('/api/todo/soon', todosoon);
 app.use('/api/filehandler', filehandler);
+app.use('/api/login', login);
 app.use('/', index);
 //app.use('/', users);
 
