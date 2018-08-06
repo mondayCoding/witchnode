@@ -9,10 +9,25 @@ var router = express.Router();
 
 //***************************API (SOON)*****************************
 
-var allowedUsers = [
-   {username:"admin",   password: "admin",   authorizationLvl: 0},
-   {username:"dev",     password: "dev",     authorizationLvl: 1},
+const devSettings = {
+   position: "bottom-right",
+   theme: "violet",
+   scale: "default",
+   language: "default"
+}
+
+const adminSettings = {
+   position: "top-right",
+   theme: "default",
+   scale: "default",
+   language: "default"
+}
+
+const allowedUsers = [
+   {username:"admin",   password: "admin",   authorizationLvl: 0, settings:adminSettings},
+   {username:"dev",     password: "dev",     authorizationLvl: 1, settings:devSettings},
 ];
+
 
 
 //********************SOON**************************************
@@ -27,7 +42,7 @@ router.post('/', function(req, res, next) {
       user = allowedUsers.find(user => user.username === username)
       
       if (user && user.password === password) {
-         res.status(200).send({level: user.authorizationLvl});         
+         res.status(200).send({level: user.authorizationLvl, settings: user.settings});         
       } else {
          //generate validation
          const loginResponse = {
