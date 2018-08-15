@@ -7,15 +7,16 @@ const path = require('path');
 
 // NOTE : this is for parsing regular FormData type file post
 router.post('/', function(req, res, next) {
+   console.log(chalk.green("Image upload recived"));
    
    var form = new formidable.IncomingForm({
       uploadDir:path.join(__dirname, 'temp')
    });
 
    form.parse(req, function (err, fields, files) {
-      for (x in files) {
-         var oldpath = files[x].path;
-         var newpath = path.join(__dirname, 'temp/') + files[x].name;
+      for (file of files) {
+         var oldpath = file.path;
+         var newpath = path.join(__dirname, 'temp/') + file.name;
          console.log(chalk.green(oldpath));
          console.log(chalk.green(newpath));
    
@@ -25,7 +26,7 @@ router.post('/', function(req, res, next) {
       }      
    });
 
-   res.status(200).send();
+   res.status(200).send("recieved");
 });
 
 

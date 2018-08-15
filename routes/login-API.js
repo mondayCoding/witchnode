@@ -23,9 +23,17 @@ const adminSettings = {
    language: "default"
 }
 
+const userSettings = {
+   position: "top-left",
+   theme: "light",
+   scale: "default",
+   language: "default"
+}
+
 const allowedUsers = [
    {username:"admin",   password: "admin",   authorizationLvl: 0, settings:adminSettings},
    {username:"dev",     password: "dev",     authorizationLvl: 1, settings:devSettings},
+   {username:"user",     password: "user",     authorizationLvl: 2, settings:userSettings},
 ];
 
 
@@ -42,7 +50,7 @@ router.post('/', function(req, res, next) {
       user = allowedUsers.find(user => user.username === username)
       
       if (user && user.password === password) {
-         res.status(200).send({level: user.authorizationLvl, settings: user.settings});         
+         res.status(200).send({level: user.authorizationLvl, settings: user.settings, username: user.username});         
       } else {
          //generate validation
          const loginResponse = {
